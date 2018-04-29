@@ -1,0 +1,116 @@
+ 
+   
+/* ---------------Seccion de declaraciones preliminares--------------------*/
+package serum;
+
+/* Import the class java_cup.runtime.*  */
+import java_cup.runtime.*;
+import java.io.FileReader;
+   
+/* Codigo del parser, se copia integramente a la clase final.
+    Agregamos el manejo de errores. */
+parser code {:
+    
+    /* Reporte de error encontrado. */
+    public void report_error(String message, Object info) {
+        StringBuilder m = new StringBuilder("Error");
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+            if (s.left >= 0) {                
+                m.append(" in line "+(s.left+1));
+                if (s.right >= 0)
+                    m.append(", column "+(s.right+1));
+            }
+        }
+        m.append(" : "+message);
+        System.err.println(m);
+    }
+   
+    /* Cuando se encuentra un error de donde el sistema no puede
+        recuperarse, se lanza un error fatal. Se despliega el mensaje
+        de error y se finaliza la ejecucion. */
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+
+    /* Metodo main para garantizar la ejecucion del analizador
+       lexico y sintactico, ademas que se pase como parametro la tabla
+       de simbolos correspondiente. */
+    public static void main(String[] args){
+        try {
+            AnalizadorSintactico asin = new AnalizadorSintactico(
+                    new AnalizadorLexico( new FileReader(args[0])));
+            Object result = asin.parse().value;
+            System.out.println("\n*** Resultados finales ***");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+:};
+   
+
+   
+/* ------------Declaracion de simbolos terminales y no terminales---------- */
+   
+/* Terminales (tokens obtenidos por el analizador lexico).  
+
+   Terminales que no tienen un valor son listados primero, los terminales que
+   tienen un valor como los enteros son listados en la segunda o demas lineas. */
+terminal           T_INT, T_BOOL, T_ARRAY;
+terminal           IF, THEN, ELSE, WHILE;
+terminal String    IDENTIFIER;
+terminal String    INTEGER_LITERAL, BOOL_LITERAL;
+//terminal String    STRING_LITERAL;
+terminal           ASSIGN_OP;
+terminal           EQ_OP, LT_OP, GT_OP, LET_OP, GET_OP, SUM_OP, SUBS_OP, PROD_OP, DIV_OP, AND_OP, OR_OP, NOT_OP;
+terminal           LBRACKET, RBRACKET, LBRACE, RBRACE;
+   
+/* No terminales usados en la seccion gramatical. 
+
+   Primero se lista los no terminales que tienen un valor Object y despues
+   se lista los no terminales que tienen un entero. Un Object se refiere a que
+   no tienen tipo, pudiendo ser entero o String. */
+non terminal Object     instructions, instruction, block, if-statement, while-statement,
+                        declaration, type, assignment, variable, expression, int_expr, bool_expr,
+                        low_prio_int_op, high_prio_int_op, comp_op;
+// non terminal Integer    expr, factor, termino;
+   
+
+/* -------------Seccion de predencia y asociacion de los terminales----------- */
+   
+/*
+  Precedencia de los no terminales, no sirve con simbolos terminales.
+  Por eso no la usamos. Además indica si se asocia a izquierda o derecha.
+*/
+  /*precedence left OP_SUMA, OP_RESTA; 
+  precedence left OP_MULT;*/
+  precedence left low_prio_int_op;
+  precedence left high_prio_int_op;
+
+
+/* ------------------- Seccion de la gramatica ------------------------ */
+
+instructions ::= instruction | instruction SEPARATOR instructions ;
+instruction ::= block | if-statement | while-statement | declaration | assignment ;
+block ::= LBRACE instructions RBRACE ;
+if-statement ::= IF bool_expr THEN instruction
+                | IF bool_expr THEN instruction ELSE instruction ;
+while-statement ::= WHILE bool_expr THEN instruction ;
+declaration ::= type IDENTIFIER | type IDENTIFIER ASSIGN_OP expression ;
+type ::= T_INT | T_BOOL | type T_ARRAY ;
+assignment = variable ASSIGN_OP expression ;
+variable = IDENTIFIER | assignable LBRACKET int_expr RBRACKET;
+expression = int_expr | bool_expr ;
+
+int_expr = INTEGER_LITERAL | variable | LPAREN int_expr RPAREN
+          | int_expr low_prio_int_op int_expr | int_expr high_prio_int_op int_exp ;
+
+low_prio_int_op = SUM_OP | SUBS_OP ;
+high_prio_int_op = DIV_OP | PROD_OP ;
+
+bool_expr = BOOL_LITERAL | variable | LPAREN bool_expr RPAREN
+   | NOT_OP bool_expr | bool_expr AND_OP bool_expr | bool_expr OR_OP bool_expr
+   | int_expr comp_op int_expr; //TODO: Precedencia
+
+comp_op = EQ_OP | LT_OP | GT_OP | LET_OP | GET_OP ;
