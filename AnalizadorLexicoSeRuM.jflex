@@ -12,9 +12,9 @@ package serum
 %column
 
 %{
-  StringBuffer string = new StringBuffer();
+  //StringBuffer string = new StringBuffer();
 
-  int last_column;
+  int last_column = 0;
 
   private Symbol symbol(int type) {
     return new Symbol(type, yyline, yycolumn);
@@ -25,12 +25,12 @@ package serum
 %}
 
 LineTerminator = \r|\n|\r\n
-
 WhiteSpace     = [ \t\f]
-
-NewLine 	   = LineTerminator WhiteSpace
-
 InputCharacter = [^\r\n]
+
+/* Instruction separators */
+NewInstruction 	   = LineTerminator {WhiteSpace}*
+InstructionSeparator = "\\" {WhiteSpace}* LineTerminator {WhiteSpace}*
 
 /* comments */
 Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
@@ -44,9 +44,9 @@ CommentContent       = ( [^*] | \*+ [^/*] )*
 Identifier = [:jletter:] [:jletterdigit:]*
 
 DecIntegerLiteral = 0 | [1-9][0-9]*
-BoolLiteral = True | False
+BoolLiteral = "True" | "False"
 
-%state STRING
+// %state STRING
 
 %%
 
@@ -61,9 +61,6 @@ BoolLiteral = True | False
   "then"			   { return symbol(sym.THEN);  }
   "else"               { return symbol(sym.ELSE);  }
   "while"              { return symbol(sym.WHILE); }
-
-  /* identifiers */ 
-  {Identifier}                   { return symbol(sym.IDENTIFIER, yytext); }
  
   /* literals */
   {DecIntegerLiteral}            { return symbol(sym.INTEGER_LITERAL, yytext);   }
@@ -92,9 +89,9 @@ BoolLiteral = True | False
   /* misc */
   "["                            { return symbol(sym.LBRACKET); }
   "]"                            { return symbol(sym.RBRACKET); }
-  "{"                            { return symbol(sym.LBRACE);   }
-  "}"                            { return symbol(sym.RBRACE);   }
 
+  /* identifiers */ 
+  {Identifier}                   { return symbol(sym.IDENTIFIER, yytext); }
 
   /* comments */
   {Comment}                      { /* ignore */ }
@@ -105,9 +102,22 @@ BoolLiteral = True | False
   /* instruction separators */
 
   ";"							 { return symbol(sym.SEPARATOR); }
+  "{"                            { return symbol(sym.START_BLOCK);   }
+  "}"                            { return symbol(sym.END_BLOCK);   }
 
-  {LineTerminator}				 { if(yycolumn == last_column) return symbol(sym.SEPARATOR);
-  								   else last_column = yycolumn;}
+  {NewInstruction}				 { 	
+  									actual_column = yycolumn;
+  									last_column = yycolumn;
+  									if (actual_column == last_column) 
+  										return symbol(sym.SEPARATOR);
+  								   	else if(actual_column > last_column) 
+  								   		return symbol(sym.START_BLOCK);
+  								   	else // if actual_column < last_column
+  								   		return symbol(sym.END_BLOCK);
+
+  								 } // This is not right
+
+  {InstructionSeparator}		 { /* ignore */ }
 }
 
 /*<STRING> {
