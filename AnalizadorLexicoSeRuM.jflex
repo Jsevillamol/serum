@@ -1,4 +1,4 @@
-package serum
+package serum;
 
 /**
  * Especificacion del analizador lexico de SeRuM
@@ -30,7 +30,14 @@ InputCharacter = [^\r\n]
 
 /* Instruction separators */
 NewInstruction 	   = LineTerminator {WhiteSpace}*
-InstructionSeparator = "\\" {WhiteSpace}* LineTerminator {WhiteSpace}*
+InstructionBreak = "\\" {WhiteSpace}* LineTerminator {WhiteSpace}*
+
+/* Variables and constants */
+
+Identifier = [:jletter:] [:jletterdigit:]*
+
+DecIntegerLiteral = 0 | [1-9][0-9]*
+BoolLiteral = "True" | "False"
 
 /* comments */
 Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
@@ -41,11 +48,6 @@ EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
 DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent       = ( [^*] | \*+ [^/*] )*
 
-Identifier = [:jletter:] [:jletterdigit:]*
-
-DecIntegerLiteral = 0 | [1-9][0-9]*
-BoolLiteral = "True" | "False"
-
 // %state STRING
 
 %%
@@ -54,7 +56,7 @@ BoolLiteral = "True" | "False"
   /* types */
   "int"                { return symbol(sym.T_INT);  }
   "bool"               { return symbol(sym.T_BOOL); }
-  "[]"                 { return symbol(sym.T_ARRAY)}
+  "[]"                 { return symbol(sym.T_ARRAY);}
   
   /* keywords */
   "if"                 { return symbol(sym.IF);    }
@@ -101,23 +103,23 @@ BoolLiteral = "True" | "False"
 
   /* instruction separators */
 
-  ";"							 { return symbol(sym.SEPARATOR); }
-  "{"                            { return symbol(sym.START_BLOCK);   }
+  ";"							 { return symbol(sym.SEPARATOR);   }
+  "{"                            { return symbol(sym.START_BLOCK); }
   "}"                            { return symbol(sym.END_BLOCK);   }
 
   {NewInstruction}				 { 	
-  									actual_column = yycolumn;
+  									int aux = last_column;
   									last_column = yycolumn;
-  									if (actual_column == last_column) 
+  									if (yycolumn == aux) 
   										return symbol(sym.SEPARATOR);
-  								   	else if(actual_column > last_column) 
+  								   	else if(yycolumn > aux) 
   								   		return symbol(sym.START_BLOCK);
-  								   	else // if actual_column < last_column
+  								   	else // if actual_column < aux
   								   		return symbol(sym.END_BLOCK);
 
-  								 } // This is not right
+  								 }
 
-  {InstructionSeparator}		 { /* ignore */ }
+  {InstructionBreak}		 	 { /* ignore */ }
 }
 
 /*<STRING> {
