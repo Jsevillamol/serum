@@ -58,59 +58,84 @@ parser code {:
    Terminales que no tienen un valor son listados primero, los terminales que
    tienen un valor como los enteros son listados en la segunda o demas lineas. */
 terminal           T_INT, T_BOOL, T_ARRAY;
-terminal           IF, THEN, ELSE, WHILE;
+terminal           IF, ELSE, WHILE;
 terminal String    IDENTIFIER;
 terminal String    INTEGER_LITERAL, BOOL_LITERAL;
 //terminal String    STRING_LITERAL;
 terminal           ASSIGN_OP;
 terminal           EQ_OP, LT_OP, GT_OP, LET_OP, GET_OP, SUM_OP, SUBS_OP, PROD_OP, DIV_OP, AND_OP, OR_OP, NOT_OP;
-terminal           LBRACKET, RBRACKET, LBRACE, RBRACE;
+terminal           LPAREN, RPAREN, LBRACKET, RBRACKET;
+terminal           START_BLOCK, END_BLOCK, SEPARATOR;
    
 /* No terminales usados en la seccion gramatical. 
 
    Primero se lista los no terminales que tienen un valor Object y despues
    se lista los no terminales que tienen un entero. Un Object se refiere a que
    no tienen tipo, pudiendo ser entero o String. */
-non terminal Object     instructions, instruction, block, if-statement, while-statement,
-                        declaration, type, assignment, variable, expression, int_expr, bool_expr,
-                        low_prio_int_op, high_prio_int_op, comp_op;
-// non terminal Integer    expr, factor, termino;
-   
+non terminal Object     statements, statement, then_statement, non_if_statement; // Top level structure
+non terminal Object     declaration, assignment;                                 // Variable manip statements
+non terminal Object     type, variable, expression;                              // Variable manip aux
 
 /* -------------Seccion de predencia y asociacion de los terminales----------- */
-   
-/*
-  Precedencia de los no terminales, no sirve con simbolos terminales.
-  Por eso no la usamos. Además indica si se asocia a izquierda o derecha.
-*/
-  /*precedence left OP_SUMA, OP_RESTA; 
-  precedence left OP_MULT;*/
-  precedence left low_prio_int_op;
-  precedence left high_prio_int_op;
+  
+  /* Integer operators */
+  precedence left SUM_OP, SUBS_OP;
+  precedence left PROD_OP, DIV_OP;
+
+  /* Boolean operators */
+  precedence left EQ_OP, LT_OP, GT_OP, LET_OP, GET_OP;
+  precedence left OR_OP;
+  precedence left AND_OP;
+
+  // Should we add precedence for (L/R)PARENS and NOT_OP?
+  // UMINOS_OP missing!
 
 
 /* ------------------- Seccion de la gramatica ------------------------ */
 
-instructions ::= instruction | instruction SEPARATOR instructions ;
-instruction ::= block | if-statement | while-statement | declaration | assignment ;
-block ::= LBRACE instructions RBRACE ;
-if-statement ::= IF bool_expr THEN instruction
-                | IF bool_expr THEN instruction ELSE instruction ;
-while-statement ::= WHILE bool_expr THEN instruction ;
+start with statements;
+
+/* Top level statements */
+statements ::= statement SEPARATOR
+                {:
+                    RESULT = "JAMAJAMAJAMA";
+                :}
+             | statement SEPARATOR statements ;
+
+statement  ::= IF expression statement
+             | IF expression then_statement ELSE statement 
+             | WHILE expression statement
+             | non_if_statement ;
+
+then_statement ::= IF expression then_statement ELSE then_statement
+                 | WHILE expression then_statement
+                 | non_if_statement ; 
+
+non_if_statement ::= START_BLOCK statements END_BLOCK
+                   | declaration | assignment ;
+
+// The statement vs then_statement is for disambiguation purposes
+// Solution taken from http://goldparser.org/doc/grammars/example-if-then-else.htm
+
+/* Variable manipulation statements */
 declaration ::= type IDENTIFIER | type IDENTIFIER ASSIGN_OP expression ;
-type ::= T_INT | T_BOOL | type T_ARRAY ;
-assignment = variable ASSIGN_OP expression ;
-variable = IDENTIFIER | assignable LBRACKET int_expr RBRACKET;
-expression = int_expr | bool_expr ;
+assignment  ::= variable ASSIGN_OP expression ;
 
-int_expr = INTEGER_LITERAL | variable | LPAREN int_expr RPAREN
-          | int_expr low_prio_int_op int_expr | int_expr high_prio_int_op int_exp ;
+/* Variable manipulation auxiliar sintactic elements */
+type       ::= T_INT | T_BOOL | type T_ARRAY ;
+variable   ::= IDENTIFIER | variable LBRACKET expression RBRACKET;
 
-low_prio_int_op = SUM_OP | SUBS_OP ;
-high_prio_int_op = DIV_OP | PROD_OP ;
+/* Integer or bool expressions */
+expression ::= variable | LPAREN expression RPAREN
 
-bool_expr = BOOL_LITERAL | variable | LPAREN bool_expr RPAREN
-   | NOT_OP bool_expr | bool_expr AND_OP bool_expr | bool_expr OR_OP bool_expr
-   | int_expr comp_op int_expr; //TODO: Precedencia
-
-comp_op = EQ_OP | LT_OP | GT_OP | LET_OP | GET_OP ;
+          // Int expressions
+           |  INTEGER_LITERAL 
+           | expression SUM_OP expression | expression SUBS_OP expression
+           | expression DIV_OP expression | expression PROD_OP expression 
+           
+           // Bool expressions
+           | BOOL_LITERAL
+           | expression OR_OP  expression | expression AND_OP expression
+           | NOT_OP expression            | expression EQ_OP  expression 
+           | expression LT_OP  expression | expression GT_OP  expression
+           | expression LET_OP expression | expression GET_OP expression   ;
