@@ -2,6 +2,8 @@ package serum;
 
 import java_cup.runtime.*;
 import java.io.Reader;
+import java.io.FileReader;
+import java.util.*;
 
 /**
  * Especificacion del analizador lexico de SeRuM
@@ -17,7 +19,10 @@ import java.io.Reader;
 %{
   //StringBuffer string = new StringBuffer();
 
-  int last_column = 0;
+  Stack<Integer> indentation = new Stack<Integer>();
+  {
+  	indentation.push(0);
+  }
 
   private Symbol symbol(int type) {
     return new Symbol(type, yyline, yycolumn);
@@ -25,7 +30,30 @@ import java.io.Reader;
   private Symbol symbol(int type, Object value) {
     return new Symbol(type, yyline, yycolumn, value);
   }
+
+  public static void main(String[] args){
+  	
+  	try {
+  		AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
+  		Object result = alex.next_token();
+  		do{
+  			//System.out.print(result.toString());
+  			result = alex.next_token();
+  		} while (true);
+
+  	} catch (Exception ex){
+  		ex.printStackTrace();
+  	}
+  }
 %}
+
+/*%eofval{
+  return new java_cup.runtime.Symbol(<CUPSYM>.EOF);
+%eofval} */
+
+/******************************************
+             Macro declarations
+*******************************************/
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = [ \t\f]
@@ -57,6 +85,12 @@ BoolLiteral = "True" | "False"
 // %state STRING
 
 %%
+/* This code will be executed each time `yylex` is called, before
+   * any generated code.
+*/
+
+//TODO: 2int se reconoce incorrectamente como intLiteral + int token
+
 
 <YYINITIAL> {
   /* types */
@@ -122,22 +156,31 @@ BoolLiteral = "True" | "False"
 }
 
 <NEWLINE> {
-  {WhiteSpace}* {
+  {WhiteSpace}* { // This should match the empty string!
   		//System.out.println("I have consumed your delicious whitespace");
   		// Consumes all the white space in front of a newline, 
   		// and determines if we need to open or close a block
-  		yybegin(YYINITIAL);
+
+  		//System.out.println ("The stack is " + indentation.toString());
 
   		int actual_column = yylength();
-  		int aux = last_column;
-  		last_column = actual_column;
 
-  		if (aux < actual_column) {
+  		if (actual_column > indentation.peek()) {
+  			indentation.push(actual_column);
   			System.out.print(" { ");
+  			yybegin(YYINITIAL);
   			return symbol(sym.START_BLOCK);
-  		} else if (aux > actual_column) {
+  		} 
+
+  		else if (actual_column < indentation.peek()) {
+  			indentation.pop();
   			System.out.print(" } ");
+  			yypushback(yylength()); // Undo the matching
   			return symbol(sym.END_BLOCK);
+  		}
+
+  		else if (actual_column == indentation.peek()){
+  			yybegin(YYINITIAL);
   		}
   }
 }

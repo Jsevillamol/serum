@@ -96,18 +96,29 @@ non terminal Object     type, variable, expression;                             
 start with statements;
 
 /* Top level statements */
-statements ::= statement SEPARATOR
+statements ::= statement
                 {:
                     RESULT = "JAMAJAMAJAMA";
                 :}
+             | statement SEPARATOR
+             | SEPARATOR // Empty statement
              | statement SEPARATOR statements ;
 
-statement  ::= IF expression statement
+statement  ::= IF expression SEPARATOR statement
+             | IF expression statement
+             | IF expression SEPARATOR then_statement ELSE SEPARATOR statement 
+             | IF expression then_statement ELSE SEPARATOR statement 
+             | IF expression SEPARATOR then_statement ELSE statement 
              | IF expression then_statement ELSE statement 
+             | WHILE expression SEPARATOR statement
              | WHILE expression statement
              | non_if_statement ;
 
-then_statement ::= IF expression then_statement ELSE then_statement
+then_statement ::= IF expression SEPARATOR then_statement ELSE SEPARATOR then_statement
+                 | IF expression then_statement ELSE SEPARATOR then_statement
+                 | IF expression SEPARATOR then_statement ELSE then_statement
+                 | IF expression then_statement ELSE then_statement
+                 | WHILE expression SEPARATOR then_statement
                  | WHILE expression then_statement
                  | non_if_statement ; 
 

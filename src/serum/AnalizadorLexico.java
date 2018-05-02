@@ -4,6 +4,8 @@ package serum;
 
 import java_cup.runtime.*;
 import java.io.Reader;
+import java.io.FileReader;
+import java.util.*;
 
 /**
  * Especificacion del analizador lexico de SeRuM
@@ -369,13 +371,31 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   /* user code: */
   //StringBuffer string = new StringBuffer();
 
-  int last_column = 0;
+  Stack<Integer> indentation = new Stack<Integer>();
+  {
+  	indentation.push(0);
+  }
 
   private Symbol symbol(int type) {
     return new Symbol(type, yyline, yycolumn);
   }
   private Symbol symbol(int type, Object value) {
     return new Symbol(type, yyline, yycolumn, value);
+  }
+
+  public static void main(String[] args){
+  	
+  	try {
+  		AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
+  		Object result = alex.next_token();
+  		do{
+  			//System.out.print(result.toString());
+  			result = alex.next_token();
+  		} while (true);
+
+  	} catch (Exception ex){
+  		ex.printStackTrace();
+  	}
   }
 
 
@@ -751,21 +771,31 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
 
       switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
         case 1: 
-          { //System.out.println("I have consumed your delicious whitespace");
+          { // This should match the empty string!
+  		//System.out.println("I have consumed your delicious whitespace");
   		// Consumes all the white space in front of a newline, 
   		// and determines if we need to open or close a block
-  		yybegin(YYINITIAL);
+
+  		//System.out.println ("The stack is " + indentation.toString());
 
   		int actual_column = yylength();
-  		int aux = last_column;
-  		last_column = actual_column;
 
-  		if (aux < actual_column) {
+  		if (actual_column > indentation.peek()) {
+  			indentation.push(actual_column);
   			System.out.print(" { ");
+  			yybegin(YYINITIAL);
   			return symbol(sym.START_BLOCK);
-  		} else if (aux > actual_column) {
+  		} 
+
+  		else if (actual_column < indentation.peek()) {
+  			indentation.pop();
   			System.out.print(" } ");
+  			yypushback(yylength()); // Undo the matching
   			return symbol(sym.END_BLOCK);
+  		}
+
+  		else if (actual_column == indentation.peek()){
+  			yybegin(YYINITIAL);
   		}
           }
         case 32: break;

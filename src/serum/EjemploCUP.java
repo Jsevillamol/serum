@@ -19,7 +19,8 @@ public class EjemploCUP {
 
     public final static int GENERAR = 1;
     public final static int EJECUTAR = 2;
-    public final static int SALIR = 3;
+    public final static int LEXICO = 3;
+    public final static int SALIR = 4;
 
     /**
      * Es un menu para elegir entre generar el analizador lexico y sintactico, o
@@ -34,7 +35,8 @@ public class EjemploCUP {
             System.out.println("Elija una opcion: ");
             System.out.println("1) Generar");
             System.out.println("2) Ejecutar");
-            System.out.println("3) Salir");
+            System.out.println("3) Lexico");
+            System.out.println("4) Salir");
             System.out.print("Opcion: ");
             valor = in.nextInt();
             switch (valor) {
@@ -79,6 +81,12 @@ public class EjemploCUP {
                      */
                     String[] archivoPrueba = {"test.txt"};
                     AnalizadorSintactico.main(archivoPrueba);
+                    System.out.println("Ejecutado!");
+                    break;
+                }
+                case LEXICO: {
+                    String[] archivoPrueba = {"test.txt"};
+                    AnalizadorLexico.main(archivoPrueba);
                     System.out.println("Ejecutado!");
                     break;
                 }
