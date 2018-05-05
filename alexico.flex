@@ -24,6 +24,23 @@ import java.util.*;
   	indentation.push(0);
   }
 
+  Map<String, Integer> keywords = new HashMap<>();
+  {
+  	//Types
+  	keywords.put("int", sym.T_INT);
+  	keywords.put("bool", sym.T_BOOL);
+
+  	// Control
+  	keywords.put("if", sym.IF);
+  	keywords.put("else", sym.ELSE);
+  	keywords.put("while", sym.WHILE);
+
+  	// bool ops
+  	keywords.put("and", sym.AND_OP);
+  	keywords.put("or", sym.OR_OP);
+  	keywords.put("not", sym.NOT_OP);
+  }
+
   private Symbol symbol(int type) {
     return new Symbol(type, yyline, yycolumn);
   }
@@ -94,14 +111,7 @@ BoolLiteral = "True" | "False"
 
 <YYINITIAL> {
   /* types */
-  "int"                { System.out.print(" int "); return symbol(sym.T_INT);  }
-  "bool"               { System.out.print(" bool "); return symbol(sym.T_BOOL); }
   "[]"                 { System.out.print(" [] "); return symbol(sym.T_ARRAY);}
-  
-  /* keywords */
-  "if"                 { System.out.print(" if "); return symbol(sym.IF);    }
-  "else"               { System.out.print(" else "); return symbol(sym.ELSE);  }
-  "while"              { System.out.print(" while "); return symbol(sym.WHILE); }
  
   /* literals */
   {DecIntegerLiteral}            { System.out.print(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());}
@@ -123,16 +133,22 @@ BoolLiteral = "True" | "False"
   "*"                            { System.out.print(" * "); return symbol(sym.PROD_OP);  }
   "/"                            { System.out.print(" / "); return symbol(sym.DIV_OP);   }
 
-  "and"                          { System.out.print(" and "); return symbol(sym.AND_OP); }
-  "or"                           { System.out.print(" or "); return symbol(sym.OR_OP);  }
-  "not"                          { System.out.print(" not "); return symbol(sym.NOT_OP); }
-
   /* misc */
   "["                            { System.out.print(" [ "); return symbol(sym.LBRACKET); }
   "]"                            { System.out.print(" ] "); return symbol(sym.RBRACKET); }
 
   /* identifiers */ 
-  {Identifier}                   { System.out.print(" id "); return symbol(sym.IDENTIFIER, yytext()); }
+  {Identifier}                   
+  { 
+  	// If the identifier is a recognized keyword, we emit a keyword token
+  	if(keywords.containsKey(yytext())){
+  		System.out.print(yytext());
+  	 	return symbol(keywords.get(yytext()));
+  	} else {
+  		System.out.print(" id:" + yytext());
+  		return symbol(sym.IDENTIFIER, yytext()); 
+  	}
+  }
 
   /* instruction separators */
 
