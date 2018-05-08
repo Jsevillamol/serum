@@ -2,6 +2,27 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Declaration.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/EjemploCUP.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Typable.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/ArrayAccess.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/ASTNode.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Expression.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/sym.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/UnaryOp.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Type.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Initialization.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/IfSentence.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/AssignmentSentence.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/IfElseSentence.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Constant.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/test.txt</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Instruction.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Variable.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/WhileSentence.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/BinaryOp.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/InstructionList.java</file>
+        </group>
     </open-files>
 </project-private>

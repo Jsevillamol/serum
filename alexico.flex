@@ -74,10 +74,11 @@ import java.util.*;
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = [ \t\f]
-WhiteSpaceOrNothing = [ \t\f]*
+Newline 	   = {LineTerminator} {WhiteSpace}*
+EmptyLine	   = {LineTerminator} {WhiteSpace}* {LineTerminator}
 
 /* Instruction separators */
-//InstructionBreak = "\\" {WhiteSpace}* {LineTerminator} {WhiteSpace}*
+InstructionSplit = "\\" {WhiteSpace}* {LineTerminator} {WhiteSpace}*
 
 /* Variables and constants */
 
@@ -88,15 +89,14 @@ BoolLiteral = "True" | "False"
 
 /* comments */
 
-// Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
+Comment = {TraditionalComment} | {EndOfLineComment}
 
-// TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
-// // Comment can be the last line of the file, without line terminator.
-// EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
-// DocumentationComment = "/**" {CommentContent} "*"+ "/"
+TraditionalComment   = "/*" [^*] ~"*/" {LineTerminator}? | "/*" "*"+ "/" {LineTerminator}?
+// Comment can be the last line of the file, without line terminator.
+EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
 
-// InputCharacter = [^\r\n]
-// CommentContent       = ( [^*] | \*+ [^/*] )*
+InputCharacter = [^\r\n]
+CommentContent = ( [^*] | \*+ [^/*] )*
 
 %state NEWLINE
 // %state STRING
@@ -142,7 +142,7 @@ BoolLiteral = "True" | "False"
   { 
   	// If the identifier is a recognized keyword, we emit a keyword token
   	if(keywords.containsKey(yytext())){
-  		System.out.print(yytext());
+  		System.out.print(" " + yytext() + " ");
   	 	return symbol(keywords.get(yytext()));
   	} else {
   		System.out.print(" id:" + yytext());
@@ -156,30 +156,36 @@ BoolLiteral = "True" | "False"
   "{"                            { System.out.print(" { "); return symbol(sym.START_BLOCK); }
   "}"                            { System.out.print(" } "); return symbol(sym.END_BLOCK);   }
 
+  {EmptyLine}			{ /* Empty lines are deleted*/ yypushback(1);}
+
   {LineTerminator}      { 	   
                             yybegin(NEWLINE);
                             System.out.print(" ;\n");
+                            
+                            // We undo the matching of newline to handle the case where there are no spaces in the next line
+                            yypushback(yylength()); 
+
                             return symbol(sym.SEPARATOR);
                         }
 
-  //{InstructionBreak}		 	 { /* ignore */ }
+  {InstructionSplit}		 	 { /* ignore */ }
 
   /* comments */
-  // {Comment}                      { System.out.print(" /*comment*/ "); /* ignore */ }
+  {Comment}                      { /* ignore */ }
  
   /* whitespace */
   {WhiteSpace}                   { /* ignore */ }
 }
 
 <NEWLINE> {
-  {WhiteSpace}* { // This should match the empty string!
+  {Newline} { // This should match the empty string!
   		//System.out.println("I have consumed your delicious whitespace");
   		// Consumes all the white space in front of a newline, 
   		// and determines if we need to open or close a block
 
   		//System.out.println ("The stack is " + indentation.toString());
 
-  		int actual_column = yylength();
+  		int actual_column = yylength() - 1;
 
   		if (actual_column > indentation.peek()) {
   			indentation.push(actual_column);

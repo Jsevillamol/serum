@@ -96,57 +96,156 @@ non terminal Object     type, variable, expression;                             
 start with statements;
 
 /* Top level statements */
-statements ::= statement
+statements ::= statement:s
                 {:
-                    RESULT = "JAMAJAMAJAMA";
+                    RESULT = new InstructionList(s);
                 :}
-             | statement SEPARATOR
+             | statement:s SEPARATOR
+                {:
+                    RESULT = new InstructionList(s);
+                :}
              | SEPARATOR // Empty statement
-             | statement SEPARATOR statements ;
+                {:
+                    RESULT = new InstructionList();
+                :}
+             | statement:s SEPARATOR statements:ss 
+                {:
+                    RESULT = new InstructionList(s, ss);
+                :}
+             ;
 
-statement  ::= IF expression SEPARATOR statement
-             | IF expression statement
-             | IF expression SEPARATOR then_statement ELSE SEPARATOR statement 
-             | IF expression then_statement ELSE SEPARATOR statement 
-             | IF expression SEPARATOR then_statement ELSE statement 
-             | IF expression then_statement ELSE statement 
-             | WHILE expression SEPARATOR statement
-             | WHILE expression statement
-             | non_if_statement ;
+statement  ::= IF expression:e SEPARATOR statement:s
+                {:
+                    RESULT = new IfSentence(e, s);
+                :}
+             | IF expression:e statement:s
+                {:
+                    RESULT = new IfSentence(e, s);
+                :}
+             | IF expression:e SEPARATOR then_statement:then ELSE SEPARATOR statement:els 
+                {:
+                    RESULT = new IfElseSentence(e, then, els);
+                :}
+             | IF expression:e then_statement:then ELSE SEPARATOR statement:els 
+                {:
+                    RESULT = new IfElseSentence(e, then, els);
+                :}
+             | IF expression:e SEPARATOR then_statement:then ELSE statement:els 
+                {:
+                    RESULT = new IfElseSentence(e, then, els);
+                :}
+             | IF expression:e then_statement:then ELSE statement:els 
+                {:
+                    RESULT = new IfElseSentence(e, then, els);
+                :}
+             | WHILE expression:e SEPARATOR statement:s
+                {:
+                    RESULT = new WhileSentence(e, s);
+                :}
+             | WHILE expression:e statement:s
+                {:
+                    RESULT = new WhileSentence(e, s);
+                :}
+             | non_if_statement:s
+                {:
+                    RESULT = s;
+                :}
+             ;
 
-then_statement ::= IF expression SEPARATOR then_statement ELSE SEPARATOR then_statement
-                 | IF expression then_statement ELSE SEPARATOR then_statement
-                 | IF expression SEPARATOR then_statement ELSE then_statement
-                 | IF expression then_statement ELSE then_statement
-                 | WHILE expression SEPARATOR then_statement
-                 | WHILE expression then_statement
-                 | non_if_statement ; 
+then_statement ::= IF expression:e SEPARATOR then_statement:then ELSE SEPARATOR then_statement:els 
+                      {:
+                          RESULT = new IfElseSentence(e, then, els);
+                      :}
+                   | IF expression:e then_statement:then ELSE SEPARATOR then_statement:els 
+                      {:
+                          RESULT = new IfElseSentence(e, then, els);
+                      :}
+                   | IF expression:e SEPARATOR then_statement:then ELSE then_statement:els 
+                      {:
+                          RESULT = new IfElseSentence(e, then, els);
+                      :}
+                   | IF expression:e then_statement:then ELSE then_statement:els 
+                      {:
+                          RESULT = new IfElseSentence(e, then, els);
+                      :}
+                   | WHILE expression:e SEPARATOR then_statement:s
+                      {:
+                          RESULT = new WhileSentence(e, s);
+                      :}
+                   | WHILE expression:e then_statement:s
+                      {:
+                          RESULT = new WhileSentence(e, s);
+                      :}
+                   | non_if_statement:s
+                      {:
+                          RESULT = s;
+                      :}
+                   ;
 
-non_if_statement ::= START_BLOCK statements END_BLOCK
-                   | declaration | assignment ;
+non_if_statement ::= START_BLOCK statements:s END_BLOCK
+                      {:
+                          RESULT = s; // This is wrong, will fix later
+                      :}
+                   | declaration:d
+                      {:
+                          RESULT = d;
+                      :}
+                   | assignment:a
+                      {:
+                          RESULT = a;
+                      :}
+                   ;
 
 // The statement vs then_statement is for disambiguation purposes
 // Solution taken from http://goldparser.org/doc/grammars/example-if-then-else.htm
 
 /* Variable manipulation statements */
-declaration ::= type IDENTIFIER | type IDENTIFIER ASSIGN_OP expression ;
-assignment  ::= variable ASSIGN_OP expression ;
+declaration ::= type:t IDENTIFIER:id 
+                 {:
+                    RESULT = new Declaration(t, id);
+                 :}
+              | type:t IDENTIFIER:id ASSIGN_OP expression:rhs 
+                 {:
+                    RESULT = new Initialization(t, id, rhs);
+                 :}
+              ;
+
+assignment  ::= variable:lhs ASSIGN_OP expression:rhs
+                 {:
+                    RESULT = new Assignment(lhs, rhs);
+                 :}
+              ;
 
 /* Variable manipulation auxiliar sintactic elements */
-type       ::= T_INT | T_BOOL | type T_ARRAY ;
-variable   ::= IDENTIFIER | variable LBRACKET expression RBRACKET;
+type       ::= T_INT | T_BOOL | type T_ARRAY ; //TODO
+variable   ::= IDENTIFIER:id 
+                 {:
+                    RESULT = new Variable(id);
+                 :}
+             | variable:id LBRACKET expression:idx RBRACKET
+                 {:
+                    RESULT = new Declaration(id, idx);
+                 :}
+             ;
 
 /* Integer or bool expressions */
-expression ::= variable | LPAREN expression RPAREN
+expression ::= variable:v 
+                 {:
+                    RESULT = v;
+                 :}
+             | LPAREN expression:e RPAREN
+                 {:
+                    RESULT = e;
+                 :}
 
           // Int expressions
-           |  INTEGER_LITERAL 
-           | expression SUM_OP expression | expression SUBS_OP expression
-           | expression DIV_OP expression | expression PROD_OP expression 
+             |  INTEGER_LITERAL 
+             | expression SUM_OP expression | expression SUBS_OP expression
+             | expression DIV_OP expression | expression PROD_OP expression 
            
            // Bool expressions
-           | BOOL_LITERAL
-           | expression OR_OP  expression | expression AND_OP expression
-           | NOT_OP expression            | expression EQ_OP  expression 
-           | expression LT_OP  expression | expression GT_OP  expression
-           | expression LET_OP expression | expression GET_OP expression   ;
+             | BOOL_LITERAL
+             | expression OR_OP  expression | expression AND_OP expression
+             | NOT_OP expression            | expression EQ_OP  expression 
+             | expression LT_OP  expression | expression GT_OP  expression
+             | expression LET_OP expression | expression GET_OP expression   ;
