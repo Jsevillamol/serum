@@ -9,7 +9,7 @@ package serum;
  *
  * @author jsevillamol
  */
-public class Declaration extends Instruction {
+public class Declaration extends Instruction implements ASTNode, Typable {
     String id;
     Type type;
     
@@ -19,6 +19,17 @@ public class Declaration extends Instruction {
     }
     
     public String getId(){return id;}
+    
+    @Override
     public Type getType(){return type;}
     
+    @Override
+    public Boolean typeCheck() {
+        return true;
+    }
+
+    @Override
+    public String toCode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -9,18 +9,14 @@ package serum;
  *
  * @author jsevillamol
  */
-public class Variable extends Expression {
-    protected String id;
-    protected Declaration reference;
+public class Assignment extends Instruction {
+    private Variable lhs;
+    private Expression rhs;
     
-    public Variable(String id){
-        this.id = id;
+    public Assignment(Variable lhs, Expression rhs){
+        this.lhs = lhs;
+        this.rhs = rhs;
     }
-    
-    public void setDeclaration( Declaration dec) { this.reference = dec; }
-    
-    @Override
-    public Type getType(){ return reference.getType(); }
 
     @Override
     public String toCode() {
@@ -29,6 +25,8 @@ public class Variable extends Expression {
 
     @Override
     public Boolean typeCheck() {
-        return true; 
+        return lhs.getType().equals(rhs.getType()) && lhs.typeCheck() && rhs.typeCheck();
     }
+    
+    
 }

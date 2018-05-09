@@ -72,9 +72,12 @@ terminal           START_BLOCK, END_BLOCK, SEPARATOR;
    Primero se lista los no terminales que tienen un valor Object y despues
    se lista los no terminales que tienen un entero. Un Object se refiere a que
    no tienen tipo, pudiendo ser entero o String. */
-non terminal Object     statements, statement, then_statement, non_if_statement; // Top level structure
-non terminal Object     declaration, assignment;                                 // Variable manip statements
-non terminal Object     type, variable, expression;                              // Variable manip aux
+non terminal InstructionList statements;
+non terminal Instruction statement, then_statement, non_if_statement; // Top level structure
+non terminal Instruction declaration, assignment;                                 // Variable manip statements
+non terminal Type        type; 
+non terminal Expression  expression; 
+non terminal Variable    variable;                             
 
 /* -------------Seccion de predencia y asociacion de los terminales----------- */
   
@@ -184,7 +187,7 @@ then_statement ::= IF expression:e SEPARATOR then_statement:then ELSE SEPARATOR 
 
 non_if_statement ::= START_BLOCK statements:s END_BLOCK
                       {:
-                          RESULT = s; // This is wrong, will fix later
+                          RESULT = s;
                       :}
                    | declaration:d
                       {:
@@ -217,14 +220,27 @@ assignment  ::= variable:lhs ASSIGN_OP expression:rhs
               ;
 
 /* Variable manipulation auxiliar sintactic elements */
-type       ::= T_INT | T_BOOL | type T_ARRAY ; //TODO
+type       ::= T_INT 
+                 {:
+                    RESULT = Type.TInt;
+                 :}
+             | T_BOOL 
+                 {:
+                    RESULT = Type.TBool;
+                 :}
+             | type:t T_ARRAY 
+                 {:
+                    RESULT = t.reference();
+                 :}
+             ;
+
 variable   ::= IDENTIFIER:id 
                  {:
                     RESULT = new Variable(id);
                  :}
              | variable:id LBRACKET expression:idx RBRACKET
                  {:
-                    RESULT = new Declaration(id, idx);
+                    RESULT = new ArrayAccess(id, idx);
                  :}
              ;
 
@@ -239,13 +255,62 @@ expression ::= variable:v
                  :}
 
           // Int expressions
-             |  INTEGER_LITERAL 
-             | expression SUM_OP expression | expression SUBS_OP expression
-             | expression DIV_OP expression | expression PROD_OP expression 
+             |  INTEGER_LITERAL:c 
+                 {:
+                    RESULT = new Constant(new Integer(c));
+                 :}
+             | expression:op1 SUM_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.SUM_OP);
+                 :}
+             | expression:op1 SUBS_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.SUBS_OP);
+                 :}
+             | expression:op1 PROD_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.PROD_OP);
+                 :}
+             | expression:op1 DIV_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.DIV_OP);
+                 :}
            
            // Bool expressions
-             | BOOL_LITERAL
-             | expression OR_OP  expression | expression AND_OP expression
-             | NOT_OP expression            | expression EQ_OP  expression 
-             | expression LT_OP  expression | expression GT_OP  expression
-             | expression LET_OP expression | expression GET_OP expression   ;
+             | BOOL_LITERAL:c
+                 {:
+                    RESULT = new Constant(new Boolean(c));
+                 :}
+             | expression:op1 OR_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.OR_OP);
+                 :}
+             | expression:op1 AND_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.AND_OP);
+                 :}
+             | NOT_OP expression:op1 
+                 {:
+                    RESULT = new UnaryOp(op1, UnaryOp.OpType.NOT_OP);
+                 :}
+             | expression:op1 EQ_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.EQ_OP);
+                 :}
+             | expression:op1 LT_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.LT_OP);
+                 :}
+             | expression:op1 GT_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.GT_OP);
+                 :}
+             | expression:op1 LET_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.LET_OP);
+                 :}
+             | expression:op1 GET_OP expression:op2 
+                 {:
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.GET_OP);
+                 :}
+             ;

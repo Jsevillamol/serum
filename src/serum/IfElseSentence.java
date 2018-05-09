@@ -19,4 +19,14 @@ public class IfElseSentence extends Instruction{
         this.ifBranch = ifBranch;
         this.elseBranch = elseBranch;
     }
+
+    @Override
+    public String toCode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean typeCheck() {
+        return condition.getType().equals(Type.TBool) && condition.typeCheck() && ifBranch.typeCheck() && elseBranch.typeCheck();
+    }
 }

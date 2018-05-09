@@ -5,16 +5,17 @@
         <group>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Declaration.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/EjemploCUP.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Assignment.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Typable.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/ArrayAccess.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/ASTNode.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Expression.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/sym.java</file>
+            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/AnalizadorSintactico.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/UnaryOp.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Type.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Initialization.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/IfSentence.java</file>
-            <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/AssignmentSentence.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/IfElseSentence.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/src/serum/Constant.java</file>
             <file>file:/home/jsevillamol/Documentos/UCM/Cuarto/Compiladores/serum/test.txt</file>

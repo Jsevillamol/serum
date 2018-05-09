@@ -23,6 +23,35 @@ public class BinaryOp extends Expression {
     public Expression getOp1(){ return op1;}
     public Expression getOp2(){ return op2;}
     public OpType getOpType(){ return opType; }
+
+    @Override
+    public Type getType() {
+        switch (opType){
+            case SUM_OP: case SUBS_OP: case DIV_OP: case PROD_OP:
+                return Type.TInt;
+            case OR_OP: case AND_OP: case EQ_OP: case LT_OP: case GT_OP: case LET_OP: case GET_OP:
+                return Type.TBool;
+            default:
+                throw new UnsupportedOperationException("This OP does not exist");
+        }
+    }
+
+    @Override
+    public String toCode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean typeCheck() {
+        switch (opType){
+            case SUM_OP: case SUBS_OP: case DIV_OP: case PROD_OP: case EQ_OP: case LT_OP: case GT_OP: case LET_OP: case GET_OP:
+                return op1.typeCheck() && op2.typeCheck() && op1.equals(Type.TInt) && op2.equals(Type.TInt);
+            case OR_OP: case AND_OP:
+                return op1.typeCheck() && op2.typeCheck() && op1.equals(Type.TBool) && op2.equals(Type.TBool);
+            default:
+                throw new UnsupportedOperationException("This OP does not exist");
+        }
+    }
     
     public enum OpType {SUM_OP, SUBS_OP, DIV_OP, PROD_OP, OR_OP, AND_OP, EQ_OP, LT_OP, GT_OP, LET_OP, GET_OP};
 }

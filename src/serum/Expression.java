@@ -9,6 +9,6 @@ package serum;
  *
  * @author jsevillamol
  */
-public abstract class Expression implements Typable {
+public abstract class Expression implements Typable, ASTNode {
     
 }

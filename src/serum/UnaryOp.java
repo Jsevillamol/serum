@@ -20,7 +20,31 @@ public class UnaryOp extends Expression {
 
     @Override
     public Type getType() {
-        
+        switch(opType){
+            case NOT_OP:
+                return Type.TBool;
+            case NEG_OP:
+                return Type.TInt;
+            default:
+                throw new UnsupportedOperationException("OP not supported yet.");
+        }
+    }
+
+    @Override
+    public String toCode() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Boolean typeCheck() {
+        switch(opType){
+            case NOT_OP:
+                return op1.getType().equals(Type.TBool);
+            case NEG_OP:
+                return op1.getType().equals(Type.TInt);
+            default:
+                throw new UnsupportedOperationException("OP not supported yet.");
+        }
     }
     
     public enum OpType {NOT_OP, NEG_OP};

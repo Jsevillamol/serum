@@ -17,8 +17,14 @@ public class IfSentence extends Instruction {
         this.condition = condition;
         this.conditional = conditional;
     }
-    
-    public Boolean checkType(){
-        return condition.getType().equals(TBoolean);
+
+    @Override
+    public String toCode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Boolean typeCheck() {
+        return condition.getType().equals(Type.TBool) && condition.typeCheck() && conditional.typeCheck();
     }
 }

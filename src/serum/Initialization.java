@@ -11,4 +11,20 @@ package serum;
  */
 public class Initialization extends Declaration {
     
+    private Expression rhs;
+    
+    public Initialization(Type type, String id, Expression rhs) {
+        super(type, id);
+        this.rhs = rhs;
+    }
+    
+    @Override
+    public Boolean typeCheck() {
+        return rhs.getType().equals(type) && rhs.typeCheck();
+    }
+
+    @Override
+    public String toCode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

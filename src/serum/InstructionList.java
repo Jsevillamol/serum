@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author jsevillamol
  */
-public class InstructionList {
+public class InstructionList extends Instruction {
     private List<Instruction> instructions;
     
     public InstructionList(){
@@ -27,5 +27,19 @@ public class InstructionList {
     public InstructionList(Instruction instruction, InstructionList instructionList){
         this.instructions = instructionList.instructions;
         this.instructions.add(instruction);
+    }
+
+    @Override
+    public String toCode() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Boolean typeCheck() {
+        Boolean aux = true;
+        for(Instruction ins : instructions){
+            aux = aux && ins.typeCheck();
+        }
+        return aux;
     }
 }
