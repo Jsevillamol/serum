@@ -278,70 +278,86 @@ variable   ::= IDENTIFIER:id
 /* Integer or bool expressions */
 expression ::= variable:v 
                  {:
+                    System.out.println("expression ::= variable");
                     RESULT = v;
                  :}
              | LPAREN expression:e RPAREN
                  {:
+                    System.out.println("expression ::= LPAREN variable RPAREN");
                     RESULT = e;
                  :}
 
           // Int expressions
              |  INTEGER_LITERAL:c 
                  {:
+                    System.out.println("expression ::= INTEGER_LITERAL");
                     RESULT = new Constant(new Integer(c));
                  :}
              | expression:op1 SUM_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression SUM_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.SUM_OP);
                  :}
              | expression:op1 SUBS_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression SUBS_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.SUBS_OP);
                  :}
              | expression:op1 PROD_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression PROD_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.PROD_OP);
                  :}
              | expression:op1 DIV_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression DIV_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.DIV_OP);
                  :}
            
            // Bool expressions
              | BOOL_LITERAL:c
                  {:
+                    System.out.println("expression ::= BOOL_LITERAL");
                     RESULT = new Constant(new Boolean(c));
                  :}
              | expression:op1 OR_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression OR_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.OR_OP);
                  :}
              | expression:op1 AND_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression AND_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.AND_OP);
                  :}
              | NOT_OP expression:op1 
                  {:
+                    System.out.println("expression ::= NOT_OP expression");
                     RESULT = new UnaryOp(op1, UnaryOp.OpType.NOT_OP);
                  :}
              | expression:op1 EQ_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression EQ_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.EQ_OP);
                  :}
              | expression:op1 LT_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression LT_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.LT_OP);
                  :}
              | expression:op1 GT_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression GT_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.GT_OP);
                  :}
              | expression:op1 LET_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression LET_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.LET_OP);
                  :}
              | expression:op1 GET_OP expression:op2 
                  {:
+                    System.out.println("expression ::= expression GET_OP expression");
                     RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.GET_OP);
                  :}
              ;
