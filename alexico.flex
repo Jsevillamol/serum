@@ -89,11 +89,13 @@ BoolLiteral = "True" | "False"
 
 /* comments */
 
+// TODO: Comments eat newline character preventing proper separatos from being emmitted
+
 Comment = {TraditionalComment} | {EndOfLineComment}
 
-TraditionalComment   = "/*" [^*] ~"*/" {LineTerminator}? | "/*" "*"+ "/" {LineTerminator}?
+TraditionalComment   = "/*" [^*] ~"*/" {LineTerminator} | "/*" "*"+ "/" {LineTerminator}
 // Comment can be the last line of the file, without line terminator.
-EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
+EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
 
 InputCharacter = [^\r\n]
 CommentContent = ( [^*] | \*+ [^/*] )*
