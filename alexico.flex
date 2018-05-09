@@ -54,7 +54,7 @@ import java.util.*;
   		AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
   		Object result = alex.next_token();
   		do{
-  			//System.out.print(result.toString());
+  			//System.out.println(result.toString());
   			result = alex.next_token();
   		} while (true);
 
@@ -111,56 +111,56 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
 <YYINITIAL> {
   /* types */
-  "[]"                 { System.out.print(" [] "); return symbol(sym.T_ARRAY);}
+  "[]"                 { System.out.println(" [] "); return symbol(sym.T_ARRAY);}
  
   /* literals */
-  {DecIntegerLiteral}            { System.out.print(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());}
-  {BoolLiteral}                  { System.out.print(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());}
+  {DecIntegerLiteral}            { System.out.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());}
+  {BoolLiteral}                  { System.out.println(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());}
 
   //\"                           { string.setLength(0); yybegin(STRING); }
 
   /* operators */
-  "="                            { System.out.print(" = "); return symbol(sym.ASSIGN_OP); }
+  "="                            { System.out.println(" = "); return symbol(sym.ASSIGN_OP); }
 
-  "=="                           { System.out.print(" == "); return symbol(sym.EQ_OP); }
-  "<"                            { System.out.print(" < "); return symbol(sym.LT_OP);   }
-  ">"                            { System.out.print(" > "); return symbol(sym.GT_OP);   }
-  "<="                           { System.out.print(" <= "); return symbol(sym.LET_OP);  }
-  ">="                           { System.out.print(" >= "); return symbol(sym.GET_OP);  }
+  "=="                           { System.out.println(" == "); return symbol(sym.EQ_OP); }
+  "<"                            { System.out.println(" < "); return symbol(sym.LT_OP);   }
+  ">"                            { System.out.println(" > "); return symbol(sym.GT_OP);   }
+  "<="                           { System.out.println(" <= "); return symbol(sym.LET_OP);  }
+  ">="                           { System.out.println(" >= "); return symbol(sym.GET_OP);  }
 
-  "+"                            { System.out.print(" + "); return symbol(sym.SUM_OP);  }
-  "-"                            { System.out.print(" - "); return symbol(sym.SUBS_OP); }
-  "*"                            { System.out.print(" * "); return symbol(sym.PROD_OP);  }
-  "/"                            { System.out.print(" / "); return symbol(sym.DIV_OP);   }
+  "+"                            { System.out.println(" + "); return symbol(sym.SUM_OP);  }
+  "-"                            { System.out.println(" - "); return symbol(sym.SUBS_OP); }
+  "*"                            { System.out.println(" * "); return symbol(sym.PROD_OP);  }
+  "/"                            { System.out.println(" / "); return symbol(sym.DIV_OP);   }
 
   /* misc */
-  "["                            { System.out.print(" [ "); return symbol(sym.LBRACKET); }
-  "]"                            { System.out.print(" ] "); return symbol(sym.RBRACKET); }
+  "["                            { System.out.println(" [ "); return symbol(sym.LBRACKET); }
+  "]"                            { System.out.println(" ] "); return symbol(sym.RBRACKET); }
 
   /* identifiers */ 
   {Identifier}                   
   { 
   	// If the identifier is a recognized keyword, we emit a keyword token
   	if(keywords.containsKey(yytext())){
-  		System.out.print(" " + yytext() + " ");
+  		System.out.println(" " + yytext() + " ");
   	 	return symbol(keywords.get(yytext()));
   	} else {
-  		System.out.print(" id:" + yytext());
+  		System.out.println(" id:" + yytext());
   		return symbol(sym.IDENTIFIER, yytext()); 
   	}
   }
 
   /* instruction separators */
 
-  ";"                            { System.out.print(" ; "); return symbol(sym.SEPARATOR);   }
-  "{"                            { System.out.print(" { "); return symbol(sym.START_BLOCK); }
-  "}"                            { System.out.print(" } "); return symbol(sym.END_BLOCK);   }
+  ";"                            { System.out.println(" ; "); return symbol(sym.SEPARATOR);   }
+  "{"                            { System.out.println(" { "); return symbol(sym.START_BLOCK); }
+  "}"                            { System.out.println(" } "); return symbol(sym.END_BLOCK);   }
 
   {EmptyLine}			{ /* Empty lines are deleted*/ yypushback(1);}
 
   {LineTerminator}      { 	   
                             yybegin(NEWLINE);
-                            System.out.print(" ;\n");
+                            System.out.println(" ;\n");
                             
                             // We undo the matching of newline to handle the case where there are no spaces in the next line
                             yypushback(yylength()); 
@@ -189,14 +189,14 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
   		if (actual_column > indentation.peek()) {
   			indentation.push(actual_column);
-  			System.out.print(" { ");
+  			System.out.println(" { ");
   			yybegin(YYINITIAL);
   			return symbol(sym.START_BLOCK);
   		} 
 
   		else if (actual_column < indentation.peek()) {
   			indentation.pop();
-  			System.out.print(" } ");
+  			System.out.println(" } ");
   			yypushback(yylength()); // Undo the matching
   			return symbol(sym.END_BLOCK);
   		}

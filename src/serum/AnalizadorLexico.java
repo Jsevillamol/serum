@@ -390,7 +390,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   		AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
   		Object result = alex.next_token();
   		do{
-  			//System.out.print(result.toString());
+  			//System.out.println(result.toString());
   			result = alex.next_token();
   		} while (true);
 
@@ -778,7 +778,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         case 25: break;
         case 2: 
           { yybegin(NEWLINE);
-                            System.out.print(" ;\n");
+                            System.out.println(" ;\n");
                             
                             // We undo the matching of newline to handle the case where there are no spaces in the next line
                             yypushback(yylength()); 
@@ -793,64 +793,64 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         case 4: 
           { // If the identifier is a recognized keyword, we emit a keyword token
   	if(keywords.containsKey(yytext())){
-  		System.out.print(" " + yytext() + " ");
+  		System.out.println(" " + yytext() + " ");
   	 	return symbol(keywords.get(yytext()));
   	} else {
-  		System.out.print(" id:" + yytext());
+  		System.out.println(" id:" + yytext());
   		return symbol(sym.IDENTIFIER, yytext()); 
   	}
           }
         case 28: break;
         case 5: 
-          { System.out.print(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());
+          { System.out.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());
           }
         case 29: break;
         case 6: 
-          { System.out.print(" / "); return symbol(sym.DIV_OP);
+          { System.out.println(" / "); return symbol(sym.DIV_OP);
           }
         case 30: break;
         case 7: 
-          { System.out.print(" * "); return symbol(sym.PROD_OP);
+          { System.out.println(" * "); return symbol(sym.PROD_OP);
           }
         case 31: break;
         case 8: 
-          { System.out.print(" [ "); return symbol(sym.LBRACKET);
+          { System.out.println(" [ "); return symbol(sym.LBRACKET);
           }
         case 32: break;
         case 9: 
-          { System.out.print(" ] "); return symbol(sym.RBRACKET);
+          { System.out.println(" ] "); return symbol(sym.RBRACKET);
           }
         case 33: break;
         case 10: 
-          { System.out.print(" = "); return symbol(sym.ASSIGN_OP);
+          { System.out.println(" = "); return symbol(sym.ASSIGN_OP);
           }
         case 34: break;
         case 11: 
-          { System.out.print(" < "); return symbol(sym.LT_OP);
+          { System.out.println(" < "); return symbol(sym.LT_OP);
           }
         case 35: break;
         case 12: 
-          { System.out.print(" > "); return symbol(sym.GT_OP);
+          { System.out.println(" > "); return symbol(sym.GT_OP);
           }
         case 36: break;
         case 13: 
-          { System.out.print(" + "); return symbol(sym.SUM_OP);
+          { System.out.println(" + "); return symbol(sym.SUM_OP);
           }
         case 37: break;
         case 14: 
-          { System.out.print(" - "); return symbol(sym.SUBS_OP);
+          { System.out.println(" - "); return symbol(sym.SUBS_OP);
           }
         case 38: break;
         case 15: 
-          { System.out.print(" ; "); return symbol(sym.SEPARATOR);
+          { System.out.println(" ; "); return symbol(sym.SEPARATOR);
           }
         case 39: break;
         case 16: 
-          { System.out.print(" { "); return symbol(sym.START_BLOCK);
+          { System.out.println(" { "); return symbol(sym.START_BLOCK);
           }
         case 40: break;
         case 17: 
-          { System.out.print(" } "); return symbol(sym.END_BLOCK);
+          { System.out.println(" } "); return symbol(sym.END_BLOCK);
           }
         case 41: break;
         case 18: 
@@ -865,14 +865,14 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
 
   		if (actual_column > indentation.peek()) {
   			indentation.push(actual_column);
-  			System.out.print(" { ");
+  			System.out.println(" { ");
   			yybegin(YYINITIAL);
   			return symbol(sym.START_BLOCK);
   		} 
 
   		else if (actual_column < indentation.peek()) {
   			indentation.pop();
-  			System.out.print(" } ");
+  			System.out.println(" } ");
   			yypushback(yylength()); // Undo the matching
   			return symbol(sym.END_BLOCK);
   		}
@@ -887,23 +887,23 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
           }
         case 43: break;
         case 20: 
-          { System.out.print(" [] "); return symbol(sym.T_ARRAY);
+          { System.out.println(" [] "); return symbol(sym.T_ARRAY);
           }
         case 44: break;
         case 21: 
-          { System.out.print(" == "); return symbol(sym.EQ_OP);
+          { System.out.println(" == "); return symbol(sym.EQ_OP);
           }
         case 45: break;
         case 22: 
-          { System.out.print(" <= "); return symbol(sym.LET_OP);
+          { System.out.println(" <= "); return symbol(sym.LET_OP);
           }
         case 46: break;
         case 23: 
-          { System.out.print(" >= "); return symbol(sym.GET_OP);
+          { System.out.println(" >= "); return symbol(sym.GET_OP);
           }
         case 47: break;
         case 24: 
-          { System.out.print(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());
+          { System.out.println(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());
           }
         case 48: break;
         default: 
