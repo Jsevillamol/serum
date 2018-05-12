@@ -117,8 +117,6 @@ CommentContent = ( [^*] | \*+ [^/*] )*
   {DecIntegerLiteral}            { System.out.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());}
   {BoolLiteral}                  { System.out.println(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());}
 
-  //\"                           { string.setLength(0); yybegin(STRING); }
-
   /* operators */
   "="                            { System.out.println(" = "); return symbol(sym.ASSIGN_OP); }
 
