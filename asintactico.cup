@@ -65,7 +65,7 @@ terminal String    INTEGER_LITERAL, BOOL_LITERAL;
 terminal           ASSIGN_OP;
 terminal           EQ_OP, LT_OP, GT_OP, LET_OP, GET_OP, SUM_OP, SUBS_OP, PROD_OP, DIV_OP, AND_OP, OR_OP, NOT_OP;
 terminal           LPAREN, RPAREN, LBRACKET, RBRACKET;
-terminal           START_BLOCK, END_BLOCK, SEPARATOR;
+terminal           START_BLOCK, END_BLOCK;
    
 /* No terminales usados en la seccion gramatical. 
 
@@ -104,57 +104,22 @@ statements ::= statement:s
                     System.out.println("statements ::= statement");
                     RESULT = new InstructionList(s);
                 :}
-             | statement:s SEPARATOR
+             | statement:s statements:ss 
                 {:
-                    System.out.println("statements ::= statement SEPARATOR");
-                    RESULT = new InstructionList(s);
-                :}
-             | SEPARATOR // Empty statement
-                {:
-                    System.out.println("statements ::= SEPARATOR");
-                    RESULT = new InstructionList();
-                :}
-             | statement:s SEPARATOR statements:ss 
-                {:
-                    System.out.println("statements ::= statement SEPARATOR statements");
+                    System.out.println("statements ::= statement statements");
                     RESULT = new InstructionList(s, ss);
                 :}
              ;
 
-statement  ::= IF expression:e SEPARATOR statement:s
-                {:
-                    System.out.println("statement ::= IF expression SEPARATOR statement");
-                    RESULT = new IfSentence(e, s);
-                :}
-             | IF expression:e statement:s
+statement  ::= IF expression:e statement:s
                 {:
                     System.out.println("statement ::= IF expression statement");
                     RESULT = new IfSentence(e, s);
-                :}
-             | IF expression:e SEPARATOR then_statement:then ELSE SEPARATOR statement:els 
-                {:
-                    System.out.println("statement ::= IF expression SEPARATOR then_statement ELSE SEPARATOR statement");
-                    RESULT = new IfElseSentence(e, then, els);
-                :}
-             | IF expression:e then_statement:then ELSE SEPARATOR statement:els 
-                {:
-                    System.out.println("statement ::= IF expression then_statement ELSE SEPARATOR statement");
-                    RESULT = new IfElseSentence(e, then, els);
-                :}
-             | IF expression:e SEPARATOR then_statement:then ELSE statement:els 
-                {:
-                    System.out.println("statement ::= IF expression SEPARATOR then_statement ELSE statement");
-                    RESULT = new IfElseSentence(e, then, els);
                 :}
              | IF expression:e then_statement:then ELSE statement:els 
                 {:
                     System.out.println("statement ::= IF expression then_statement ELSE statement");
                     RESULT = new IfElseSentence(e, then, els);
-                :}
-             | WHILE expression:e SEPARATOR statement:s
-                {:
-                    System.out.println("statement ::= WHILE expression SEPARATOR statement");
-                    RESULT = new WhileSentence(e, s);
                 :}
              | WHILE expression:e statement:s
                 {:
@@ -168,30 +133,10 @@ statement  ::= IF expression:e SEPARATOR statement:s
                 :}
              ;
 
-then_statement ::= IF expression:e SEPARATOR then_statement:then ELSE SEPARATOR then_statement:els 
-                      {:
-                          System.out.println("then_statement ::= IF expression SEPARATOR then_statement ELSE SEPARATOR then_statement");
-                          RESULT = new IfElseSentence(e, then, els);
-                      :}
-                   | IF expression:e then_statement:then ELSE SEPARATOR then_statement:els 
-                      {:
-                          System.out.println("then_statement ::= IF expression then_statement ELSE SEPARATOR then_statement");
-                          RESULT = new IfElseSentence(e, then, els);
-                      :}
-                   | IF expression:e SEPARATOR then_statement:then ELSE then_statement:els 
-                      {:
-                          System.out.println("then_statement ::= IF expression SEPARATOR then_statement ELSE then_statement");
-                          RESULT = new IfElseSentence(e, then, els);
-                      :}
-                   | IF expression:e then_statement:then ELSE then_statement:els 
+then_statement ::= IF expression:e then_statement:then ELSE then_statement:els 
                       {:
                           System.out.println("then_statement ::= IF expression then_statement ELSE then_statement");
                           RESULT = new IfElseSentence(e, then, els);
-                      :}
-                   | WHILE expression:e SEPARATOR then_statement:s
-                      {:
-                          System.out.println("then_statement ::= WHILE expression SEPARATOR then_statement");
-                          RESULT = new WhileSentence(e, s);
                       :}
                    | WHILE expression:e then_statement:s
                       {:

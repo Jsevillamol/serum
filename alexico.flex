@@ -89,8 +89,6 @@ BoolLiteral = "True" | "False"
 
 /* comments */
 
-// TODO: Comments eat newline character preventing proper separatos from being emmitted
-
 Comment = {TraditionalComment} | {EndOfLineComment}
 
 TraditionalComment   = "/*" [^*] ~"*/" {LineTerminator} | "/*" "*"+ "/" {LineTerminator}
@@ -154,7 +152,7 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
   /* instruction separators */
 
-  ";"                            { System.out.println(" ; "); return symbol(sym.SEPARATOR);   }
+  ";"                            { /* ignore */   }
   "{"                            { System.out.println(" { "); return symbol(sym.START_BLOCK); }
   "}"                            { System.out.println(" } "); return symbol(sym.END_BLOCK);   }
 
@@ -162,12 +160,10 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
   {LineTerminator}      { 	   
                             yybegin(NEWLINE);
-                            System.out.println(" ;\n");
                             
                             // We undo the matching of newline to handle the case where there are no spaces in the next line
                             yypushback(yylength()); 
 
-                            return symbol(sym.SEPARATOR);
                         }
 
   {InstructionSplit}		 	 { /* ignore */ }
@@ -208,19 +204,6 @@ CommentContent = ( [^*] | \*+ [^/*] )*
   		}
   }
 }
-
-/*<STRING> {
-  \"                             { yybegin(YYINITIAL); 
-                                   return symbol(sym.STRING_LITERAL, 
-                                   string.toString()); }
-  [^\n\r\"\\]+                   { string.append( yytext() ); }
-  \\t                            { string.append('\t'); }
-  \\n                            { string.append('\n'); }
-
-  \\r                            { string.append('\r'); }
-  \\\"                           { string.append('\"'); }
-  \\                             { string.append('\\'); }
-}*/
 
 /* error fallback */
 [^]                              { throw new Error("Illegal character <"+
