@@ -52,11 +52,12 @@ import java.util.*;
   	
   	try {
   		AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
-  		Object result = alex.next_token();
+  		Symbol result = alex.next_token();
+  		
   		do{
-  			//System.out.println(result.toString());
+  			//System.out.println(result.class);
   			result = alex.next_token();
-  		} while (true);
+  		} while (result.sym != 0);
 
   	} catch (Exception ex){
   		ex.printStackTrace();
@@ -99,7 +100,6 @@ InputCharacter = [^\r\n]
 CommentContent = ( [^*] | \*+ [^/*] )*
 
 %state NEWLINE
-// %state STRING
 
 %%
 /* This code will be executed each time `yylex` is called, before
