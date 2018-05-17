@@ -9,26 +9,40 @@ package serum;
  *
  * @author jsevillamol
  */
-public class Type {
-    private BasicType baseType;
-    private int indirectionLevel;
+public abstract class Type {
     
-    public Type(BasicType baseType, int indirectionLevel){
-        this.baseType = baseType;
-        this.indirectionLevel = indirectionLevel;
+    public final static Type TBool = new BasicType.TBool();
+    public final static Type TInt = new BasicType.TInt();
+    
+    public final static ArrayType array(Type baseType, int dim){
+        return new ArrayType(baseType, dim);
     }
     
-    public Type reference(){
-        return new Type(this.baseType, this.indirectionLevel + 1);
+    public abstract Type dereference();
+    
+    public abstract static class BasicType extends Type{
+        public static class TBool extends BasicType{}
+        public static class TInt extends BasicType{}
+        
+        public Type dereference(){
+            throw new UnsupportedOperationException("Basic types cannot be dereferenced");
+        }
     }
     
-    public Type dereference(){
-        if (this.indirectionLevel == 0) throw new UnsupportedOperationException("Basic types cannot be derefenced");
-        return new Type(this.baseType, this.indirectionLevel - 1);
+    
+    public static class ArrayType extends Type{
+        
+        private final Type baseType;
+        private final int dim;
+        
+        ArrayType(Type baseType, int dim){
+            this.baseType = baseType;
+            this.dim = dim;
+        }
+        
+        public Type dereference(){
+            return baseType;
+        }
+    
     }
-    
-    public enum BasicType {T_INT, T_BOOL};
-    
-    public static final Type TBool = new Type(BasicType.T_BOOL, 0);
-    public static final Type TInt = new Type(BasicType.T_INT, 0);
 }

@@ -38,9 +38,9 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
    */
   private static final String ZZ_CMAP_PACKED = 
     "\11\6\1\3\1\2\1\0\1\3\1\1\16\6\4\0\1\3\3\0"+
-    "\1\5\5\0\1\22\1\30\1\0\1\31\1\0\1\21\1\7\11\10"+
-    "\1\0\1\32\1\26\1\25\1\27\2\0\5\5\1\15\15\5\1\11"+
-    "\6\5\1\23\1\4\1\24\1\0\1\5\1\0\1\16\3\5\1\14"+
+    "\1\5\5\0\1\22\1\26\1\0\1\27\1\0\1\21\1\7\11\10"+
+    "\1\0\1\32\1\24\1\23\1\25\2\0\5\5\1\15\15\5\1\11"+
+    "\6\5\1\30\1\4\1\31\1\0\1\5\1\0\1\16\3\5\1\14"+
     "\6\5\1\17\5\5\1\12\1\20\1\5\1\13\5\5\1\33\1\0"+
     "\1\34\1\0\41\6\2\0\4\5\4\0\1\5\2\0\1\6\7\0"+
     "\1\5\4\0\1\5\5\0\27\5\1\0\37\5\1\0\u01ca\5\4\0"+
@@ -163,11 +163,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\2\0\1\1\2\2\1\3\1\1\1\4\2\5\2\4"+
     "\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15"+
     "\1\16\1\17\1\20\2\21\2\22\1\0\1\22\2\3"+
-    "\1\0\2\4\2\0\1\23\1\24\1\25\1\26\2\4"+
-    "\1\3\2\0\1\27\2\0";
+    "\1\0\2\4\2\0\1\23\1\24\1\25\2\4\1\3"+
+    "\2\0\1\26\2\0";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[48];
+    int [] result = new int[47];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -193,14 +193,14 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\35\0\72\0\127\0\164\0\72\0\221\0\256"+
-    "\0\72\0\313\0\350\0\u0105\0\u0122\0\72\0\u013f\0\72"+
-    "\0\u015c\0\u0179\0\u0196\0\72\0\72\0\72\0\72\0\u01b3"+
-    "\0\u01d0\0\u01ed\0\164\0\164\0\72\0\u020a\0\u0227\0\221"+
-    "\0\u0244\0\u0261\0\u027e\0\u029b\0\72\0\72\0\72\0\72"+
-    "\0\u02b8\0\u02d5\0\u02f2\0\u030f\0\u032c\0\256\0\u0349\0\u0366";
+    "\0\72\0\313\0\350\0\u0105\0\u0122\0\72\0\u013f\0\u015c"+
+    "\0\u0179\0\72\0\72\0\72\0\72\0\72\0\72\0\u0196"+
+    "\0\u01b3\0\u01d0\0\164\0\164\0\72\0\u01ed\0\u020a\0\221"+
+    "\0\u0227\0\u0244\0\u0261\0\u027e\0\72\0\72\0\72\0\u029b"+
+    "\0\u02b8\0\u02d5\0\u02f2\0\u030f\0\256\0\u032c\0\u0349";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[48];
+    int [] result = new int[47];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -230,17 +230,17 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\1\34\32\0\1\32\1\35\1\34\32\0\1\36\1\37"+
     "\1\40\36\0\14\10\23\0\2\12\31\0\5\10\1\41"+
     "\6\10\21\0\11\10\1\42\2\10\35\0\1\43\1\44"+
-    "\36\0\1\45\35\0\1\46\34\0\1\47\34\0\1\50"+
-    "\11\0\2\31\34\0\1\31\33\0\1\35\34\0\2\37"+
-    "\34\0\1\37\36\0\6\10\1\51\5\10\21\0\12\10"+
-    "\1\52\1\10\14\0\1\43\1\53\1\6\32\43\22\54"+
-    "\1\55\12\54\5\0\7\10\1\56\4\10\21\0\13\10"+
-    "\1\51\16\0\1\6\32\0\22\54\1\57\12\54\21\0"+
-    "\1\60\1\55\12\0\21\54\1\60\1\57\12\54\1\0"+
-    "\1\53\1\6\32\0";
+    "\35\0\1\45\34\0\1\46\34\0\1\47\13\0\2\31"+
+    "\34\0\1\31\33\0\1\35\34\0\2\37\34\0\1\37"+
+    "\36\0\6\10\1\50\5\10\21\0\12\10\1\51\1\10"+
+    "\14\0\1\43\1\52\1\6\32\43\22\53\1\54\12\53"+
+    "\5\0\7\10\1\55\4\10\21\0\13\10\1\50\16\0"+
+    "\1\6\32\0\22\53\1\56\12\53\21\0\1\57\1\54"+
+    "\12\0\21\53\1\57\1\56\12\53\1\0\1\52\1\6"+
+    "\32\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[899];
+    int [] result = new int[870];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -279,11 +279,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\2\0\1\11\2\1\1\11\2\1\1\11\4\1\1\11"+
-    "\1\1\1\11\3\1\4\11\4\1\1\0\1\11\2\1"+
-    "\1\0\2\1\2\0\4\11\3\1\2\0\1\1\2\0";
+    "\3\1\6\11\4\1\1\0\1\11\2\1\1\0\2\1"+
+    "\2\0\3\11\3\1\2\0\1\1\2\0";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[48];
+    int [] result = new int[47];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -774,18 +774,18 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
           { throw new Error("Illegal character <"+
                                                     yytext()+">");
           }
-        case 24: break;
+        case 23: break;
         case 2: 
           { yybegin(NEWLINE);
                             
                             // We undo the matching of newline to handle the case where there are no spaces in the next line
                             yypushback(yylength());
           }
-        case 25: break;
+        case 24: break;
         case 3: 
           { /* ignore */
           }
-        case 26: break;
+        case 25: break;
         case 4: 
           { // If the identifier is a recognized keyword, we emit a keyword token
   	if(keywords.containsKey(yytext())){
@@ -796,55 +796,55 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   		return symbol(sym.IDENTIFIER, yytext()); 
   	}
           }
-        case 27: break;
+        case 26: break;
         case 5: 
           { System.out.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());
           }
-        case 28: break;
+        case 27: break;
         case 6: 
           { System.out.println(" / "); return symbol(sym.DIV_OP);
           }
-        case 29: break;
+        case 28: break;
         case 7: 
           { System.out.println(" * "); return symbol(sym.PROD_OP);
           }
-        case 30: break;
+        case 29: break;
         case 8: 
-          { System.out.println(" [ "); return symbol(sym.LBRACKET);
-          }
-        case 31: break;
-        case 9: 
-          { System.out.println(" ] "); return symbol(sym.RBRACKET);
-          }
-        case 32: break;
-        case 10: 
           { System.out.println(" = "); return symbol(sym.ASSIGN_OP);
           }
-        case 33: break;
-        case 11: 
+        case 30: break;
+        case 9: 
           { System.out.println(" < "); return symbol(sym.LT_OP);
           }
-        case 34: break;
-        case 12: 
+        case 31: break;
+        case 10: 
           { System.out.println(" > "); return symbol(sym.GT_OP);
           }
-        case 35: break;
-        case 13: 
+        case 32: break;
+        case 11: 
           { System.out.println(" + "); return symbol(sym.SUM_OP);
           }
-        case 36: break;
-        case 14: 
+        case 33: break;
+        case 12: 
           { System.out.println(" - "); return symbol(sym.SUBS_OP);
           }
-        case 37: break;
+        case 34: break;
+        case 13: 
+          { System.out.println(" [ "); return symbol(sym.LBRACKET);
+          }
+        case 35: break;
+        case 14: 
+          { System.out.println(" ] "); return symbol(sym.RBRACKET);
+          }
+        case 36: break;
         case 15: 
           { System.out.println(" { "); return symbol(sym.START_BLOCK);
           }
-        case 38: break;
+        case 37: break;
         case 16: 
           { System.out.println(" } "); return symbol(sym.END_BLOCK);
           }
-        case 39: break;
+        case 38: break;
         case 17: 
           { // This should match the empty string!
   		//System.out.println("I have consumed your delicious whitespace");
@@ -873,31 +873,27 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   			yybegin(YYINITIAL);
   		}
           }
-        case 40: break;
+        case 39: break;
         case 18: 
           { /* Empty lines are deleted*/ yypushback(1);
           }
-        case 41: break;
+        case 40: break;
         case 19: 
-          { System.out.println(" [] "); return symbol(sym.T_ARRAY);
-          }
-        case 42: break;
-        case 20: 
           { System.out.println(" == "); return symbol(sym.EQ_OP);
           }
-        case 43: break;
-        case 21: 
+        case 41: break;
+        case 20: 
           { System.out.println(" <= "); return symbol(sym.LET_OP);
           }
-        case 44: break;
-        case 22: 
+        case 42: break;
+        case 21: 
           { System.out.println(" >= "); return symbol(sym.GET_OP);
           }
-        case 45: break;
-        case 23: 
+        case 43: break;
+        case 22: 
           { System.out.println(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());
           }
-        case 46: break;
+        case 44: break;
         default: 
           if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
             zzAtEOF = true;

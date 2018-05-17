@@ -57,7 +57,7 @@ parser code {:
 
    Terminales que no tienen un valor son listados primero, los terminales que
    tienen un valor como los enteros son listados en la segunda o demas lineas. */
-terminal           T_INT, T_BOOL, T_ARRAY;
+terminal           T_INT, T_BOOL;
 terminal           IF, ELSE, WHILE;
 terminal String    IDENTIFIER;
 terminal String    INTEGER_LITERAL, BOOL_LITERAL;
@@ -201,10 +201,10 @@ type       ::= T_INT
                     System.out.println("type ::= T_BOOL");
                     RESULT = Type.TBool;
                  :}
-             | type:t T_ARRAY 
+             | type:t LBRACKET INTEGER_LITERAL:dim RBRACKET
                  {:
                     System.out.println("type ::= type T_ARRAY");
-                    RESULT = t.reference();
+                    RESULT = Type.array(t, new Integer(dim));
                  :}
              ;
 

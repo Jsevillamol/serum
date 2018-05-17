@@ -110,8 +110,6 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
 
 <YYINITIAL> {
-  /* types */
-  "[]"                 { System.out.println(" [] "); return symbol(sym.T_ARRAY);}
  
   /* literals */
   {DecIntegerLiteral}            { System.out.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());}
