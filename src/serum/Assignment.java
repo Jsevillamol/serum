@@ -25,7 +25,16 @@ public class Assignment extends Instruction {
 
     @Override
     public Boolean typeCheck() {
-        return lhs.getType().equals(rhs.getType()) && lhs.typeCheck() && rhs.typeCheck();
+        Boolean res = lhs.typeCheck() && rhs.typeCheck();
+        if (!(lhs.getType().equals(rhs.getType()))){
+            System.out.println(
+                    "Type error. lhs and rhs types of assignment in line " 
+                    + row + " do not match. "
+                    + " lhs type=" + lhs.getType()
+                    + " rhs type=" + rhs.getType());
+            res = false;
+        }
+        return res;
     }
     
     

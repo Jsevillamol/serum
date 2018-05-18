@@ -29,6 +29,19 @@ public class ArrayAccess extends Variable {
 
     @Override
     public Boolean typeCheck() {
-        return index.equals(Type.TInt) && index.typeCheck(); 
+        Boolean res = index.typeCheck();
+        if (!(reference.getType() instanceof Type.ArrayType)){
+            System.out.println(
+                    "Type error. Expected ArrayType for array access reference in line " 
+                    + row + ", " + reference.getType() + " received");
+            res = false;
+        }
+        if (!index.getType().equals(Type.TInt)){
+            System.out.println(
+                    "Type error. Expected TInt for array access index in line " 
+                    + row + ", " + reference.getType() + " received");
+            res = false;
+        }
+        return res; 
     }
 }

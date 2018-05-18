@@ -25,6 +25,13 @@ public class IfSentence extends Instruction {
 
     @Override
     public Boolean typeCheck() {
-        return condition.getType().equals(Type.TBool) && condition.typeCheck() && conditional.typeCheck();
+        Boolean res = condition.typeCheck() && conditional.typeCheck();
+        if (!condition.getType().equals(Type.TBool)){
+            System.out.println(
+                    "Type error. Expected TBool for if condition in line " 
+                    + row + ", " + condition.getType() + " received");
+            res = false;
+        }
+        return res;
     }
 }

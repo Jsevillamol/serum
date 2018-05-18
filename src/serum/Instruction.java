@@ -11,4 +11,11 @@ package serum;
  */
 public abstract class Instruction implements ASTNode {
     
+    protected int row, col;
+    
+    public void setRowAndCol(int row, int col){
+        this.row = row;
+        this.col = col;
+    }
+    
 }

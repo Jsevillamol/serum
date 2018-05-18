@@ -12,4 +12,6 @@ package serum;
 public interface ASTNode {
     String toCode();
     Boolean typeCheck();
+    
+    void setRowAndCol(int row, int col);
 }

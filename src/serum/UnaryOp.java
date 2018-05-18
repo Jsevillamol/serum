@@ -39,9 +39,21 @@ public class UnaryOp extends Expression {
     public Boolean typeCheck() {
         switch(opType){
             case NOT_OP:
-                return op1.getType().equals(Type.TBool);
+                if (!op1.equals(Type.TBool)){
+                    System.out.println(
+                        "Type error. Expected TBool for operand of unary operator in line " 
+                         + row + ", " + op1.getType() + " received");
+                    return false;
+                } 
+                return true;
             case NEG_OP:
-                return op1.getType().equals(Type.TInt);
+                if (!op1.equals(Type.TInt)){
+                    System.out.println(
+                        "Type error. Expected TBool for operand of unary operator in line " 
+                         + row + ", " + op1.getType() + " received");
+                    return false;
+                } 
+                return true;
             default:
                 throw new UnsupportedOperationException("OP not supported yet.");
         }

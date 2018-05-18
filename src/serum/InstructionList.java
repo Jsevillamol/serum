@@ -38,7 +38,7 @@ public class InstructionList extends Instruction {
     public Boolean typeCheck() {
         Boolean aux = true;
         for(Instruction ins : instructions){
-            aux = aux && ins.typeCheck();
+            aux = ins.typeCheck() && aux;
         }
         return aux;
     }

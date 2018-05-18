@@ -20,7 +20,16 @@ public class Initialization extends Declaration {
     
     @Override
     public Boolean typeCheck() {
-        return rhs.getType().equals(type) && rhs.typeCheck();
+        Boolean res = rhs.typeCheck();
+        if (!type.equals(rhs.getType())){
+            System.out.println(
+                    "Type error. Type declaration and rhs types of initialization in line " 
+                    + row + " do not match. "
+                    + " type declaration=" + this.type
+                    + " rhs type=" + rhs.getType());
+            res = false;
+        }
+        return res;
     }
 
     @Override

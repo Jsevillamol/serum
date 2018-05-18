@@ -25,6 +25,13 @@ public class WhileSentence extends Instruction {
 
     @Override
     public Boolean typeCheck() {
-        return condition.getType().equals(Type.TBool) && condition.typeCheck() && body.typeCheck();
+        Boolean res = condition.typeCheck() && body.typeCheck();
+        if (!condition.getType().equals(Type.TBool)){
+            System.out.println(
+                    "Type error. Expected TBool for while condition in line " 
+                    + row + ", " + condition.getType() + " received");
+            res = false;
+        }
+        return res;
     }
 }
