@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class Declaration extends Instruction implements ASTNode, Typable {
     private String id;
-    private Type type;
+    protected Type type;
 
 
-    int address;
+    private int address;
     
     public Declaration(Type type, String id){
         this.id = id;
@@ -40,4 +40,7 @@ public class Declaration extends Instruction implements ASTNode, Typable {
 
     @Override
     public List<PInstruction> toCode() {return new LinkedList<>();}
+
+    @Override
+    public void identifiers(IdTable idTable) { address = idTable.insertDeclaration(this); }
 }

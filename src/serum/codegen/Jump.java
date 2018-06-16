@@ -17,15 +17,12 @@ public class Jump extends PInstruction {
     }
 
     @Override
-    public  int getPosition(){return 0;}
-
-    @Override
     public String toString() {
         String string;
         if (conditional)
-            string = "ujp ";
-        else
             string = "fjp ";
+        else
+            string = "ujp ";
         int position = instruction.getPosition();
         if (!toThisInstruction) position++;
         return string + position + ";\n";

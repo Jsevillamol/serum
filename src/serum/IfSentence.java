@@ -16,19 +16,19 @@ import java.util.List;
  */
 public class IfSentence extends Instruction {
     private Expression condition;
-    private Instruction conditional;
+    private Instruction body;
     
     public IfSentence(Expression condition, Instruction conditional){
         this.condition = condition;
-        this.conditional = conditional;
+        this.body = conditional;
     }
 
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> code = condition.toCode();
-        List<PInstruction> ifCode = conditional.toCode();
+        List<PInstruction> ifCode = body.toCode();
         code.add(new Jump(ifCode.get(ifCode.size()-1),
-                          true/*conditional*/,
+                          true/*condicional*/,
                           false/*a la instruccion que sigue a la dada*/));
         code.addAll(ifCode);
         return code;
@@ -36,7 +36,7 @@ public class IfSentence extends Instruction {
 
     @Override
     public Boolean typeCheck() {
-        Boolean res = condition.typeCheck() && conditional.typeCheck();
+        Boolean res = condition.typeCheck() && body.typeCheck();
         if (!condition.getType().equals(Type.TBool)){
             System.out.println(
                     "Type error. Expected TBool for if condition in line " 
@@ -44,5 +44,11 @@ public class IfSentence extends Instruction {
             res = false;
         }
         return res;
+    }
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        condition.identifiers(idTable);
+        body.identifiers(idTable);
     }
 }

@@ -53,4 +53,9 @@ public class UnaryOp extends Expression {
         }
         return true;
     }
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        expression.identifiers(idTable);
+    }
 }

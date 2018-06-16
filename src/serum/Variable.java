@@ -5,6 +5,7 @@
  */
 package serum;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import serum.codegen.Indirection;
 import serum.codegen.LoadConstant;
 import serum.codegen.PInstruction;
@@ -18,16 +19,14 @@ import java.util.List;
  */
 public class Variable extends Expression {
     protected String id;
-    protected Declaration reference;
+    protected Declaration declaration;
     
     public Variable(String id){
         this.id = id;
     }
     
-    public void setDeclaration(Declaration declaration) { this.reference = declaration; }
-    
     @Override
-    public Type getType(){ return reference.getType(); }
+    public Type getType(){ return declaration.getType(); }
 
     @Override
     public List<PInstruction> toCode() {
@@ -38,7 +37,7 @@ public class Variable extends Expression {
 
     public List<PInstruction> toCodeL() {
         List<PInstruction> code = new LinkedList<>();
-        code.add(new LoadConstant(reference.getAddress()));
+        code.add(new LoadConstant(declaration.getAddress()));
         return code;
     }
 
@@ -46,4 +45,7 @@ public class Variable extends Expression {
     public Boolean typeCheck() {
         return true; 
     }
+
+    @Override
+    public void identifiers(IdTable idTable) { declaration = idTable.searchID(id); }
 }

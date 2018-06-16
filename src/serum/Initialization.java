@@ -45,6 +45,12 @@ public class Initialization extends Declaration {
         code.add(new LoadConstant(this.getAddress()));
         code.addAll(rhs.toCode());
         code.add(new Store());
-        return null;
+        return code;
+    }
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        rhs.identifiers(idTable);
+        super.identifiers(idTable);
     }
 }

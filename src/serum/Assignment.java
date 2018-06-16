@@ -28,7 +28,7 @@ public class Assignment extends Instruction {
         List<PInstruction> code = lhs.toCodeL();
         code.addAll(rhs.toCode());
         code.add(new Store());
-        return null;
+        return code;
     }
 
     @Override
@@ -44,6 +44,12 @@ public class Assignment extends Instruction {
         }
         return res;
     }
-    
-    
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        lhs.identifiers(idTable);
+        rhs.identifiers(idTable);
+    }
+
+
 }

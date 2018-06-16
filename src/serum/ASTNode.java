@@ -20,4 +20,6 @@ public interface ASTNode {
     Boolean typeCheck();
     
     void setRowAndCol(int row, int col);
+
+    void identifiers(IdTable idTable);
 }

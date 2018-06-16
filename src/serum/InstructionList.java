@@ -11,20 +11,15 @@ import java.util.List;
  * @author jsevillamol
  */
 public class InstructionList extends Instruction {
-    private List<Instruction> instructions;
-    
-    public InstructionList(){
-        this.instructions = new ArrayList<>();
-    }
+    private List<Instruction> instructions = new ArrayList<>();
     
     public InstructionList(Instruction instruction){
-        this.instructions = new ArrayList<>();
         instructions.add(instruction);
     }
     
     public InstructionList(Instruction instruction, InstructionList instructionList){
-        this.instructions = instructionList.instructions;
-        this.instructions.add(instruction);
+        instructions.add(instruction);
+        this.instructions.addAll(instructionList.instructions);
     }
 
     /**
@@ -47,5 +42,14 @@ public class InstructionList extends Instruction {
             tipoCorrecto = instruction.typeCheck() && tipoCorrecto;
         }
         return tipoCorrecto;
+    }
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        //Cada lista de instrucciones es un ambito
+        idTable.openBlock();
+        for (ASTNode node : instructions)
+            node.identifiers(idTable);
+        idTable.closeBlock();
     }
 }

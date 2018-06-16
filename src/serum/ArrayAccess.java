@@ -41,7 +41,7 @@ public class ArrayAccess extends Variable {
         Boolean res = index.typeCheck();
         if (!(reference.getType() instanceof Type.ArrayType)){
             System.out.println(
-                    "Type error. Expected ArrayType for array access reference in line " 
+                    "Type error. Expected ArrayType for array access declaration in line "
                     + row + ", " + reference.getType() + " received");
             res = false;
         }
@@ -52,5 +52,11 @@ public class ArrayAccess extends Variable {
             res = false;
         }
         return res; 
+    }
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        reference.identifiers(idTable);
+        index.identifiers(idTable);
     }
 }

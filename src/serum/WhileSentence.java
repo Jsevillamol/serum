@@ -27,13 +27,14 @@ public class WhileSentence extends Instruction {
     public List<PInstruction> toCode() {
         List<PInstruction> code = condition.toCode();
         List<PInstruction> bodyCode = body.toCode();
-        code.add(new Jump(bodyCode.get(bodyCode.size()-1),
+        PInstruction ujp = new Jump(code.get(0),
+                false/*incondicional*/,
+                true /*salto a la instruccion dada*/);
+        code.add(new Jump(ujp,
                 true /*condicional*/,
                 false/*salto a la instruccion que sigue a la dada*/));
         code.addAll(bodyCode);
-        code.add(new Jump(code.get(0),
-                false/*incondicional*/,
-                true /*salto a la instruccion dada*/));
+        code.add(ujp);
         return code;
     }
 
@@ -47,5 +48,11 @@ public class WhileSentence extends Instruction {
             res = false;
         }
         return res;
+    }
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        condition.identifiers(idTable);
+        body.identifiers(idTable);
     }
 }

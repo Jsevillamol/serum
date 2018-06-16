@@ -53,4 +53,7 @@ public class Constant extends Expression{
     public Boolean typeCheck() {
         return true;
     }
+
+    @Override
+    public void identifiers(IdTable idTable) {}
 }

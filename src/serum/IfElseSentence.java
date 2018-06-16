@@ -51,4 +51,11 @@ public class IfElseSentence extends Instruction{
         }
         return res;
     }
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        condition.identifiers(idTable);
+        ifBranch.identifiers(idTable);
+        elseBranch.identifiers(idTable);
+    }
 }

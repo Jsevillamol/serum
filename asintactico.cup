@@ -3,8 +3,7 @@
 /* ---------------Seccion de declaraciones preliminares--------------------*/
 package serum;
 
-/* Import the class java_cup.runtime.*  */
-import java_cup.runtime.*;
+
 import java.io.FileReader;
    
 /* Codigo del parser, se copia integramente a la clase final.
@@ -41,9 +40,17 @@ parser code {:
         try {
             AnalizadorSintactico asin = new AnalizadorSintactico(
                     new AnalizadorLexico( new FileReader(args[0])));
-            InstructionList result = (InstructionList) asin.parse().value;
+            ASTNode result = (ASTNode) asin.parse().value;
             System.out.println("\n*** Resultados finales ***");//TODO: esto nos lo podemos ahorrar
-            result.toCode().toString();
+            //StringBuilder str = new StringBuilder();
+            result.identifiers(new IdTable());
+            result.typeCheck();
+            int i = 0;
+            java.util.List<serum.codegen.PInstruction> code = result.toCode();
+            for (serum.codegen.PInstruction pinstruction : code)
+                pinstruction.setPosition(i++);
+            for (serum.codegen.PInstruction pinstruction : code)
+                System.out.print(pinstruction.toString());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -75,7 +82,7 @@ terminal           START_BLOCK, END_BLOCK;
    no tienen tipo, pudiendo ser entero o String. */
 non terminal InstructionList statements;
 non terminal Instruction statement, then_statement, non_if_statement; // Top level structure
-non terminal Instruction declaration, assignment;                                 // Variable manip statements
+non terminal Instruction declaration, assignment;                     // Variable manip statements
 non terminal Type        type; 
 non terminal Expression  expression; 
 non terminal Variable    variable;                             
@@ -258,7 +265,7 @@ expression ::= variable:v
              | expression:op1 SUM_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression SUM_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OperationType.SUM_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.SUM_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 SUBS_OP expression:op2 

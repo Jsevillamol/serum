@@ -88,4 +88,10 @@ public class BinaryOp extends Expression {
         }
         return res;
     }
+
+    @Override
+    public void identifiers(IdTable idTable) {
+        op1.identifiers(idTable);
+        op2.identifiers(idTable);
+    }
 }
