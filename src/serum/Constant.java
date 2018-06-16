@@ -5,13 +5,19 @@
  */
 package serum;
 
+import serum.codegen.LoadConstant;
+import serum.codegen.PInstruction;
+
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
  */
 public class Constant extends Expression{
     Type type;
-    Object value;
+    private Object value;
     
     Constant(Type type, Object value){
         this.type = type;
@@ -32,8 +38,15 @@ public class Constant extends Expression{
     }
 
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<PInstruction> toCode() {
+        List<PInstruction> code = new LinkedList<>();
+        if (value instanceof Integer)
+            code.add(new LoadConstant((Integer) value));
+        else if (value instanceof Boolean)
+            code.add(new LoadConstant((Boolean) value));
+        else
+            System.out.println("Constant value not an Integer or Boolean.");
+        return code;
     }
 
     @Override

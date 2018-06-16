@@ -5,6 +5,11 @@
  */
 package serum;
 
+import serum.codegen.IndexArray;
+import serum.codegen.PInstruction;
+
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
@@ -23,8 +28,12 @@ public class ArrayAccess extends Variable {
     public Type getType(){ return this.reference.getType().dereference(); }
 
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<PInstruction> toCodeL() {
+        List<PInstruction> code = reference.toCodeL();
+        code.addAll(index.toCode());
+        code.add(new IndexArray(reference.getType().getSize()));
+        //Los arrays empiezan por 0, no hay necesidad de decrementar.
+        return code;
     }
 
     @Override

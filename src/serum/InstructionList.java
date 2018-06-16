@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serum;
 
+import serum.codegen.PInstruction;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,11 +14,11 @@ public class InstructionList extends Instruction {
     private List<Instruction> instructions;
     
     public InstructionList(){
-        this.instructions = new ArrayList<Instruction>();
+        this.instructions = new ArrayList<>();
     }
     
     public InstructionList(Instruction instruction){
-        this.instructions = new ArrayList<Instruction>();
+        this.instructions = new ArrayList<>();
         instructions.add(instruction);
     }
     
@@ -29,17 +27,25 @@ public class InstructionList extends Instruction {
         this.instructions.add(instruction);
     }
 
+    /**
+     *
+     * @return La concatenación de las p-instrucciones de cada instrucción de la lista
+     */
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<PInstruction> toCode() {
+        List<PInstruction> instructionList = new LinkedList<>();
+        for (Instruction instruction : instructions) {
+            instructionList.addAll(instruction.toCode());
+        }
+        return instructionList;
     }
 
     @Override
     public Boolean typeCheck() {
-        Boolean aux = true;
-        for(Instruction ins : instructions){
-            aux = ins.typeCheck() && aux;
+        Boolean tipoCorrecto = true;
+        for(Instruction instruction : instructions){
+            tipoCorrecto = instruction.typeCheck() && tipoCorrecto;
         }
-        return aux;
+        return tipoCorrecto;
     }
 }

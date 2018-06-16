@@ -5,6 +5,13 @@
  */
 package serum;
 
+import serum.codegen.LoadConstant;
+import serum.codegen.PInstruction;
+import serum.codegen.Store;
+
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
@@ -33,7 +40,11 @@ public class Initialization extends Declaration {
     }
 
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<PInstruction> toCode() {
+        List<PInstruction> code = new LinkedList<>();
+        code.add(new LoadConstant(this.getAddress()));
+        code.addAll(rhs.toCode());
+        code.add(new Store());
+        return null;
     }
 }

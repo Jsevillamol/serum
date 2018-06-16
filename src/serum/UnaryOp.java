@@ -5,59 +5,52 @@
  */
 package serum;
 
+import serum.codegen.PInstruction;
+import serum.codegen.POperation;
+
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
  */
 public class UnaryOp extends Expression {
-    private Expression op1;
-    private OpType opType;
+    private Expression expression;
+    private OperationType operationType;
     
-    public UnaryOp(Expression op1, OpType opType){
-        this.op1 = op1;
-        this.opType = opType;
+    public UnaryOp(Expression op1, OperationType opType){
+        this.expression = op1;
+        this.operationType = opType;
     }
 
     @Override
     public Type getType() {
-        switch(opType){
+        switch(operationType){
             case NOT_OP:
                 return Type.TBool;
             case NEG_OP:
                 return Type.TInt;
             default:
-                throw new UnsupportedOperationException("OP not supported yet.");
+                throw new UnsupportedOperationException("This OperationType is not unary.");
         }
     }
 
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<PInstruction> toCode() {
+        List<PInstruction> code = expression.toCode();
+        code.add(new POperation(operationType));
+        return code;
     }
 
     @Override
     public Boolean typeCheck() {
-        switch(opType){
-            case NOT_OP:
-                if (!op1.equals(Type.TBool)){
-                    System.out.println(
-                        "Type error. Expected TBool for operand of unary operator in line " 
-                         + row + ", " + op1.getType() + " received");
-                    return false;
-                } 
-                return true;
-            case NEG_OP:
-                if (!op1.equals(Type.TInt)){
-                    System.out.println(
-                        "Type error. Expected TBool for operand of unary operator in line " 
-                         + row + ", " + op1.getType() + " received");
-                    return false;
-                } 
-                return true;
-            default:
-                throw new UnsupportedOperationException("OP not supported yet.");
+        if (!expression.getType().equals(getType())){
+            System.out.println(
+                    "Type error. Expected " + getType().getClass().getName() +
+                    " for operand of unary operator in line "
+                    + row + ", " + expression.getType() + " received.");
+            return false;
         }
+        return true;
     }
-    
-    public enum OpType {NOT_OP, NEG_OP};
 }

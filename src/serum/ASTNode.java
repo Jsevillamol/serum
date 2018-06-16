@@ -1,16 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serum;
+
+import serum.codegen.PInstruction;
+import java.util.List;
 
 /**
  *
  * @author jsevillamol
  */
 public interface ASTNode {
-    String toCode();
+
+    /**
+     * @return Lista de p-instrucciones equivalentes
+     * a la intrucción o expresión representada por este nodo
+     */
+    List<PInstruction> toCode();
+
+    /**Comprueba que los tipos del subarbol de sintaxis abstracta que
+     * tiene por raiz a este nodo sean correctos.*/
     Boolean typeCheck();
     
     void setRowAndCol(int row, int col);

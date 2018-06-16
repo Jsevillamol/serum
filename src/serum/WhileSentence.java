@@ -5,13 +5,18 @@
  */
 package serum;
 
+import serum.codegen.Jump;
+import serum.codegen.PInstruction;
+
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
  */
 public class WhileSentence extends Instruction {
-    Expression condition;
-    Instruction body;
+    private Expression condition;
+    private Instruction body;
     
     public WhileSentence(Expression condition, Instruction body){
         this.condition = condition;
@@ -19,8 +24,17 @@ public class WhileSentence extends Instruction {
     }
 
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<PInstruction> toCode() {
+        List<PInstruction> code = condition.toCode();
+        List<PInstruction> bodyCode = body.toCode();
+        code.add(new Jump(bodyCode.get(bodyCode.size()-1),
+                true /*condicional*/,
+                false/*salto a la instruccion que sigue a la dada*/));
+        code.addAll(bodyCode);
+        code.add(new Jump(code.get(0),
+                false/*incondicional*/,
+                true /*salto a la instruccion dada*/));
+        return code;
     }
 
     @Override

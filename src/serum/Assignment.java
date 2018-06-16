@@ -5,6 +5,11 @@
  */
 package serum;
 
+import serum.codegen.PInstruction;
+import serum.codegen.Store;
+
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
@@ -19,8 +24,11 @@ public class Assignment extends Instruction {
     }
 
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<PInstruction> toCode() {
+        List<PInstruction> code = lhs.toCodeL();
+        code.addAll(rhs.toCode());
+        code.add(new Store());
+        return null;
     }
 
     @Override

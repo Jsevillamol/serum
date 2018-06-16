@@ -5,6 +5,13 @@
  */
 package serum;
 
+import serum.codegen.Indirection;
+import serum.codegen.LoadConstant;
+import serum.codegen.PInstruction;
+
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
@@ -17,14 +24,22 @@ public class Variable extends Expression {
         this.id = id;
     }
     
-    public void setDeclaration( Declaration dec) { this.reference = dec; }
+    public void setDeclaration(Declaration declaration) { this.reference = declaration; }
     
     @Override
     public Type getType(){ return reference.getType(); }
 
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<PInstruction> toCode() {
+        List<PInstruction> code = this.toCodeL();
+        code.add(new Indirection());
+        return code;
+    }
+
+    public List<PInstruction> toCodeL() {
+        List<PInstruction> code = new LinkedList<>();
+        code.add(new LoadConstant(reference.getAddress()));
+        return code;
     }
 
     @Override

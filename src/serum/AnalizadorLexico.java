@@ -317,7 +317,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
 
-  /** the current text position in the buffer */
+  /** the current text getPosition in the buffer */
   private int zzCurrentPos;
 
   /** startRead marks the beginning of the yytext() string in the buffer */
@@ -355,24 +355,24 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
 
   Stack<Integer> indentation = new Stack<Integer>();
   {
-  	indentation.push(0);
+    indentation.push(0);
   }
 
   Map<String, Integer> keywords = new HashMap<>();
   {
-  	//Types
-  	keywords.put("int", sym.T_INT);
-  	keywords.put("bool", sym.T_BOOL);
+    //Types
+    keywords.put("int",  sym.T_INT);
+    keywords.put("bool", sym.T_BOOL);
 
-  	// Control
-  	keywords.put("if", sym.IF);
-  	keywords.put("else", sym.ELSE);
-  	keywords.put("while", sym.WHILE);
+    // Control
+    keywords.put("if",    sym.IF);
+    keywords.put("else",  sym.ELSE);
+    keywords.put("while", sym.WHILE);
 
-  	// bool ops
-  	keywords.put("and", sym.AND_OP);
-  	keywords.put("or", sym.OR_OP);
-  	keywords.put("not", sym.NOT_OP);
+    // bool ops
+    keywords.put("and", sym.AND_OP);
+    keywords.put("or",  sym.OR_OP);
+    keywords.put("not", sym.NOT_OP);
   }
 
   private Symbol symbol(int type) {
@@ -383,19 +383,19 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   }
 
   public static void main(String[] args){
-  	
-  	try {
-  		AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
-  		Symbol result = alex.next_token();
-  		
-  		do{
-  			//System.out.println(result.class);
-  			result = alex.next_token();
-  		} while (result.sym != 0);
 
-  	} catch (Exception ex){
-  		ex.printStackTrace();
-  	}
+    try {
+        AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
+        Symbol result = alex.next_token();
+
+        do{
+            //System.out.println(result.class);
+            result = alex.next_token();
+        } while (result.sym != 0);
+
+    } catch (Exception ex){
+        ex.printStackTrace();
+    }
   }
 
 
@@ -558,15 +558,15 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
 
 
   /**
-   * Returns the character at position <tt>pos</tt> from the 
+   * Returns the character at getPosition <tt>pos</tt> from the
    * matched text. 
    * 
    * It is equivalent to yytext().charAt(pos), but faster
    *
-   * @param pos the position of the character to fetch. 
+   * @param pos the getPosition of the character to fetch.
    *            A value from 0 to yylength()-1.
    *
-   * @return the character at position pos
+   * @return the character at getPosition pos
    */
   public final char yycharat(int pos) {
     return zzBuffer[zzStartRead+pos];
@@ -766,7 +766,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         }
       }
 
-      // store back cached position
+      // store back cached getPosition
       zzMarkedPos = zzMarkedPosL;
 
       switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
@@ -777,7 +777,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         case 23: break;
         case 2: 
           { yybegin(NEWLINE);
-                            
+
                             // We undo the matching of newline to handle the case where there are no spaces in the next line
                             yypushback(yylength());
           }
@@ -788,13 +788,13 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         case 25: break;
         case 4: 
           { // If the identifier is a recognized keyword, we emit a keyword token
-  	if(keywords.containsKey(yytext())){
-  		System.out.println(" " + yytext() + " ");
-  	 	return symbol(keywords.get(yytext()));
-  	} else {
-  		System.out.println(" id:" + yytext());
-  		return symbol(sym.IDENTIFIER, yytext()); 
-  	}
+    if(keywords.containsKey(yytext())){
+        System.out.println(" " + yytext() + " ");
+        return symbol(keywords.get(yytext()));
+    } else {
+        System.out.println(" id:" + yytext());
+        return symbol(sym.IDENTIFIER, yytext());
+    }
           }
         case 26: break;
         case 5: 
@@ -847,31 +847,31 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         case 38: break;
         case 17: 
           { // This should match the empty string!
-  		//System.out.println("I have consumed your delicious whitespace");
-  		// Consumes all the white space in front of a newline, 
-  		// and determines if we need to open or close a block
+        //System.out.println("I have consumed your delicious whitespace");
+        // Consumes all the white space in front of a newline,
+        // and determines if we need to open or close a block
 
-  		//System.out.println ("The stack is " + indentation.toString());
+        //System.out.println ("The stack is " + indentation.toString());
 
-  		int actual_column = yylength() - 1;
+        int actual_column = yylength() - 1;
 
-  		if (actual_column > indentation.peek()) {
-  			indentation.push(actual_column);
-  			System.out.println(" { ");
-  			yybegin(YYINITIAL);
-  			return symbol(sym.START_BLOCK);
-  		} 
+        if (actual_column > indentation.peek()) {
+            indentation.push(actual_column);
+            System.out.println(" { ");
+            yybegin(YYINITIAL);
+            return symbol(sym.START_BLOCK);
+        }
 
-  		else if (actual_column < indentation.peek()) {
-  			indentation.pop();
-  			System.out.println(" } ");
-  			yypushback(yylength()); // Undo the matching
-  			return symbol(sym.END_BLOCK);
-  		}
+        else if (actual_column < indentation.peek()) {
+            indentation.pop();
+            System.out.println(" } ");
+            yypushback(yylength()); // Undo the matching
+            return symbol(sym.END_BLOCK);
+        }
 
-  		else if (actual_column == indentation.peek()){
-  			yybegin(YYINITIAL);
-  		}
+        else if (actual_column == indentation.peek()){
+            yybegin(YYINITIAL);
+        }
           }
         case 39: break;
         case 18: 

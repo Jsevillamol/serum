@@ -5,6 +5,11 @@
  */
 package serum;
 
+import serum.codegen.Jump;
+import serum.codegen.PInstruction;
+
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
@@ -21,8 +26,18 @@ public class IfElseSentence extends Instruction{
     }
 
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<PInstruction> toCode() {
+        List<PInstruction> code = condition.toCode();
+        List<PInstruction> elseCode = elseBranch.toCode();
+        code.add(new Jump(elseCode.get(0),
+                          true/*condicional*/,
+                          true/*salto a la instruccion dada*/));
+        code.addAll(ifBranch.toCode());
+        code.add(new Jump(code.get(code.size()-1),
+                          false/*incondicional*/,
+                          false/*salto a la instruccion que sigue a la dada*/));
+        code.addAll(elseCode);
+        return code;
     }
 
     @Override

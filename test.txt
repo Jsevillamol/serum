@@ -1,5 +1,8 @@
 /*
 Traditional comment
+Al ejecutar el analizador sintacitico se puede ver como hace
+falta un caracter de más para saber que producción de la gramática
+hay que usar.
 */
 int i = 0
     if i == 0 i = 0 //End of line comment

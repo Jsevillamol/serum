@@ -5,13 +5,21 @@
  */
 package serum;
 
+import serum.codegen.PInstruction;
+
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author jsevillamol
  */
 public class Declaration extends Instruction implements ASTNode, Typable {
-    String id;
-    Type type;
+    private String id;
+    private Type type;
+
+
+    int address;
     
     public Declaration(Type type, String id){
         this.id = id;
@@ -28,8 +36,8 @@ public class Declaration extends Instruction implements ASTNode, Typable {
         return true;
     }
 
+    public int getAddress() { return address; }
+
     @Override
-    public String toCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public List<PInstruction> toCode() {return new LinkedList<>();}
 }

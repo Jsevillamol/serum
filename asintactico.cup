@@ -13,17 +13,17 @@ parser code {:
     
     /* Reporte de error encontrado. */
     public void report_error(String message, Object info) {
-        StringBuilder m = new StringBuilder("Error");
+        StringBuilder msg = new StringBuilder("Error");
         if (info instanceof java_cup.runtime.Symbol) {
             java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
-            if (s.left >= 0) {                
-                m.append(" in line "+(s.left+1));
+            if (s.left >= 0) {
+                msg.append(" in line " + (s.left+1));
                 if (s.right >= 0)
-                    m.append(", column "+(s.right+1));
+                    msg.append(", column " + (s.right+1));
             }
         }
-        m.append(" : "+message);
-        System.err.println(m);
+        msg.append(" : " +  message);
+        System.err.println(msg);
     }
    
     /* Cuando se encuentra un error de donde el sistema no puede
@@ -35,14 +35,15 @@ parser code {:
     }
 
     /* Metodo main para garantizar la ejecucion del analizador
-       lexico y sintactico, ademas que se pase como parametro la tabla
+       lexico y sintactico, TODO ademas que se pase como parametro la tabla
        de simbolos correspondiente. */
     public static void main(String[] args){
         try {
             AnalizadorSintactico asin = new AnalizadorSintactico(
                     new AnalizadorLexico( new FileReader(args[0])));
-            Object result = asin.parse().value;
-            System.out.println("\n*** Resultados finales ***");
+            InstructionList result = (InstructionList) asin.parse().value;
+            System.out.println("\n*** Resultados finales ***");//TODO: esto nos lo podemos ahorrar
+            result.toCode().toString();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -212,10 +213,10 @@ type       ::= T_INT:t
                     System.out.println("type ::= T_BOOL (row " + tleft + ")");
                     RESULT = Type.TBool;
                  :}
-             | type:t LBRACKET INTEGER_LITERAL:dim RBRACKET
+             | type:t LBRACKET INTEGER_LITERAL:numberOfElements RBRACKET
                  {:
                     System.out.println("type ::= type T_ARRAY (row " + tleft + ")");
-                    RESULT = Type.array(t, new Integer(dim));
+                    RESULT = Type.array(t, new Integer(numberOfElements));
                  :}
              ;
 
@@ -257,25 +258,25 @@ expression ::= variable:v
              | expression:op1 SUM_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression SUM_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.SUM_OP);
+                    RESULT = new BinaryOp(op1, op2, BinaryOp.OperationType.SUM_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 SUBS_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression SUBS_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.SUBS_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.SUBS_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 PROD_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression PROD_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.PROD_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.PROD_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 DIV_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression DIV_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.DIV_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.DIV_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
            
@@ -289,49 +290,49 @@ expression ::= variable:v
              | expression:op1 OR_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression OR_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.OR_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.OR_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 AND_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression AND_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.AND_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.AND_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | NOT_OP:n expression:op1 
                  {:
                     System.out.println("expression ::= NOT_OP expression (row " + nleft + ")");
-                    RESULT = new UnaryOp(op1, UnaryOp.OpType.NOT_OP);
+                    RESULT = new UnaryOp(op1, OperationType.NOT_OP);
                     RESULT.setRowAndCol(nleft, nright);
                  :}
              | expression:op1 EQ_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression EQ_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.EQ_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.EQ_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 LT_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression LT_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.LT_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.LT_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 GT_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression GT_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.GT_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.GT_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 LET_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression LET_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.LET_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.LET_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              | expression:op1 GET_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression GET_OP expression (row " + op1left + ")");
-                    RESULT = new BinaryOp(op1, op2, BinaryOp.OpType.GET_OP);
+                    RESULT = new BinaryOp(op1, op2, OperationType.GET_OP);
                     RESULT.setRowAndCol(op1left, op1right);
                  :}
              ;

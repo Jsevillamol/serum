@@ -58,7 +58,7 @@ public class TestCUP {
                         archSintactico = "asintactico.cup";
                     }
                     String[] alexico = {archLexico};
-                    String[] asintactico = {"-parser", "AnalizadorSintactico", archSintactico};
+                    String[] asintactico = {"-parser", "serum.AnalizadorSintactico", archSintactico};
                     jflex.Main.main(alexico);
                     try {
                         java_cup.Main.main(asintactico);

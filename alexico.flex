@@ -21,24 +21,24 @@ import java.util.*;
 
   Stack<Integer> indentation = new Stack<Integer>();
   {
-  	indentation.push(0);
+    indentation.push(0);
   }
 
   Map<String, Integer> keywords = new HashMap<>();
   {
-  	//Types
-  	keywords.put("int", sym.T_INT);
-  	keywords.put("bool", sym.T_BOOL);
+    //Types
+    keywords.put("int",  sym.T_INT);
+    keywords.put("bool", sym.T_BOOL);
 
-  	// Control
-  	keywords.put("if", sym.IF);
-  	keywords.put("else", sym.ELSE);
-  	keywords.put("while", sym.WHILE);
+    // Control
+    keywords.put("if",    sym.IF);
+    keywords.put("else",  sym.ELSE);
+    keywords.put("while", sym.WHILE);
 
-  	// bool ops
-  	keywords.put("and", sym.AND_OP);
-  	keywords.put("or", sym.OR_OP);
-  	keywords.put("not", sym.NOT_OP);
+    // bool ops
+    keywords.put("and", sym.AND_OP);
+    keywords.put("or",  sym.OR_OP);
+    keywords.put("not", sym.NOT_OP);
   }
 
   private Symbol symbol(int type) {
@@ -49,19 +49,19 @@ import java.util.*;
   }
 
   public static void main(String[] args){
-  	
-  	try {
-  		AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
-  		Symbol result = alex.next_token();
-  		
-  		do{
-  			//System.out.println(result.class);
-  			result = alex.next_token();
-  		} while (result.sym != 0);
 
-  	} catch (Exception ex){
-  		ex.printStackTrace();
-  	}
+    try {
+        AnalizadorLexico alex = new AnalizadorLexico(new FileReader(args[0]));
+        Symbol result = alex.next_token();
+
+        do{
+            //System.out.println(result.class);
+            result = alex.next_token();
+        } while (result.sym != 0);
+
+    } catch (Exception ex){
+        ex.printStackTrace();
+    }
   }
 %}
 
@@ -92,8 +92,10 @@ BoolLiteral = "True" | "False"
 
 Comment = {TraditionalComment} | {EndOfLineComment}
 
+// TODO Como no tenemos comentarios para documentar podemos sustituir TraditionalComment por:
+// BlockComent = "/*" ~"*/""
 TraditionalComment   = "/*" [^*] ~"*/" {LineTerminator} | "/*" "*"+ "/" {LineTerminator}
-// Comment can be the last line of the file, without line terminator.
+// TODO Puede que haga falta poner un interrogante al final de la siguiente linea por si es la última
 EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
 
 InputCharacter = [^\r\n]
@@ -103,8 +105,8 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
 %%
 /* This code will be executed each time `yylex` is called, before
-   * any generated code.
-*/
+ * any generated code.
+ */
 
 //TODO: 2int se reconoce incorrectamente como intLiteral + int token
 
@@ -136,18 +138,18 @@ CommentContent = ( [^*] | \*+ [^/*] )*
   /* identifiers */ 
   {Identifier}                   
   { 
-  	// If the identifier is a recognized keyword, we emit a keyword token
-  	if(keywords.containsKey(yytext())){
-  		System.out.println(" " + yytext() + " ");
-  	 	return symbol(keywords.get(yytext()));
-  	} else {
-  		System.out.println(" id:" + yytext());
-  		return symbol(sym.IDENTIFIER, yytext()); 
-  	}
+    // If the identifier is a recognized keyword, we emit a keyword token
+    if(keywords.containsKey(yytext())){
+        System.out.println(" " + yytext() + " ");
+        return symbol(keywords.get(yytext()));
+    } else {
+        System.out.println(" id:" + yytext());
+        return symbol(sym.IDENTIFIER, yytext());
+    }
   }
 
   /* instruction separators */
-
+// TODO ¿Porque ignoramos los ;?
   ";"                            { /* ignore */   }
   "{"                            { System.out.println(" { "); return symbol(sym.START_BLOCK); }
   "}"                            { System.out.println(" } "); return symbol(sym.END_BLOCK);   }
@@ -156,9 +158,9 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
   {LineTerminator}      { 	   
                             yybegin(NEWLINE);
-                            
+
                             // We undo the matching of newline to handle the case where there are no spaces in the next line
-                            yypushback(yylength()); 
+                            yypushback(yylength());
 
                         }
 
@@ -173,31 +175,31 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
 <NEWLINE> {
   {Newline} { // This should match the empty string!
-  		//System.out.println("I have consumed your delicious whitespace");
-  		// Consumes all the white space in front of a newline, 
-  		// and determines if we need to open or close a block
+        //System.out.println("I have consumed your delicious whitespace");
+        // Consumes all the white space in front of a newline,
+        // and determines if we need to open or close a block
 
-  		//System.out.println ("The stack is " + indentation.toString());
+        //System.out.println ("The stack is " + indentation.toString());
 
-  		int actual_column = yylength() - 1;
+        int actual_column = yylength() - 1;
 
-  		if (actual_column > indentation.peek()) {
-  			indentation.push(actual_column);
-  			System.out.println(" { ");
-  			yybegin(YYINITIAL);
-  			return symbol(sym.START_BLOCK);
-  		} 
+        if (actual_column > indentation.peek()) {
+            indentation.push(actual_column);
+            System.out.println(" { ");
+            yybegin(YYINITIAL);
+            return symbol(sym.START_BLOCK);
+        }
 
-  		else if (actual_column < indentation.peek()) {
-  			indentation.pop();
-  			System.out.println(" } ");
-  			yypushback(yylength()); // Undo the matching
-  			return symbol(sym.END_BLOCK);
-  		}
+        else if (actual_column < indentation.peek()) {
+            indentation.pop();
+            System.out.println(" } ");
+            yypushback(yylength()); // Undo the matching
+            return symbol(sym.END_BLOCK);
+        }
 
-  		else if (actual_column == indentation.peek()){
-  			yybegin(YYINITIAL);
-  		}
+        else if (actual_column == indentation.peek()){
+            yybegin(YYINITIAL);
+        }
   }
 }
 
