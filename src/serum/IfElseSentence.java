@@ -5,6 +5,7 @@
  */
 package serum;
 
+import com.sun.istack.internal.NotNull;
 import serum.codegen.Jump;
 import serum.codegen.PInstruction;
 
@@ -15,8 +16,14 @@ import java.util.List;
  * @author jsevillamol
  */
 public class IfElseSentence extends Instruction{
+
+    /**Condicion booleana del if.*/
     private Expression condition;
+
+    /**Instrucción a ejecutar si se verifica la condición.*/
     private Instruction ifBranch;
+
+    /**Instruccion a ejecutar si no se verifica la condición.*/
     private Instruction elseBranch;
     
     public IfElseSentence(Expression condition, Instruction ifBranch, Instruction elseBranch){
@@ -25,6 +32,7 @@ public class IfElseSentence extends Instruction{
         this.elseBranch = elseBranch;
     }
 
+    @NotNull
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> code = condition.toCode();

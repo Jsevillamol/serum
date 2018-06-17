@@ -1,21 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serum;
 
+import com.sun.istack.internal.NotNull;
 import serum.codegen.Jump;
 import serum.codegen.PInstruction;
 
 import java.util.List;
 
 /**
- *
  * @author jsevillamol
  */
 public class IfSentence extends Instruction {
+
+    /**Condicion booleana del if.*/
     private Expression condition;
+
+    /**Instrucción a ejecutar si se verifica la condición.*/
     private Instruction body;
     
     public IfSentence(Expression condition, Instruction conditional){
@@ -23,6 +22,7 @@ public class IfSentence extends Instruction {
         this.body = conditional;
     }
 
+    @NotNull
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> code = condition.toCode();

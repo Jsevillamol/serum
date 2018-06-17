@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serum;
 
+import com.sun.istack.internal.NotNull;
 import serum.codegen.LoadConstant;
 import serum.codegen.PInstruction;
 import serum.codegen.Store;
@@ -17,7 +13,8 @@ import java.util.List;
  * @author jsevillamol
  */
 public class Initialization extends Declaration {
-    
+
+    /**Expresión que determina el valor a asignar.*/
     private Expression rhs;
     
     public Initialization(Type type, String id, Expression rhs) {
@@ -28,17 +25,18 @@ public class Initialization extends Declaration {
     @Override
     public Boolean typeCheck() {
         Boolean res = rhs.typeCheck();
-        if (!type.equals(rhs.getType())){
+        if (!this.getType().equals(rhs.getType())){
             System.out.println(
                     "Type error. Type declaration and rhs types of initialization in line " 
                     + row + " do not match. "
-                    + " type declaration=" + this.type
+                    + " type declaration=" + this.getType()
                     + " rhs type=" + rhs.getType());
             res = false;
         }
         return res;
     }
 
+    @NotNull
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> code = new LinkedList<>();

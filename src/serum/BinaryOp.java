@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serum;
 
+import com.sun.istack.internal.NotNull;
 import serum.codegen.PInstruction;
 import serum.codegen.POperation;
 
@@ -12,86 +8,62 @@ import java.util.List;
 
 /**
  *
- * @author jsevillamol
+ * @author jsevillamol, David RUbio
  */
 public class BinaryOp extends Expression {
+
+    /**Primer operando.*/
     private Expression op1;
+
+    /**Segundo operando.*/
     private Expression op2;
-    private OperationType opType;
-    
-    public BinaryOp(Expression op1, Expression op2, OperationType opType){
+
+    /**Tipo de operacion*/
+    private OperationType operationType;
+
+    public BinaryOp(Expression op1, Expression op2, OperationType operationType){
         this.op1 = op1;
         this.op2 = op2;
-        this.opType = opType;
+        this.operationType = operationType;
     }
 
-    //TODO para que son estos getters?
-    public Expression getOp1(){ return op1;}
-    public Expression getOp2(){ return op2;}
-    public OperationType getOpType(){ return opType; }
-
-    @Override
-    public Type getType() {
-        switch (opType){
-            case SUM_OP: case SUBS_OP: case DIV_OP: case PROD_OP:
-                return Type.TInt;
-            case OR_OP: case AND_OP: case EQ_OP: case LT_OP: case GT_OP: case LET_OP: case GET_OP:
-                return Type.TBool;
-            default:
-                throw new UnsupportedOperationException("This OperationType is not binary.");
-        }
-    }
-
-    @Override
-    public List<PInstruction> toCode() {
-        List code = op1.toCode();
-        code.addAll(op2.toCode());
-        code.add(new POperation(opType));
-        return code;
-    }
-
-    @Override
-    public Boolean typeCheck() {
-        Boolean res = op1.typeCheck() && op2.typeCheck();
-        switch (opType){
-            case SUM_OP: case SUBS_OP: case DIV_OP: case PROD_OP: case EQ_OP: case LT_OP: case GT_OP: case LET_OP: case GET_OP:
-                if (!op1.equals(Type.TInt)){
-                    System.out.println(
-                        "Type error. Expected TInt for left operand of binary operator in line " 
-                         + row + ", " + op1.getType() + " received");
-                    res = false;
-                } 
-                if (!op2.equals(Type.TInt)){
-                    System.out.println(
-                        "Type error. Expected TInt for right operand of binary operator in line "
-                         + row + ", " + op2.getType() + " received");
-                    res = false;
-                }
-                break;
-            case OR_OP: case AND_OP:
-                if (!op1.equals(Type.TBool)){
-                    System.out.println(
-                        "Type error. Expected TBool for left operand of binary operator in line " 
-                         + row + ", " + op1.getType() + " received");
-                    res = false;
-                } 
-                if (!op2.equals(Type.TBool)){
-                    System.out.println(
-                        "Type error. Expected TBool for right operand of binary operator in line "
-                         + row + ", " + op2.getType() + " received");
-                    res = false;
-                }
-                break;
-                    
-            default:
-                throw new UnsupportedOperationException("This OperationType is not binary.");
-        }
-        return res;
-    }
 
     @Override
     public void identifiers(IdTable idTable) {
         op1.identifiers(idTable);
         op2.identifiers(idTable);
     }
+
+    @Override
+    public Type getType() { return operationType.getResultType(); }
+
+    @Override
+    public Boolean typeCheck() {
+        Boolean res = op1.typeCheck() && op2.typeCheck();
+        if (!(op1.getType()).equals(operationType.getArgumentsType())) {
+            System.out.println(
+                    "Type error. Expected " + operationType.getArgumentsType() +
+                    " for left operand of binary operator in line " + row + ", " +
+                    op1.getType() + " received. Operation: " + operationType);
+            res = false;
+        }
+        if (!(op2.getType()).equals(operationType.getArgumentsType())) {
+            System.out.println(
+                    "Type error. Expected " + operationType.getArgumentsType() +
+                    " for left operand of binary operator in line " + row + ", " +
+                    op2.getType() + " received. Operation: " + operationType);
+            res = false;
+        }
+        return res;
+    }
+
+    @NotNull
+    @Override
+    public List<PInstruction> toCode() {
+        List code = op1.toCode();
+        code.addAll(op2.toCode());
+        code.add(new POperation(operationType));
+        return code;
+    }
+
 }

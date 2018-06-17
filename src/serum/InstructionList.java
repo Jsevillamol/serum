@@ -1,5 +1,6 @@
 package serum;
 
+import com.sun.istack.internal.NotNull;
 import serum.codegen.PInstruction;
 
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import java.util.List;
  * @author jsevillamol
  */
 public class InstructionList extends Instruction {
+
+    /**Lista de instrucciones ordenadas.*/
     private List<Instruction> instructions = new ArrayList<>();
     
     public InstructionList(Instruction instruction){
@@ -22,10 +25,8 @@ public class InstructionList extends Instruction {
         this.instructions.addAll(instructionList.instructions);
     }
 
-    /**
-     *
-     * @return La concatenación de las p-instrucciones de cada instrucción de la lista
-     */
+    /**@return La concatenación de las p-instrucciones de cada instrucción de la lista*/
+    @NotNull
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> instructionList = new LinkedList<>();

@@ -5,6 +5,7 @@
  */
 package serum;
 
+import com.sun.istack.internal.NotNull;
 import serum.codegen.Jump;
 import serum.codegen.PInstruction;
 
@@ -23,6 +24,7 @@ public class WhileSentence extends Instruction {
         this.body = body;
     }
 
+    @NotNull
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> code = condition.toCode();

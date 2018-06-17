@@ -1,33 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serum;
 
+import com.sun.istack.internal.NotNull;
 import serum.codegen.LoadConstant;
 import serum.codegen.PInstruction;
 
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author jsevillamol
+/**@author jsevillamol
  */
 public class Constant extends Expression{
-    Type type;
+
+    /**Tipo de la constante.*/
+    private Type type;
+
+    /**Valor de la constante.*/
     private Object value;
-    
-    Constant(Type type, Object value){
+
+    /**Crea una sontatnte con el tipo y valor dado.*/
+    private Constant(Type type, Object value){
         this.type = type;
         this.value = value;
     }
-    
+
+    /**Crea una constante entera con el valor dado.*/
     Constant(Integer value){
         this(Type.TInt, value);
     }
-    
+
+    /**Crea una constante booleana con el valor dado.*/
     Constant(Boolean value){
         this(Type.TBool, value);
     }
@@ -37,6 +38,7 @@ public class Constant extends Expression{
         return type;
     }
 
+    @NotNull
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> code = new LinkedList<>();

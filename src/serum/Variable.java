@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serum;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import com.sun.istack.internal.NotNull;
 import serum.codegen.Indirection;
 import serum.codegen.LoadConstant;
 import serum.codegen.PInstruction;
@@ -18,9 +13,17 @@ import java.util.List;
  * @author jsevillamol
  */
 public class Variable extends Expression {
-    protected String id;
-    protected Declaration declaration;
-    
+
+    /**Nombre de la variable.*/
+    public String id;
+
+    /**Declaración de la variable.*/
+    private Declaration declaration;
+
+    /**Este constructor solo se usa para que las clases hijo
+     * se puedan crear sin especificar un id.*/
+    protected Variable(){}
+
     public Variable(String id){
         this.id = id;
     }
@@ -28,6 +31,7 @@ public class Variable extends Expression {
     @Override
     public Type getType(){ return declaration.getType(); }
 
+    @NotNull
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> code = this.toCodeL();
@@ -35,6 +39,7 @@ public class Variable extends Expression {
         return code;
     }
 
+    /**Genera el codigo necesario para apilar la direccion de la variable.*/
     public List<PInstruction> toCodeL() {
         List<PInstruction> code = new LinkedList<>();
         code.add(new LoadConstant(declaration.getAddress()));
@@ -47,5 +52,5 @@ public class Variable extends Expression {
     }
 
     @Override
-    public void identifiers(IdTable idTable) { declaration = idTable.searchID(id); }
+    public void identifiers(IdTable idTable) { declaration = idTable.searchID(this); }
 }

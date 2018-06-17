@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package serum;
 
 import serum.codegen.IndexArray;
@@ -11,15 +6,17 @@ import serum.codegen.PInstruction;
 import java.util.List;
 
 /**
- *
  * @author jsevillamol
  */
 public class ArrayAccess extends Variable {
+
+    /**El array al que se está accediendo.*/
     private Variable reference;
+
+    /**La posición del array a la que se accede.*/
     private Expression index;
     
     public ArrayAccess(Variable reference, Expression index){
-        super(reference.id);
         this.reference = reference;
         this.index = index;
     }

@@ -5,6 +5,7 @@
  */
 package serum;
 
+import com.sun.istack.internal.NotNull;
 import serum.codegen.PInstruction;
 import serum.codegen.POperation;
 
@@ -24,17 +25,9 @@ public class UnaryOp extends Expression {
     }
 
     @Override
-    public Type getType() {
-        switch(operationType){
-            case NOT_OP:
-                return Type.TBool;
-            case NEG_OP:
-                return Type.TInt;
-            default:
-                throw new UnsupportedOperationException("This OperationType is not unary.");
-        }
-    }
+    public Type getType() { return operationType.getResultType(); }
 
+    @NotNull
     @Override
     public List<PInstruction> toCode() {
         List<PInstruction> code = expression.toCode();
@@ -44,9 +37,9 @@ public class UnaryOp extends Expression {
 
     @Override
     public Boolean typeCheck() {
-        if (!expression.getType().equals(getType())){
+        if (!expression.getType().equals(operationType.getArgumentsType())){
             System.out.println(
-                    "Type error. Expected " + getType().getClass().getName() +
+                    "Type error. Expected " + operationType.getArgumentsType() +
                     " for operand of unary operator in line "
                     + row + ", " + expression.getType() + " received.");
             return false;
