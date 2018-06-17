@@ -4,6 +4,7 @@ Al ejecutar el analizador sintacitico se puede ver como hace
 falta un caracter de más para saber que producción de la gramática
 hay que usar.
 */
+/*
 int i = 0
     if i == 0 i = 0 //End of line comment
 
@@ -30,4 +31,19 @@ int[2][21] matrix
 bool_vector[i+1] = True
 matrix[1][i] = 4
 
-i = i + 1 ; i = i - 1
+i = i + 1 ; i = i - 1*/
+
+
+
+int index  = 0
+int index2 = 0
+int[3][10][2] array
+
+while index<3
+    index2 = 0
+    while index2 <10
+        array[index][index2][0] = 10*index + index2
+        index2 = index2 + 1
+    index = index + 1
+
+bool b = True

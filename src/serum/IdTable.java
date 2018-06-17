@@ -30,6 +30,9 @@ public class IdTable {
     /**Primera posición no ocupada por variables estáticas.*/
     private int maxRho = 5;
 
+    /**Determina si algun identificador no ha podido ser identificado.*/
+    private boolean fail = false;
+
     /**Para indicar que entramos en un nuevo ambito.
      * Simplemente se apila un HashMap y la primera dirección que se puede usar.*/
     public void openBlock(){
@@ -62,11 +65,14 @@ public class IdTable {
             if (declaration != null)
                 return declaration;
         }
-        //TODO error: identificador no encontrado
-        System.out.println("Id " + variable.id + " not found.");
+        this.fail = true;
         return null;
     }
 
     /**@return Primera posición no ocupada por variables estáticas.*/
     public int getMaxRho() {return maxRho;}
+
+
+    /**@return Si ha fallado al identificar todos los identificadores.*/
+    public boolean isFail() { return fail; }
 }

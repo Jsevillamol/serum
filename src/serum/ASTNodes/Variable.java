@@ -53,5 +53,13 @@ public class Variable extends Expression {
     }
 
     @Override
-    public void identifiers(IdTable idTable) { declaration = idTable.searchID(this); }
+    public void identifiers(IdTable idTable) {
+        declaration = idTable.searchID(this);
+        if (declaration == null) {
+            //Esta variable no se ha declarado
+            System.out.println("Error: el identificador " + this.id +
+                    " no ha sido declarado antes de usarse. Linea " +
+                    this.row + ", columna " + this.col + ".");
+        }
+    }
 }

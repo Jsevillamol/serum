@@ -46,6 +46,8 @@ parser code {:
             //Fase de identificadores:
             IdTable idTable = new IdTable();
             result.identifiers(idTable);
+            if (idTable.isFail())
+                System.exit(1);
 
             //Comprobación de tipos:
             result.typeCheck();
@@ -125,13 +127,13 @@ statements ::= statement:s
                 {:
                     System.out.println("statements ::= statement (row " + sleft + ")");
                     RESULT = new InstructionList(s);
-                    RESULT.setRowAndCol(sleft, sright);
+                    RESULT.setRowAndCol(sleft + 1, sright + 1);
                 :}
              | statement:s statements:ss 
                 {:
                     System.out.println("statements ::= statement statements (row " + sleft + ")");
                     RESULT = new InstructionList(s, ss);
-                    RESULT.setRowAndCol(sleft, sright);
+                    RESULT.setRowAndCol(sleft + 1, sright + 1);
                 :}
              ;
 
@@ -139,19 +141,19 @@ statement  ::= IF:i expression:e statement:s
                 {:
                     System.out.println("statement ::= IF expression statement (row " + ileft + ")");
                     RESULT = new IfSentence(e, s);
-                    RESULT.setRowAndCol(ileft, iright);
+                    RESULT.setRowAndCol(ileft + 1, iright + 1);
                 :}
              | IF:i expression:e then_statement:then ELSE statement:els 
                 {:
                     System.out.println("statement ::= IF expression then_statement ELSE statement (row " + ileft + ")");
                     RESULT = new IfElseSentence(e, then, els);
-                    RESULT.setRowAndCol(ileft, iright);
+                    RESULT.setRowAndCol(ileft + 1, iright + 1);
                 :}
              | WHILE:w expression:e statement:s
                 {:
                     System.out.println("statement ::= WHILE expression statement (row " + wleft + ")");
                     RESULT = new WhileSentence(e, s);
-                    RESULT.setRowAndCol(wleft, wright);
+                    RESULT.setRowAndCol(wleft + 1, wright + 1);
                 :}
              | non_if_statement:s
                 {:
@@ -164,13 +166,13 @@ then_statement ::= IF:i expression:e then_statement:then ELSE then_statement:els
                       {:
                           System.out.println("then_statement ::= IF expression then_statement ELSE then_statement (row " + ileft + ")");
                           RESULT = new IfElseSentence(e, then, els);
-                          RESULT.setRowAndCol(ileft, iright);
+                          RESULT.setRowAndCol(ileft + 1, iright + 1);
                       :}
                    | WHILE:w expression:e then_statement:s
                       {:
                           System.out.println("then_statement ::= WHILE expression then_statement (row " + wleft + ")");
                           RESULT = new WhileSentence(e, s);
-                          RESULT.setRowAndCol(wleft, wright);
+                          RESULT.setRowAndCol(wleft + 1, wright + 1);
                       :}
                    | non_if_statement:s
                       {:
@@ -183,7 +185,7 @@ non_if_statement ::= START_BLOCK:sb statements:s END_BLOCK
                       {:
                           System.out.println("non_if_statement ::= START_BLOCK statements END_BLOCK (row " + sbleft + ")");
                           RESULT = s;
-                          RESULT.setRowAndCol(sbleft, sbright);
+                          RESULT.setRowAndCol(sbleft + 1, sbright + 1);
                       :}
                    | declaration:d
                       {:
@@ -205,13 +207,13 @@ declaration ::= type:t IDENTIFIER:id
                  {:
                     System.out.println("declaration ::= type IDENTIFIER (row " + tleft + ")");
                     RESULT = new Declaration(t, id);
-                    RESULT.setRowAndCol(tleft, tright);
+                    RESULT.setRowAndCol(tleft + 1, tright + 1);
                  :}
               | type:t IDENTIFIER:id ASSIGN_OP expression:rhs 
                  {:
                     System.out.println("declaration ::= type IDENTIFIER ASSIGN_OP expression (row " + tleft + ")");
                     RESULT = new Initialization(t, id, rhs);
-                    RESULT.setRowAndCol(tleft, tright);
+                    RESULT.setRowAndCol(tleft + 1, tright + 1);
                  :}
               ;
 
@@ -219,7 +221,7 @@ assignment  ::= variable:lhs ASSIGN_OP expression:rhs
                  {:
                     System.out.println("assignment ::= variable ASSIGN_OP expression (row " + lhsleft + ")");
                     RESULT = new Assignment(lhs, rhs);
-                    RESULT.setRowAndCol(lhsleft, lhsright);
+                    RESULT.setRowAndCol(lhsleft + 1, lhsright + 1);
                  :}
               ;
 
@@ -245,13 +247,13 @@ variable   ::= IDENTIFIER:id
                  {:
                     System.out.println("variable ::= IDENTIFIER (row " + idleft + ")");
                     RESULT = new Variable(id);
-                    RESULT.setRowAndCol(idleft, idright);
+                    RESULT.setRowAndCol(idleft + 1, idright + 1);
                  :}
              | variable:id LBRACKET expression:idx RBRACKET
                  {:
                     System.out.println("variable ::= variable LBRACKET expression RBRACKET (row " + idleft + ")");
                     RESULT = new ArrayAccess(id, idx);
-                    RESULT.setRowAndCol(idleft, idright);
+                    RESULT.setRowAndCol(idleft + 1, idright + 1);
                  :}
              ;
 
@@ -260,13 +262,13 @@ expression ::= variable:v
                  {:
                     System.out.println("expression ::= variable (row " + vleft + ")");
                     RESULT = v;
-                    RESULT.setRowAndCol(vleft, vright);
+                    RESULT.setRowAndCol(vleft + 1, vright + 1);
                  :}
              | LPAREN:l expression:e RPAREN
                  {:
                     System.out.println("expression ::= LPAREN variable RPAREN (row " + lleft + ")");
                     RESULT = e;
-                    RESULT.setRowAndCol(lleft, lright);
+                    RESULT.setRowAndCol(lleft + 1, lright + 1);
                  :}
 
           // Int expressions
@@ -274,31 +276,31 @@ expression ::= variable:v
                  {:
                     System.out.println("expression ::= INTEGER_LITERAL (row " + cleft + ")");
                     RESULT = new Constant(new Integer(c));
-                    RESULT.setRowAndCol(cleft, cright);
+                    RESULT.setRowAndCol(cleft + 1, cright + 1);
                  :}
              | expression:op1 SUM_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression SUM_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.SUM_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 SUBS_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression SUBS_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.SUBS_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 PROD_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression PROD_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.PROD_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 DIV_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression DIV_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.DIV_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
            
            // Bool expressions
@@ -306,54 +308,54 @@ expression ::= variable:v
                  {:
                     System.out.println("expression ::= BOOL_LITERAL (row " + cleft + ")");
                     RESULT = new Constant(new Boolean(c));
-                    RESULT.setRowAndCol(cleft, cright);
+                    RESULT.setRowAndCol(cleft + 1, cright + 1);
                  :}
              | expression:op1 OR_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression OR_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.OR_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 AND_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression AND_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.AND_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | NOT_OP:n expression:op1 
                  {:
                     System.out.println("expression ::= NOT_OP expression (row " + nleft + ")");
                     RESULT = new UnaryOp(op1, OperationType.NOT_OP);
-                    RESULT.setRowAndCol(nleft, nright);
+                    RESULT.setRowAndCol(nleft + 1, nright + 1);
                  :}
              | expression:op1 EQ_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression EQ_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.EQ_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 LT_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression LT_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.LT_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 GT_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression GT_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.GT_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 LET_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression LET_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.LET_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 GET_OP expression:op2 
                  {:
                     System.out.println("expression ::= expression GET_OP expression (row " + op1left + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.GET_OP);
-                    RESULT.setRowAndCol(op1left, op1right);
+                    RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              ;
