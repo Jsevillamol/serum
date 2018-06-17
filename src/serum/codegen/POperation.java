@@ -13,5 +13,5 @@ public class POperation extends PInstruction{
     public POperation(OperationType opType) { this.operationType = opType; }
 
     @Override
-    public String toString() { return operationType.code + ";\n"; }
+    public String toString() { return super.toString() + operationType.code + ";\n"; }
 }

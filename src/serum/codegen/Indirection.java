@@ -7,6 +7,6 @@ public class Indirection extends PInstruction {
 
     @Override
     public String toString() {
-        return "ind;\n";
+        return super.toString() + "ind;\n";
     }
 }

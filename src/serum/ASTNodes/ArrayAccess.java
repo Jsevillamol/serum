@@ -1,5 +1,7 @@
-package serum;
+package serum.ASTNodes;
 
+import serum.IdTable;
+import serum.Type;
 import serum.codegen.IndexArray;
 import serum.codegen.PInstruction;
 
@@ -22,13 +24,13 @@ public class ArrayAccess extends Variable {
     }
     
     @Override
-    public Type getType(){ return this.reference.getType().dereference(); }
+    public Type getType(){ return this.reference.getType().getBaseType(); }
 
     @Override
     public List<PInstruction> toCodeL() {
         List<PInstruction> code = reference.toCodeL();
         code.addAll(index.toCode());
-        code.add(new IndexArray(reference.getType().dereference().getSize()));
+        code.add(new IndexArray(reference.getType().getBaseType().getSize()));
         //Los arrays empiezan por 0, no hay necesidad de decrementar.
         return code;
     }

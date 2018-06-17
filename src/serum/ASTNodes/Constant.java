@@ -1,6 +1,8 @@
-package serum;
+package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
+import serum.IdTable;
+import serum.Type;
 import serum.codegen.LoadConstant;
 import serum.codegen.PInstruction;
 
@@ -24,19 +26,17 @@ public class Constant extends Expression{
     }
 
     /**Crea una constante entera con el valor dado.*/
-    Constant(Integer value){
+    public Constant(Integer value){
         this(Type.TInt, value);
     }
 
     /**Crea una constante booleana con el valor dado.*/
-    Constant(Boolean value){
+    public Constant(Boolean value){
         this(Type.TBool, value);
     }
 
     @Override
-    public Type getType() {
-        return type;
-    }
+    public Type getType() { return type; }
 
     @NotNull
     @Override
@@ -52,9 +52,7 @@ public class Constant extends Expression{
     }
 
     @Override
-    public Boolean typeCheck() {
-        return true;
-    }
+    public Boolean typeCheck() { return true; }
 
     @Override
     public void identifiers(IdTable idTable) {}

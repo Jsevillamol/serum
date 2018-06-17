@@ -1,6 +1,7 @@
-package serum;
+package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
+import serum.IdTable;
 import serum.codegen.PInstruction;
 
 import java.util.ArrayList;
@@ -8,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * @author jsevillamol
  */
 public class InstructionList extends Instruction {

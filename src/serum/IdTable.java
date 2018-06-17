@@ -1,5 +1,8 @@
 package serum;
 
+import serum.ASTNodes.Declaration;
+import serum.ASTNodes.Variable;
+
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -24,6 +27,9 @@ public class IdTable {
     /**Siguiente dirección de memoria disponible.*/
     private int nextRho = 5;
 
+    /**Primera posición no ocupada por variables estáticas.*/
+    private int maxRho = 5;
+
     /**Para indicar que entramos en un nuevo ambito.
      * Simplemente se apila un HashMap y la primera dirección que se puede usar.*/
     public void openBlock(){
@@ -44,6 +50,7 @@ public class IdTable {
         pilaAmbitos.peek().put(declaration.getId(), declaration);
         int returnValue = nextRho;
         nextRho += declaration.getType().getSize();
+        maxRho = Math.max(maxRho, nextRho);
         return returnValue;
     }
 
@@ -59,4 +66,7 @@ public class IdTable {
         System.out.println("Id " + variable.id + " not found.");
         return null;
     }
+
+    /**@return Primera posición no ocupada por variables estáticas.*/
+    public int getMaxRho() {return maxRho;}
 }

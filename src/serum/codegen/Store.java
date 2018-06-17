@@ -5,7 +5,6 @@ package serum.codegen;
  */
 public class Store extends PInstruction {
 
-
     @Override
-    public String toString() { return "sto;\n";}
+    public String toString() { return super.toString() + "sto;\n";}
 }

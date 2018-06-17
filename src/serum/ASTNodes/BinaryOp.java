@@ -1,14 +1,16 @@
-package serum;
+package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
+import serum.IdTable;
+import serum.OperationType;
+import serum.Type;
 import serum.codegen.PInstruction;
 import serum.codegen.POperation;
 
 import java.util.List;
 
 /**
- *
- * @author jsevillamol, David RUbio
+ * @author jsevillamol, David Rubio
  */
 public class BinaryOp extends Expression {
 

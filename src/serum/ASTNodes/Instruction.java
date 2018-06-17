@@ -1,4 +1,4 @@
-package serum;
+package serum.ASTNodes;
 
 /**
  * @author jsevillamol

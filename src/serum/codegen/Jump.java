@@ -5,8 +5,13 @@ package serum.codegen;
  */
 public class Jump extends PInstruction {
 
+    /**Instrucción a la que saltar (quizá se salte a la siguiente).*/
     private PInstruction instruction;
+
+    /**Determina si el salto es condicional o no.*/
     private boolean conditional;
+
+    /**Determina si saltar a la instrucción dada o a su siguiente.*/
     private boolean toThisInstruction;
 
 
@@ -25,6 +30,6 @@ public class Jump extends PInstruction {
             string = "ujp ";
         int position = instruction.getPosition();
         if (!toThisInstruction) position++;
-        return string + position + ";\n";
+        return super.toString() + string + position + ";\n";
     }
 }

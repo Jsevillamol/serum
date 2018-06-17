@@ -1,6 +1,8 @@
-package serum;
+package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
+import serum.IdTable;
+import serum.Type;
 import serum.codegen.LoadConstant;
 import serum.codegen.PInstruction;
 import serum.codegen.Store;

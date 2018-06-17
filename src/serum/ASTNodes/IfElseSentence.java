@@ -1,19 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package serum;
+package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
+import serum.IdTable;
+import serum.Type;
 import serum.codegen.Jump;
 import serum.codegen.PInstruction;
 
 import java.util.List;
 
 /**
- *
- * @author jsevillamol
+ * @author jsevillamol, David Rubio
  */
 public class IfElseSentence extends Instruction{
 

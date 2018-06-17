@@ -1,4 +1,6 @@
-package serum;
+package serum.ASTNodes;
+
+import serum.Typable;
 
 /**
  * @author jsevillamol

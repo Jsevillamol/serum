@@ -1,6 +1,9 @@
-package serum;
+package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
+import serum.IdTable;
+import serum.Typable;
+import serum.Type;
 import serum.codegen.PInstruction;
 
 import java.util.LinkedList;
@@ -10,7 +13,7 @@ import java.util.List;
  *
  * @author jsevillamol
  */
-public class Declaration extends Instruction implements ASTNode, Typable {
+public class Declaration extends Instruction implements Typable {
 
     /**Nombre de la variable declarada.*/
     private String id;

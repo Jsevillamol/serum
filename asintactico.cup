@@ -3,8 +3,7 @@
 /* ---------------Seccion de declaraciones preliminares--------------------*/
 package serum;
 
-
-import java.io.FileReader;
+import serum.ASTNodes.*;
    
 /* Codigo del parser, se copia integramente a la clase final.
     Agregamos el manejo de errores. */
@@ -39,18 +38,33 @@ parser code {:
     public static void main(String[] args){
         try {
             AnalizadorSintactico asin = new AnalizadorSintactico(
-                    new AnalizadorLexico( new FileReader(args[0])));
+                    new AnalizadorLexico( new java.io.FileReader(args[0])));
+            //Generamos el arbol de sintaxis abstracta:
             ASTNode result = (ASTNode) asin.parse().value;
-            System.out.println("\n*** CODIGO ***");//TODO: esto nos lo podemos ahorrar
-            //StringBuilder str = new StringBuilder();
-            result.identifiers(new IdTable());
+            System.out.println("\n*** CODIGO ***");
+
+            //Fase de identificadores:
+            IdTable idTable = new IdTable();
+            result.identifiers(idTable);
+
+            //Comprobación de tipos:
             result.typeCheck();
-            int i = 0;
-            java.util.List<serum.codegen.PInstruction> code = result.toCode();
+
+            //Generación de codigo:
+            java.util.List<serum.codegen.PInstruction> code = new java.util.LinkedList();
+            code.add(new serum.codegen.SetSP(idTable.getMaxRho()));
+            code.addAll(result.toCode());
+            code.add(new serum.codegen.Stop());
+
+            //Numeración de instrucciones:
+            int instructionPosition = 0;
             for (serum.codegen.PInstruction pinstruction : code)
-                pinstruction.setPosition(i++);
+                pinstruction.setPosition(instructionPosition++);
+
+            //Mostrar código por pantalla:
+            java.io.PrintStream salida = System.out;
             for (serum.codegen.PInstruction pinstruction : code)
-                System.out.print(pinstruction.toString());
+                salida.print(pinstruction);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

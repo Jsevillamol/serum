@@ -1,6 +1,8 @@
-package serum;
+package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
+import serum.IdTable;
+import serum.Type;
 import serum.codegen.Indirection;
 import serum.codegen.LoadConstant;
 import serum.codegen.PInstruction;
@@ -9,8 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
- * @author jsevillamol
+ * @author jsevillamol, David Rubio
  */
 public class Variable extends Expression {
 
@@ -21,7 +22,7 @@ public class Variable extends Expression {
     private Declaration declaration;
 
     /**Este constructor solo se usa para que las clases hijo
-     * se puedan crear sin especificar un id.*/
+     * se puedan crear sin especificar un id (ArrayAcces hace esto).*/
     protected Variable(){}
 
     public Variable(String id){

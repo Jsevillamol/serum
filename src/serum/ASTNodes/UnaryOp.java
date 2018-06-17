@@ -1,22 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package serum;
+package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
+import serum.IdTable;
+import serum.OperationType;
+import serum.Type;
 import serum.codegen.PInstruction;
 import serum.codegen.POperation;
 
 import java.util.List;
 
 /**
- *
- * @author jsevillamol
+ * @author jsevillamol, David Rubio
  */
 public class UnaryOp extends Expression {
+
+    /**Expresión que da el valor al que aplicar la operación.*/
     private Expression expression;
+
+    /**Tipo de operación a aplicar.*/
     private OperationType operationType;
     
     public UnaryOp(Expression op1, OperationType opType){
