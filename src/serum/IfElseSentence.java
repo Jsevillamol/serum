@@ -41,7 +41,7 @@ public class IfElseSentence extends Instruction{
                           true/*condicional*/,
                           true/*salto a la instruccion dada*/));
         code.addAll(ifBranch.toCode());
-        code.add(new Jump(code.get(code.size()-1),
+        code.add(new Jump(elseCode.get(elseCode.size()-1),
                           false/*incondicional*/,
                           false/*salto a la instruccion que sigue a la dada*/));
         code.addAll(elseCode);

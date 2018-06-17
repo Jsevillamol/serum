@@ -41,7 +41,7 @@ parser code {:
             AnalizadorSintactico asin = new AnalizadorSintactico(
                     new AnalizadorLexico( new FileReader(args[0])));
             ASTNode result = (ASTNode) asin.parse().value;
-            System.out.println("\n*** Resultados finales ***");//TODO: esto nos lo podemos ahorrar
+            System.out.println("\n*** CODIGO ***");//TODO: esto nos lo podemos ahorrar
             //StringBuilder str = new StringBuilder();
             result.identifiers(new IdTable());
             result.typeCheck();
@@ -223,7 +223,7 @@ type       ::= T_INT:t
              | type:t LBRACKET INTEGER_LITERAL:numberOfElements RBRACKET
                  {:
                     System.out.println("type ::= type T_ARRAY (row " + tleft + ")");
-                    RESULT = Type.array(t, new Integer(numberOfElements));
+                    RESULT = t.addDimension(new Integer(numberOfElements));
                  :}
              ;
 

@@ -28,7 +28,7 @@ public class ArrayAccess extends Variable {
     public List<PInstruction> toCodeL() {
         List<PInstruction> code = reference.toCodeL();
         code.addAll(index.toCode());
-        code.add(new IndexArray(reference.getType().getSize()));
+        code.add(new IndexArray(reference.getType().dereference().getSize()));
         //Los arrays empiezan por 0, no hay necesidad de decrementar.
         return code;
     }
