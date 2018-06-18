@@ -16,7 +16,10 @@ public abstract class Type {
     /**Devuelve el tipo de los elementos de este array.
      * Si no aplica lanza una excepción.*/
     public Type getBaseType() {
-        throw new UnsupportedOperationException("This type don't have a base type");
+        //Something's gone wrong, ending execution:
+        serum.Logger.report_error("Ending execution because illegal array access.");
+        System.exit(4);
+        return null;
     }
 
     /**@return El tamaño que ocupa un elemento de este tipo en memoria*/

@@ -57,7 +57,7 @@ public class Variable extends Expression {
         declaration = idTable.searchID(this);
         if (declaration == null) {
             //Esta variable no se ha declarado
-            System.out.println("Error: el identificador " + this.id +
+            serum.Logger.report_error("Error: el identificador " + this.id +
                     " no ha sido declarado antes de usarse. Linea " +
                     this.row + ", columna " + this.col + ".");
         }

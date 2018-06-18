@@ -28,7 +28,7 @@ public class Initialization extends Declaration {
     public Boolean typeCheck() {
         Boolean res = rhs.typeCheck();
         if (!this.getType().equals(rhs.getType())){
-            System.out.println(
+            serum.Logger.report_error(
                     "Type error. Type declaration and rhs types of initialization in line " 
                     + row + " do not match. "
                     + " type declaration=" + this.getType()

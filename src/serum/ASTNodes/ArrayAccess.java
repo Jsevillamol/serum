@@ -1,6 +1,7 @@
 package serum.ASTNodes;
 
 import serum.IdTable;
+import serum.Logger;
 import serum.Type;
 import serum.codegen.IndexArray;
 import serum.codegen.PInstruction;
@@ -39,15 +40,17 @@ public class ArrayAccess extends Variable {
     public Boolean typeCheck() {
         Boolean res = index.typeCheck();
         if (!(reference.getType() instanceof Type.ArrayType)){
-            System.out.println(
-                    "Type error. Expected ArrayType for array access declaration in line "
-                    + row + ", " + reference.getType() + " received");
+            String msg = "Type error. Expected ArrayType for array access declaration in line "
+                    + row + ", column " + col + ". " + reference.getType() + " received";
+            System.err.println(msg);
+            Logger.log.println(msg);
             res = false;
         }
         if (!index.getType().equals(Type.TInt)){
-            System.out.println(
-                    "Type error. Expected TInt for array access index in line " 
-                    + row + ", " + reference.getType() + " received");
+            String msg = "Type error. Expected TInt for array access index in line "
+                    + row + ", column "+ col + ". " + reference.getType() + " received";
+            System.err.println(msg);
+            Logger.log.println(msg);
             res = false;
         }
         return res; 

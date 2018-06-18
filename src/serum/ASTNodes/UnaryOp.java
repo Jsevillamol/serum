@@ -39,7 +39,7 @@ public class UnaryOp extends Expression {
     @Override
     public Boolean typeCheck() {
         if (!expression.getType().equals(operationType.getArgumentsType())){
-            System.out.println(
+            serum.Logger.report_error(
                     "Type error. Expected " + operationType.getArgumentsType() +
                     " for operand of unary operator in line "
                     + row + ", " + expression.getType() + " received.");

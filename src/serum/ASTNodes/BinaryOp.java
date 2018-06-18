@@ -41,22 +41,23 @@ public class BinaryOp extends Expression {
 
     @Override
     public Boolean typeCheck() {
-        Boolean res = op1.typeCheck() && op2.typeCheck();
-        if (!(op1.getType()).equals(operationType.getArgumentsType())) {
-            System.out.println(
-                    "Type error. Expected " + operationType.getArgumentsType() +
-                    " for left operand of binary operator in line " + row + ", " +
-                    op1.getType() + " received. Operation: " + operationType);
-            res = false;
+        return op1.typeCheck() &&
+               op2.typeCheck() &&
+               checkOperator(op1.getType()) &&
+               checkOperator(op2.getType());
+    }
+
+    /**Compruba si el tipo dado es el que debería corresponder a cada operador.
+     * Si no muestra mensajes de error.*/
+    private Boolean checkOperator(Type type) {
+        if (!type.equals(operationType.getArgumentsType())) {
+            String msg = "Type error. Expected " + operationType.getArgumentsType() +
+                    " for left operand of binary operator in line " + row + ", column " +
+                    col +". " + type + " received. Operation: " + operationType;
+            serum.Logger.report_error(msg);
+            return false;
         }
-        if (!(op2.getType()).equals(operationType.getArgumentsType())) {
-            System.out.println(
-                    "Type error. Expected " + operationType.getArgumentsType() +
-                    " for left operand of binary operator in line " + row + ", " +
-                    op2.getType() + " received. Operation: " + operationType);
-            res = false;
-        }
-        return res;
+        return true;
     }
 
     @NotNull

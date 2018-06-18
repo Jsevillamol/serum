@@ -55,7 +55,7 @@ import java.util.*;
         Symbol result = alex.next_token();
 
         do{
-            //System.out.println(result.class);
+            //Logger.log.println(result.class);
             result = alex.next_token();
         } while (result.sym != 0);
 
@@ -114,36 +114,36 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 <YYINITIAL> {
  
   /* literals */
-  {DecIntegerLiteral}            { System.out.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());}
-  {BoolLiteral}                  { System.out.println(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());}
+  {DecIntegerLiteral}            { Logger.log.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());}
+  {BoolLiteral}                  { Logger.log.println(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());}
 
   /* operators */
-  "="                            { System.out.println(" = "); return symbol(sym.ASSIGN_OP); }
+  "="                            { Logger.log.println(" = "); return symbol(sym.ASSIGN_OP); }
 
-  "=="                           { System.out.println(" == "); return symbol(sym.EQ_OP); }
-  "<"                            { System.out.println(" < "); return symbol(sym.LT_OP);   }
-  ">"                            { System.out.println(" > "); return symbol(sym.GT_OP);   }
-  "<="                           { System.out.println(" <= "); return symbol(sym.LET_OP);  }
-  ">="                           { System.out.println(" >= "); return symbol(sym.GET_OP);  }
+  "=="                           { Logger.log.println(" == "); return symbol(sym.EQ_OP); }
+  "<"                            { Logger.log.println(" < "); return symbol(sym.LT_OP);   }
+  ">"                            { Logger.log.println(" > "); return symbol(sym.GT_OP);   }
+  "<="                           { Logger.log.println(" <= "); return symbol(sym.LET_OP);  }
+  ">="                           { Logger.log.println(" >= "); return symbol(sym.GET_OP);  }
 
-  "+"                            { System.out.println(" + "); return symbol(sym.SUM_OP);  }
-  "-"                            { System.out.println(" - "); return symbol(sym.SUBS_OP); }
-  "*"                            { System.out.println(" * "); return symbol(sym.PROD_OP);  }
-  "/"                            { System.out.println(" / "); return symbol(sym.DIV_OP);   }
+  "+"                            { Logger.log.println(" + "); return symbol(sym.SUM_OP);  }
+  "-"                            { Logger.log.println(" - "); return symbol(sym.SUBS_OP); }
+  "*"                            { Logger.log.println(" * "); return symbol(sym.PROD_OP);  }
+  "/"                            { Logger.log.println(" / "); return symbol(sym.DIV_OP);   }
 
   /* misc */
-  "["                            { System.out.println(" [ "); return symbol(sym.LBRACKET); }
-  "]"                            { System.out.println(" ] "); return symbol(sym.RBRACKET); }
+  "["                            { Logger.log.println(" [ "); return symbol(sym.LBRACKET); }
+  "]"                            { Logger.log.println(" ] "); return symbol(sym.RBRACKET); }
 
   /* identifiers */ 
   {Identifier}                   
   { 
     // If the identifier is a recognized keyword, we emit a keyword token
     if(keywords.containsKey(yytext())){
-        System.out.println(" " + yytext() + " ");
+        Logger.log.println(" " + yytext() + " ");
         return symbol(keywords.get(yytext()));
     } else {
-        System.out.println(" id:" + yytext());
+        Logger.log.println(" id:" + yytext());
         return symbol(sym.IDENTIFIER, yytext());
     }
   }
@@ -151,8 +151,8 @@ CommentContent = ( [^*] | \*+ [^/*] )*
   /* instruction separators */
 // TODO ¿Porque ignoramos los ;?
   ";"                            { /* ignore */   }
-  "{"                            { System.out.println(" { "); return symbol(sym.START_BLOCK); }
-  "}"                            { System.out.println(" } "); return symbol(sym.END_BLOCK);   }
+  "{"                            { Logger.log.println(" { "); return symbol(sym.START_BLOCK); }
+  "}"                            { Logger.log.println(" } "); return symbol(sym.END_BLOCK);   }
 
   {EmptyLine}			{ /* Empty lines are deleted*/ yypushback(1);}
 
@@ -175,24 +175,24 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
 <NEWLINE> {
   {Newline} { // This should match the empty string!
-        //System.out.println("I have consumed your delicious whitespace");
+        //Logger.log.println("I have consumed your delicious whitespace");
         // Consumes all the white space in front of a newline,
         // and determines if we need to open or close a block
 
-        //System.out.println ("The stack is " + indentation.toString());
+        //Logger.log.println ("The stack is " + indentation.toString());
 
         int actual_column = yylength() - 1;
 
         if (actual_column > indentation.peek()) {
             indentation.push(actual_column);
-            System.out.println(" { ");
+            Logger.log.println(" { ");
             yybegin(YYINITIAL);
             return symbol(sym.START_BLOCK);
         }
 
         else if (actual_column < indentation.peek()) {
             indentation.pop();
-            System.out.println(" } ");
+            Logger.log.println(" } ");
             yypushback(yylength()); // Undo the matching
             return symbol(sym.END_BLOCK);
         }

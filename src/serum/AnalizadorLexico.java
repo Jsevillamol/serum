@@ -317,7 +317,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
 
-  /** the current text getPosition in the buffer */
+  /** the current text position in the buffer */
   private int zzCurrentPos;
 
   /** startRead marks the beginning of the yytext() string in the buffer */
@@ -389,7 +389,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         Symbol result = alex.next_token();
 
         do{
-            //System.out.println(result.class);
+            //Logger.log.println(result.class);
             result = alex.next_token();
         } while (result.sym != 0);
 
@@ -558,15 +558,15 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
 
 
   /**
-   * Returns the character at getPosition <tt>pos</tt> from the
+   * Returns the character at position <tt>pos</tt> from the 
    * matched text. 
    * 
    * It is equivalent to yytext().charAt(pos), but faster
    *
-   * @param pos the getPosition of the character to fetch.
+   * @param pos the position of the character to fetch. 
    *            A value from 0 to yylength()-1.
    *
-   * @return the character at getPosition pos
+   * @return the character at position pos
    */
   public final char yycharat(int pos) {
     return zzBuffer[zzStartRead+pos];
@@ -766,7 +766,7 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         }
       }
 
-      // store back cached getPosition
+      // store back cached position
       zzMarkedPos = zzMarkedPosL;
 
       switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
@@ -789,82 +789,82 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         case 4: 
           { // If the identifier is a recognized keyword, we emit a keyword token
     if(keywords.containsKey(yytext())){
-        System.out.println(" " + yytext() + " ");
+        Logger.log.println(" " + yytext() + " ");
         return symbol(keywords.get(yytext()));
     } else {
-        System.out.println(" id:" + yytext());
+        Logger.log.println(" id:" + yytext());
         return symbol(sym.IDENTIFIER, yytext());
     }
           }
         case 26: break;
         case 5: 
-          { System.out.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());
+          { Logger.log.println(" intLiteral ");  return symbol(sym.INTEGER_LITERAL, yytext());
           }
         case 27: break;
         case 6: 
-          { System.out.println(" / "); return symbol(sym.DIV_OP);
+          { Logger.log.println(" / "); return symbol(sym.DIV_OP);
           }
         case 28: break;
         case 7: 
-          { System.out.println(" * "); return symbol(sym.PROD_OP);
+          { Logger.log.println(" * "); return symbol(sym.PROD_OP);
           }
         case 29: break;
         case 8: 
-          { System.out.println(" = "); return symbol(sym.ASSIGN_OP);
+          { Logger.log.println(" = "); return symbol(sym.ASSIGN_OP);
           }
         case 30: break;
         case 9: 
-          { System.out.println(" < "); return symbol(sym.LT_OP);
+          { Logger.log.println(" < "); return symbol(sym.LT_OP);
           }
         case 31: break;
         case 10: 
-          { System.out.println(" > "); return symbol(sym.GT_OP);
+          { Logger.log.println(" > "); return symbol(sym.GT_OP);
           }
         case 32: break;
         case 11: 
-          { System.out.println(" + "); return symbol(sym.SUM_OP);
+          { Logger.log.println(" + "); return symbol(sym.SUM_OP);
           }
         case 33: break;
         case 12: 
-          { System.out.println(" - "); return symbol(sym.SUBS_OP);
+          { Logger.log.println(" - "); return symbol(sym.SUBS_OP);
           }
         case 34: break;
         case 13: 
-          { System.out.println(" [ "); return symbol(sym.LBRACKET);
+          { Logger.log.println(" [ "); return symbol(sym.LBRACKET);
           }
         case 35: break;
         case 14: 
-          { System.out.println(" ] "); return symbol(sym.RBRACKET);
+          { Logger.log.println(" ] "); return symbol(sym.RBRACKET);
           }
         case 36: break;
         case 15: 
-          { System.out.println(" { "); return symbol(sym.START_BLOCK);
+          { Logger.log.println(" { "); return symbol(sym.START_BLOCK);
           }
         case 37: break;
         case 16: 
-          { System.out.println(" } "); return symbol(sym.END_BLOCK);
+          { Logger.log.println(" } "); return symbol(sym.END_BLOCK);
           }
         case 38: break;
         case 17: 
           { // This should match the empty string!
-        //System.out.println("I have consumed your delicious whitespace");
+        //Logger.log.println("I have consumed your delicious whitespace");
         // Consumes all the white space in front of a newline,
         // and determines if we need to open or close a block
 
-        //System.out.println ("The stack is " + indentation.toString());
+        //Logger.log.println ("The stack is " + indentation.toString());
 
         int actual_column = yylength() - 1;
 
         if (actual_column > indentation.peek()) {
             indentation.push(actual_column);
-            System.out.println(" { ");
+            Logger.log.println(" { ");
             yybegin(YYINITIAL);
             return symbol(sym.START_BLOCK);
         }
 
         else if (actual_column < indentation.peek()) {
             indentation.pop();
-            System.out.println(" } ");
+            Logger.log.println(" } ");
             yypushback(yylength()); // Undo the matching
             return symbol(sym.END_BLOCK);
         }
@@ -879,19 +879,19 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
           }
         case 40: break;
         case 19: 
-          { System.out.println(" == "); return symbol(sym.EQ_OP);
+          { Logger.log.println(" == "); return symbol(sym.EQ_OP);
           }
         case 41: break;
         case 20: 
-          { System.out.println(" <= "); return symbol(sym.LET_OP);
+          { Logger.log.println(" <= "); return symbol(sym.LET_OP);
           }
         case 42: break;
         case 21: 
-          { System.out.println(" >= "); return symbol(sym.GET_OP);
+          { Logger.log.println(" >= "); return symbol(sym.GET_OP);
           }
         case 43: break;
         case 22: 
-          { System.out.println(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());
+          { Logger.log.println(" boolLiteral "); return symbol(sym.BOOL_LITERAL,    yytext());
           }
         case 44: break;
         default: 

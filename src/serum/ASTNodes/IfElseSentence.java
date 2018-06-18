@@ -48,7 +48,7 @@ public class IfElseSentence extends Instruction{
     public Boolean typeCheck() {
         Boolean res = condition.typeCheck() && ifBranch.typeCheck() && elseBranch.typeCheck();
         if (!condition.getType().equals(Type.TBool)){
-            System.out.println(
+            serum.Logger.report_error(
                     "Type error. Expected TBool for if-else condition in line " 
                     + row + ", " + condition.getType() + " received");
             res = false;

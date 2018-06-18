@@ -40,7 +40,7 @@ public class IfSentence extends Instruction {
     public Boolean typeCheck() {
         Boolean res = condition.typeCheck() && body.typeCheck();
         if (!condition.getType().equals(Type.TBool)){
-            System.out.println(
+            serum.Logger.report_error(
                     "Type error. Expected TBool for if condition in line " 
                     + row + ", " + condition.getType() + " received");
             res = false;

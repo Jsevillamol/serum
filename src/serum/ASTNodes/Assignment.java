@@ -2,6 +2,7 @@ package serum.ASTNodes;
 
 import com.sun.istack.internal.NotNull;
 import serum.IdTable;
+import serum.Logger;
 import serum.codegen.PInstruction;
 import serum.codegen.Store;
 
@@ -37,11 +38,11 @@ public class Assignment extends Instruction {
     public Boolean typeCheck() {
         Boolean res = lhs.typeCheck() && rhs.typeCheck();
         if (!(lhs.getType().equals(rhs.getType()))){
-            System.out.println(
-                    "Type error. lhs and rhs types of assignment in line " 
+            String msg = "Type error. lhs and rhs types of assignment in line "
                     + row + " do not match. "
                     + " lhs type=" + lhs.getType()
-                    + " rhs type=" + rhs.getType());
+                    + " rhs type=" + rhs.getType();
+            serum.Logger.report_error(msg);
             res = false;
         }
         return res;
