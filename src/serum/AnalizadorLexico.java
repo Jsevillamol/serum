@@ -163,11 +163,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\2\0\1\1\2\2\1\3\1\1\1\4\2\5\2\4"+
     "\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15"+
     "\1\16\1\17\1\20\2\21\2\22\1\0\1\22\2\3"+
-    "\1\0\2\4\2\0\1\23\1\24\1\25\2\4\1\3"+
-    "\2\0\1\26\2\0";
+    "\1\0\2\4\1\3\1\0\1\23\1\24\1\25\2\4"+
+    "\1\3\1\0\1\26";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[47];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -197,10 +197,10 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\0\u0179\0\72\0\72\0\72\0\72\0\72\0\72\0\u0196"+
     "\0\u01b3\0\u01d0\0\164\0\164\0\72\0\u01ed\0\u020a\0\221"+
     "\0\u0227\0\u0244\0\u0261\0\u027e\0\72\0\72\0\72\0\u029b"+
-    "\0\u02b8\0\u02d5\0\u02f2\0\u030f\0\256\0\u032c\0\u0349";
+    "\0\u02b8\0\u02d5\0\u02f2\0\256";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[47];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -233,14 +233,12 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
     "\35\0\1\45\34\0\1\46\34\0\1\47\13\0\2\31"+
     "\34\0\1\31\33\0\1\35\34\0\2\37\34\0\1\37"+
     "\36\0\6\10\1\50\5\10\21\0\12\10\1\51\1\10"+
-    "\14\0\1\43\1\52\1\6\32\43\22\53\1\54\12\53"+
-    "\5\0\7\10\1\55\4\10\21\0\13\10\1\50\16\0"+
-    "\1\6\32\0\22\53\1\56\12\53\21\0\1\57\1\54"+
-    "\12\0\21\53\1\57\1\56\12\53\1\0\1\52\1\6"+
-    "\32\0";
+    "\14\0\1\43\1\52\1\6\32\43\22\44\1\53\12\44"+
+    "\5\0\7\10\1\54\4\10\21\0\13\10\1\50\16\0"+
+    "\1\6\32\0\21\44\1\6\1\53\12\44";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[870];
+    int [] result = new int[783];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -279,11 +277,11 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\2\0\1\11\2\1\1\11\2\1\1\11\4\1\1\11"+
-    "\3\1\6\11\4\1\1\0\1\11\2\1\1\0\2\1"+
-    "\2\0\3\11\3\1\2\0\1\1\2\0";
+    "\3\1\6\11\4\1\1\0\1\11\2\1\1\0\3\1"+
+    "\1\0\3\11\3\1\1\0\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[47];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;

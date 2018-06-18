@@ -90,13 +90,12 @@ BoolLiteral = "True" | "False"
 
 /* comments */
 
-Comment = {TraditionalComment} | {EndOfLineComment}
+Comment = {BlockComent} | {EndOfLineComment}
 
-// TODO Como no tenemos comentarios para documentar podemos sustituir TraditionalComment por:
-// BlockComent = "/*" ~"*/""
-TraditionalComment   = "/*" [^*] ~"*/" {LineTerminator} | "/*" "*"+ "/" {LineTerminator}
-// TODO Puede que haga falta poner un interrogante al final de la siguiente linea por si es la última
-EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
+//Como no tenemos comentarios para documentar podemos sustituir TraditionalComment por:
+ BlockComent = "/*" ~"*/"
+
+EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
 
 InputCharacter = [^\r\n]
 CommentContent = ( [^*] | \*+ [^/*] )*
@@ -149,7 +148,6 @@ CommentContent = ( [^*] | \*+ [^/*] )*
   }
 
   /* instruction separators */
-// TODO ¿Porque ignoramos los ;?
   ";"                            { /* ignore */   }
   "{"                            { Logger.log.println(" { "); return symbol(sym.START_BLOCK); }
   "}"                            { Logger.log.println(" } "); return symbol(sym.END_BLOCK);   }

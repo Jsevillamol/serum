@@ -1,0 +1,7 @@
+/**Error por uso de variable sin declarar:*/
+
+i = 0
+
+/**Mensaje por pantalla:
+ * Error: el identificador i no ha sido declarado antes de usarse. Linea 3, columna 1.
+ * */

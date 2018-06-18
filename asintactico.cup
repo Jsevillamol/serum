@@ -23,7 +23,7 @@ parser code {:
             }
         }
         msg.append(" : " +  message);
-        Logger.report_error.println(msg);
+        Logger.report_error(msg.toString());
     }
    
     /* Cuando se encuentra un error de donde el sistema no puede
@@ -129,13 +129,13 @@ start with statements;
 /* Top level statements */
 statements ::= statement:s
                 {:
-                    Logger.log.println("statements ::= statement (row " + sleft + ")");
+                    Logger.log.println("statements ::= statement (row " + (sleft+1) + ")");
                     RESULT = new InstructionList(s);
                     RESULT.setRowAndCol(sleft + 1, sright + 1);
                 :}
              | statement:s statements:ss 
                 {:
-                    Logger.log.println("statements ::= statement statements (row " + sleft + ")");
+                    Logger.log.println("statements ::= statement statements (row " + (sleft+1) + ")");
                     RESULT = new InstructionList(s, ss);
                     RESULT.setRowAndCol(sleft + 1, sright + 1);
                 :}
@@ -143,62 +143,62 @@ statements ::= statement:s
 
 statement  ::= IF:i expression:e statement:s
                 {:
-                    Logger.log.println("statement ::= IF expression statement (row " + ileft + ")");
+                    Logger.log.println("statement ::= IF expression statement (row " + (ileft+1) + ")");
                     RESULT = new IfSentence(e, s);
                     RESULT.setRowAndCol(ileft + 1, iright + 1);
                 :}
              | IF:i expression:e then_statement:then ELSE statement:els 
                 {:
-                    Logger.log.println("statement ::= IF expression then_statement ELSE statement (row " + ileft + ")");
+                    Logger.log.println("statement ::= IF expression then_statement ELSE statement (row " + (ileft+1) + ")");
                     RESULT = new IfElseSentence(e, then, els);
                     RESULT.setRowAndCol(ileft + 1, iright + 1);
                 :}
              | WHILE:w expression:e statement:s
                 {:
-                    Logger.log.println("statement ::= WHILE expression statement (row " + wleft + ")");
+                    Logger.log.println("statement ::= WHILE expression statement (row " + (wleft+1) + ")");
                     RESULT = new WhileSentence(e, s);
                     RESULT.setRowAndCol(wleft + 1, wright + 1);
                 :}
              | non_if_statement:s
                 {:
-                    Logger.log.println("statement ::= non_if_statement (row " + sleft + ")");
+                    Logger.log.println("statement ::= non_if_statement (row " + (sleft+1) + ")");
                     RESULT = s;
                 :}
              ;
 
 then_statement ::= IF:i expression:e then_statement:then ELSE then_statement:els 
                       {:
-                          Logger.log.println("then_statement ::= IF expression then_statement ELSE then_statement (row " + ileft + ")");
+                          Logger.log.println("then_statement ::= IF expression then_statement ELSE then_statement (row " + (ileft+1) + ")");
                           RESULT = new IfElseSentence(e, then, els);
                           RESULT.setRowAndCol(ileft + 1, iright + 1);
                       :}
                    | WHILE:w expression:e then_statement:s
                       {:
-                          Logger.log.println("then_statement ::= WHILE expression then_statement (row " + wleft + ")");
+                          Logger.log.println("then_statement ::= WHILE expression then_statement (row " + (wleft+1) + ")");
                           RESULT = new WhileSentence(e, s);
                           RESULT.setRowAndCol(wleft + 1, wright + 1);
                       :}
                    | non_if_statement:s
                       {:
-                          Logger.log.println("then_statement ::= non_if_statement (row " + sleft + ")");
+                          Logger.log.println("then_statement ::= non_if_statement (row " + (sleft+1) + ")");
                           RESULT = s;
                       :}
                    ;
 
 non_if_statement ::= START_BLOCK:sb statements:s END_BLOCK
                       {:
-                          Logger.log.println("non_if_statement ::= START_BLOCK statements END_BLOCK (row " + sbleft + ")");
+                          Logger.log.println("non_if_statement ::= START_BLOCK statements END_BLOCK (row " + (sbleft+1) + ")");
                           RESULT = s;
                           RESULT.setRowAndCol(sbleft + 1, sbright + 1);
                       :}
                    | declaration:d
                       {:
-                          Logger.log.println("non_if_statement ::= declaration (row " + dleft + ")");
+                          Logger.log.println("non_if_statement ::= declaration (row " + (dleft+1) + ")");
                           RESULT = d;
                       :}
                    | assignment:a
                       {:
-                          Logger.log.println("non_if_statement ::= assignment (row " + aleft + ")");
+                          Logger.log.println("non_if_statement ::= assignment (row " + (aleft+1) + ")");
                           RESULT = a;
                       :}
                    ;
@@ -209,13 +209,13 @@ non_if_statement ::= START_BLOCK:sb statements:s END_BLOCK
 /* Variable manipulation statements */
 declaration ::= type:t IDENTIFIER:id 
                  {:
-                    Logger.log.println("declaration ::= type IDENTIFIER (row " + tleft + ")");
+                    Logger.log.println("declaration ::= type IDENTIFIER (row " + (tleft+1) + ")");
                     RESULT = new Declaration(t, id);
                     RESULT.setRowAndCol(tleft + 1, tright + 1);
                  :}
               | type:t IDENTIFIER:id ASSIGN_OP expression:rhs 
                  {:
-                    Logger.log.println("declaration ::= type IDENTIFIER ASSIGN_OP expression (row " + tleft + ")");
+                    Logger.log.println("declaration ::= type IDENTIFIER ASSIGN_OP expression (row " + (tleft+1) + ")");
                     RESULT = new Initialization(t, id, rhs);
                     RESULT.setRowAndCol(tleft + 1, tright + 1);
                  :}
@@ -223,7 +223,7 @@ declaration ::= type:t IDENTIFIER:id
 
 assignment  ::= variable:lhs ASSIGN_OP expression:rhs
                  {:
-                    Logger.log.println("assignment ::= variable ASSIGN_OP expression (row " + lhsleft + ")");
+                    Logger.log.println("assignment ::= variable ASSIGN_OP expression (row " + (lhsleft+1) + ")");
                     RESULT = new Assignment(lhs, rhs);
                     RESULT.setRowAndCol(lhsleft + 1, lhsright + 1);
                  :}
@@ -232,30 +232,30 @@ assignment  ::= variable:lhs ASSIGN_OP expression:rhs
 /* Variable manipulation auxiliar sintactic elements */
 type       ::= T_INT:t 
                  {:
-                    Logger.log.println("type ::= T_INT (row " + tleft + ")");
+                    Logger.log.println("type ::= T_INT (row " + (tleft+1) + ")");
                     RESULT = Type.TInt;
                  :}
              | T_BOOL:t
                  {:
-                    Logger.log.println("type ::= T_BOOL (row " + tleft + ")");
+                    Logger.log.println("type ::= T_BOOL (row " + (tleft+1) + ")");
                     RESULT = Type.TBool;
                  :}
              | type:t LBRACKET INTEGER_LITERAL:numberOfElements RBRACKET
                  {:
-                    Logger.log.println("type ::= type T_ARRAY (row " + tleft + ")");
+                    Logger.log.println("type ::= type T_ARRAY (row " + (tleft+1) + ")");
                     RESULT = t.addDimension(new Integer(numberOfElements));
                  :}
              ;
 
 variable   ::= IDENTIFIER:id 
                  {:
-                    Logger.log.println("variable ::= IDENTIFIER (row " + idleft + ")");
+                    Logger.log.println("variable ::= IDENTIFIER (row " + (idleft+1) + ")");
                     RESULT = new Variable(id);
                     RESULT.setRowAndCol(idleft + 1, idright + 1);
                  :}
              | variable:id LBRACKET expression:idx RBRACKET
                  {:
-                    Logger.log.println("variable ::= variable LBRACKET expression RBRACKET (row " + idleft + ")");
+                    Logger.log.println("variable ::= variable LBRACKET expression RBRACKET (row " + (idleft+1) + ")");
                     RESULT = new ArrayAccess(id, idx);
                     RESULT.setRowAndCol(idleft + 1, idright + 1);
                  :}
@@ -264,13 +264,13 @@ variable   ::= IDENTIFIER:id
 /* Integer or bool expressions */
 expression ::= variable:v 
                  {:
-                    Logger.log.println("expression ::= variable (row " + vleft + ")");
+                    Logger.log.println("expression ::= variable (row " + (vleft+1) + ")");
                     RESULT = v;
                     RESULT.setRowAndCol(vleft + 1, vright + 1);
                  :}
              | LPAREN:l expression:e RPAREN
                  {:
-                    Logger.log.println("expression ::= LPAREN variable RPAREN (row " + lleft + ")");
+                    Logger.log.println("expression ::= LPAREN variable RPAREN (row " + (lleft+1) + ")");
                     RESULT = e;
                     RESULT.setRowAndCol(lleft + 1, lright + 1);
                  :}
@@ -278,31 +278,31 @@ expression ::= variable:v
           // Int expressions
              |  INTEGER_LITERAL:c 
                  {:
-                    Logger.log.println("expression ::= INTEGER_LITERAL (row " + cleft + ")");
+                    Logger.log.println("expression ::= INTEGER_LITERAL (row " + (cleft+1) + ")");
                     RESULT = new Constant(new Integer(c));
                     RESULT.setRowAndCol(cleft + 1, cright + 1);
                  :}
              | expression:op1 SUM_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression SUM_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression SUM_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.SUM_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 SUBS_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression SUBS_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression SUBS_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.SUBS_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 PROD_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression PROD_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression PROD_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.PROD_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 DIV_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression DIV_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression DIV_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.DIV_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
@@ -310,55 +310,55 @@ expression ::= variable:v
            // Bool expressions
              | BOOL_LITERAL:c
                  {:
-                    Logger.log.println("expression ::= BOOL_LITERAL (row " + cleft + ")");
+                    Logger.log.println("expression ::= BOOL_LITERAL (row " + (cleft+1) + ")");
                     RESULT = new Constant(new Boolean(c));
                     RESULT.setRowAndCol(cleft + 1, cright + 1);
                  :}
              | expression:op1 OR_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression OR_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression OR_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.OR_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 AND_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression AND_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression AND_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.AND_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | NOT_OP:n expression:op1 
                  {:
-                    Logger.log.println("expression ::= NOT_OP expression (row " + nleft + ")");
+                    Logger.log.println("expression ::= NOT_OP expression (row " + (nleft+1) + ")");
                     RESULT = new UnaryOp(op1, OperationType.NOT_OP);
                     RESULT.setRowAndCol(nleft + 1, nright + 1);
                  :}
              | expression:op1 EQ_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression EQ_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression EQ_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.EQ_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 LT_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression LT_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression LT_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.LT_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 GT_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression GT_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression GT_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.GT_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 LET_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression LET_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression LET_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.LET_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
              | expression:op1 GET_OP expression:op2 
                  {:
-                    Logger.log.println("expression ::= expression GET_OP expression (row " + op1left + ")");
+                    Logger.log.println("expression ::= expression GET_OP expression (row " + (op1left+1) + ")");
                     RESULT = new BinaryOp(op1, op2, OperationType.GET_OP);
                     RESULT.setRowAndCol(op1left + 1, op1right + 1);
                  :}
