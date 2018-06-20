@@ -34,9 +34,8 @@ parser code {:
         System.exit(5);
     }
 
-    /* Metodo main para garantizar la ejecucion del analizador
-       lexico y sintactico, TODO ademas que se pase como parametro la tabla
-       de simbolos correspondiente. */
+    /** Ejecuta el analizador lexico y el sintáctico.
+     *  El primer argumento es la dirección relativa del fichero fuente.*/
     public static void main(String[] args){
         try {
             file = new java.io.File(args[0]);
@@ -118,8 +117,6 @@ non terminal Variable    variable;
   precedence left OR_OP;
   precedence left AND_OP;
 
-  // Should we add precedence for (L/R)PARENS and NOT_OP?
-  // UMINOS_OP missing!
 
 
 /* ------------------- Seccion de la gramatica ------------------------ */
@@ -191,12 +188,12 @@ non_if_statement ::= START_BLOCK:sb statements:s END_BLOCK
                           RESULT = s;
                           RESULT.setRowAndCol(sbleft + 1, sbright + 1);
                       :}
-                   | declaration:d
+                    | declaration:d
                       {:
                           Logger.log.println("non_if_statement ::= declaration (row " + (dleft+1) + ")");
                           RESULT = d;
                       :}
-                   | assignment:a
+                    | assignment:a
                       {:
                           Logger.log.println("non_if_statement ::= assignment (row " + (aleft+1) + ")");
                           RESULT = a;

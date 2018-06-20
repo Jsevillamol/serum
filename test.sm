@@ -1,9 +1,1 @@
-/**error por un mal acceso a array:*/
-
-int[2][2] array
-array[0][0][0] = 0
-
-/**Mensaje por pantalla:
- * Type error. Expected ArrayType for array access declaration in line 4, column 11. TInt received
- Ending execution because illegal array access.
- * */
+int i = 2+3*5

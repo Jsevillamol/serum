@@ -845,11 +845,10 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
         case 38: break;
         case 17: 
           { // This should match the empty string!
-        //Logger.log.println("I have consumed your delicious whitespace");
         // Consumes all the white space in front of a newline,
         // and determines if we need to open or close a block
 
-        //Logger.log.println ("The stack is " + indentation.toString());
+        Logger.log.println ("The stack is " + indentation.toString());
 
         int actual_column = yylength() - 1;
 
@@ -896,7 +895,20 @@ class AnalizadorLexico implements java_cup.runtime.Scanner {
           if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
             zzAtEOF = true;
             zzDoEOF();
-              { return new java_cup.runtime.Symbol(sym.EOF); }
+              {
+                /*Puede que al terminar un fichero nos hayamos dejado algúnos bloques sin cerrar.
+                 *En ese caso hay que cerrarlos con el EOF.*/
+                Logger.log.println ("The stack is " + indentation.toString());
+
+                if (indentation.peek()>0) { //Si no estamos en el bloque inicial lo cerramos
+                    Logger.log.println(" } ");
+                    indentation.pop();
+                    //Queremos volver a reconocer el EOF por si hay que cerrar más bloques:
+                    yypushback(yylength());
+                    return symbol(sym.END_BLOCK);
+                }
+                return new java_cup.runtime.Symbol(sym.EOF);
+             }
           } 
           else {
             zzScanError(ZZ_NO_MATCH);

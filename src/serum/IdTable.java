@@ -50,6 +50,8 @@ public class IdTable {
     /**Añade una declaración de variable en la tabla.
      * @return Dirección de memoria asignada a esa variable.*/
     public int insertDeclaration(Declaration declaration){
+        /*Si en el mismo ambito declaras dos variables con el mismo identificador
+         *la segunda declaración machaca a la primera. (Esto se consugue con HashMap.put())*/
         pilaAmbitos.peek().put(declaration.getId(), declaration);
         int returnValue = nextRho;
         nextRho += declaration.getType().getSize();

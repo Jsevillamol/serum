@@ -65,9 +65,20 @@ import java.util.*;
   }
 %}
 
-/*%eofval{
-  return new java_cup.runtime.Symbol(<CUPSYM>.EOF);
-%eofval} */
+%eofval{
+    /*Puede que al terminar un fichero nos hayamos dejado algúnos bloques sin cerrar.
+    En ese caso hay que cerrarlos con el EOF.*/
+    Logger.log.println ("The block stack is " + indentation.toString());
+
+    if (indentation.peek()>0) { //Si no estamos en el bloque inicial lo cerramos:
+        Logger.log.println(" } ");
+        indentation.pop();
+        //Queremos volver a reconocer el EOF por si hay que cerrar más bloques:
+        yypushback(yylength());
+        return symbol(sym.END_BLOCK);
+    }
+    return new java_cup.runtime.Symbol(sym.EOF);
+%eofval}
 
 /******************************************
              Macro declarations
@@ -75,8 +86,8 @@ import java.util.*;
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = [ \t\f]
-Newline 	   = {LineTerminator} {WhiteSpace}*
-EmptyLine	   = {LineTerminator} {WhiteSpace}* {LineTerminator}
+Newline        = {LineTerminator} {WhiteSpace}*
+EmptyLine      = {LineTerminator} {WhiteSpace}* {LineTerminator}
 
 /* Instruction separators */
 InstructionSplit = "\\" {WhiteSpace}* {LineTerminator} {WhiteSpace}*
@@ -107,7 +118,7 @@ CommentContent = ( [^*] | \*+ [^/*] )*
  * any generated code.
  */
 
-//TODO: 2int se reconoce incorrectamente como intLiteral + int token
+//2int se reconoce como intLiteral + int token. Esto no tiene sentido
 
 
 <YYINITIAL> {
@@ -152,9 +163,9 @@ CommentContent = ( [^*] | \*+ [^/*] )*
   "{"                            { Logger.log.println(" { "); return symbol(sym.START_BLOCK); }
   "}"                            { Logger.log.println(" } "); return symbol(sym.END_BLOCK);   }
 
-  {EmptyLine}			{ /* Empty lines are deleted*/ yypushback(1);}
+  {EmptyLine}           { /* Empty lines are deleted*/ yypushback(1);}
 
-  {LineTerminator}      { 	   
+  {LineTerminator}      {
                             yybegin(NEWLINE);
 
                             // We undo the matching of newline to handle the case where there are no spaces in the next line
@@ -162,7 +173,7 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 
                         }
 
-  {InstructionSplit}		 	 { /* ignore */ }
+  {InstructionSplit}             { /* ignore */ }
 
   /* comments */
   {Comment}                      { /* ignore */ }
@@ -172,12 +183,12 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 }
 
 <NEWLINE> {
-  {Newline} { // This should match the empty string!
-        //Logger.log.println("I have consumed your delicious whitespace");
+  {Newline} {
+        // This should match the empty string!
         // Consumes all the white space in front of a newline,
         // and determines if we need to open or close a block
 
-        //Logger.log.println ("The stack is " + indentation.toString());
+        Logger.log.println ("The block stack is " + indentation.toString());
 
         int actual_column = yylength() - 1;
 
