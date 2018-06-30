@@ -213,5 +213,6 @@ CommentContent = ( [^*] | \*+ [^/*] )*
 }
 
 /* error fallback */
-[^]                              { throw new Error("Illegal character <"+
-                                                    yytext()+">"); }
+[^]                              { Logger.report_error("Illegal character " + yytext() +
+                                        " at line " + (yyline+1) + ", column " + (yycolumn+1) + ".");
+                                   System.exit(6);}

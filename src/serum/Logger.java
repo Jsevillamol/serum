@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * Esta clase se encarga de la salida.
+ * Tanto de escribir en el fichero objeto, como de escribir en un log,
+ * como de mostrar los errores en pantalla.
  * @author David Rubio
  */
 public abstract class Logger {
@@ -28,6 +31,7 @@ public abstract class Logger {
             file.createNewFile();
             java.util.Scanner sc = new java.util.Scanner(AnalizadorSintactico.file);
             codeExit = new java.io.PrintStream(file);
+            /*El principio del fichero, en un comentario, copiamos el código fuente:*/
             codeExit.println("{");
             while (sc.hasNextLine())
                 codeExit.println(sc.nextLine());

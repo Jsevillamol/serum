@@ -14,10 +14,13 @@ public abstract class Type {
     public final static Type TInt = new TInt();
 
     /**Devuelve el tipo de los elementos de este array.
-     * Si no aplica lanza una excepción.*/
-    public Type getBaseType() {
+     * Si no aplica lanza una excepción.
+     * @param row
+     * @param col*/
+    public Type getBaseType(int row, int col) {
         //Something's gone wrong, ending execution:
-        serum.Logger.report_error("Ending execution because illegal array access.");
+        serum.Logger.report_error("Ending execution because illegal array access at line "
+            +row+", column "+col+".");
         System.exit(4);
         return null;
     }
@@ -58,7 +61,7 @@ public abstract class Type {
         }
 
         @Override
-        public Type getBaseType(){return baseType;}
+        public Type getBaseType(int row, int col){return baseType;}
 
         @Override
         public int getSize(){ return numberOfElements * baseType.getSize();}

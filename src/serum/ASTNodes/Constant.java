@@ -47,7 +47,8 @@ public class Constant extends Expression{
         else if (value instanceof Boolean)
             code.add(new LoadConstant((Boolean) value));
         else
-            serum.Logger.report_error("Constant value not an Integer or Boolean.");
+            serum.Logger.report_error("Constant value not an Integer or Boolean in line "
+                + row + ", column " + col + ".");
         return code;
     }
 

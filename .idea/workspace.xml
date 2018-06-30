@@ -8,19 +8,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b25e149e-bfe2-4aea-82d9-31c7af1fcae4" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/code2.p" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/code3.p" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/code4.p" />
+      <change beforePath="$PROJECT_DIR$/.idea/serum.iml" afterPath="$PROJECT_DIR$/.idea/serum.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/alexico.flex" afterPath="$PROJECT_DIR$/alexico.flex" />
-      <change beforePath="$PROJECT_DIR$/asintactico.cup" afterPath="$PROJECT_DIR$/asintactico.cup" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/ASTNodes/ArrayAccess.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/ASTNodes/ArrayAccess.class" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/ASTNodes/Constant.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/ASTNodes/Constant.class" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/ASTNodes/Declaration.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/ASTNodes/Declaration.class" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/ASTNodes/InstructionList.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/ASTNodes/InstructionList.class" />
       <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/AnalizadorLexico.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/AnalizadorLexico.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/AnalizadorSintactico.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/AnalizadorSintactico.class" />
-      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/CUP$AnalizadorSintactico$actions.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/CUP$AnalizadorSintactico$actions.class" />
       <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/IdTable.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/IdTable.class" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Logger.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Logger.class" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Type$ArrayType.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Type$ArrayType.class" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Type$TBool.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Type$TBool.class" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Type$TInt.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Type$TInt.class" />
+      <change beforePath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Type.class" afterPath="$PROJECT_DIR$/build/classes/serum/production/serum/serum/Type.class" />
+      <change beforePath="$PROJECT_DIR$/src/serum/ASTNodes/ArrayAccess.java" afterPath="$PROJECT_DIR$/src/serum/ASTNodes/ArrayAccess.java" />
+      <change beforePath="$PROJECT_DIR$/src/serum/ASTNodes/Constant.java" afterPath="$PROJECT_DIR$/src/serum/ASTNodes/Constant.java" />
+      <change beforePath="$PROJECT_DIR$/src/serum/ASTNodes/Declaration.java" afterPath="$PROJECT_DIR$/src/serum/ASTNodes/Declaration.java" />
+      <change beforePath="$PROJECT_DIR$/src/serum/ASTNodes/InstructionList.java" afterPath="$PROJECT_DIR$/src/serum/ASTNodes/InstructionList.java" />
       <change beforePath="$PROJECT_DIR$/src/serum/AnalizadorLexico.java" afterPath="$PROJECT_DIR$/src/serum/AnalizadorLexico.java" />
-      <change beforePath="$PROJECT_DIR$/src/serum/AnalizadorSintactico.java" afterPath="$PROJECT_DIR$/src/serum/AnalizadorSintactico.java" />
       <change beforePath="$PROJECT_DIR$/src/serum/IdTable.java" afterPath="$PROJECT_DIR$/src/serum/IdTable.java" />
+      <change beforePath="$PROJECT_DIR$/src/serum/Logger.java" afterPath="$PROJECT_DIR$/src/serum/Logger.java" />
+      <change beforePath="$PROJECT_DIR$/src/serum/Type.java" afterPath="$PROJECT_DIR$/src/serum/Type.java" />
       <change beforePath="$PROJECT_DIR$/test.sm" afterPath="$PROJECT_DIR$/test.sm" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,11 +49,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test.sm" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test.sm" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test.sm">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#500#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="code.p" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code.p">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="13" lean-forward="true" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -54,27 +75,27 @@
         <entry file="file://$PROJECT_DIR$/examples/testError2.sm">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
-              <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+              <caret line="8" column="5" lean-forward="false" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="code.p" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/code.p">
+      <file leaf-file-name="Type.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/serum/Type.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="10" lean-forward="true" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+            <state relative-caret-position="270">
+              <caret line="21" column="33" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="code4.p" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/code4.p">
+      <file leaf-file-name="Constant.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Constant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1872">
-              <caret line="104" column="10" lean-forward="true" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="10" />
+            <state relative-caret-position="331">
+              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -84,17 +105,40 @@
         <entry file="file://$PROJECT_DIR$/examples/testError1.sm">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="8" lean-forward="true" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+              <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="log.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/log.txt">
+      <file leaf-file-name="ArrayAccess.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/ArrayAccess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="197">
+              <caret line="27" column="59" lean-forward="false" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
+              <folding>
+                <element signature="docComment;class#ArrayAccess#0" expanded="false" />
+                <element signature="method#identifiers#0;class#ArrayAccess#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="code2.p" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/code2.p">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="580">
+              <caret line="42" column="10" lean-forward="false" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="alexico.flex" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alexico.flex">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="325">
+              <caret line="217" column="50" lean-forward="false" selection-start-line="217" selection-start-column="50" selection-end-line="217" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -103,43 +147,8 @@
       <file leaf-file-name="code1.p" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/code1.p">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-252">
-              <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="asintactico.cup" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/asintactico.cup">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArrayAccess.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/ArrayAccess.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="25" />
-              <folding>
-                <element signature="docComment;class#ArrayAccess#0" expanded="false" />
-                <element signature="method#ArrayAccess#0;class#ArrayAccess#0" expanded="false" />
-                <element signature="method#toCodeL#0;class#ArrayAccess#0" expanded="false" />
-                <element signature="method#identifiers#0;class#ArrayAccess#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="alexico.flex" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/alexico.flex">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="92" column="16" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="16" />
+            <state relative-caret-position="18">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="17" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -157,11 +166,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>OpTy</find>
-      <find>BinaryOp.OpType</find>
-      <find>NEG</find>
-      <find>main</find>
-      <find>InstructionList</find>
       <find>statements</find>
       <find>FileReader</find>
       <find>varia</find>
@@ -187,6 +191,11 @@
       <find>EOF</find>
       <find>The stack</find>
       <find>\\</find>
+      <find>throw</find>
+      <find>thr</find>
+      <find>Ending execution because illegal array access.</find>
+      <find>Logger.report_error</find>
+      <find>Logger.report</find>
     </findStrings>
     <replaceStrings>
       <replace>OperationType</replace>
@@ -229,7 +238,6 @@
         <option value="$PROJECT_DIR$/src/serum/UnaryOp.java" />
         <option value="$PROJECT_DIR$/src/serum/Variable.java" />
         <option value="$PROJECT_DIR$/src/serum/WhileSentence.java" />
-        <option value="$PROJECT_DIR$/src/serum/ASTNodes/Declaration.java" />
         <option value="$PROJECT_DIR$/src/serum/codegen/IndexArray.java" />
         <option value="$PROJECT_DIR$/src/serum/codegen/Indirection.java" />
         <option value="$PROJECT_DIR$/src/serum/codegen/Jump.java" />
@@ -239,12 +247,8 @@
         <option value="$PROJECT_DIR$/src/serum/codegen/PInstruction.java" />
         <option value="$PROJECT_DIR$/src/serum/codegen/SetSP.java" />
         <option value="$PROJECT_DIR$/src/serum/codegen/Stop.java" />
-        <option value="$PROJECT_DIR$/src/serum/ASTNodes/InstructionList.java" />
         <option value="$PROJECT_DIR$/test.txt" />
-        <option value="$PROJECT_DIR$/src/serum/ASTNodes/ArrayAccess.java" />
-        <option value="$PROJECT_DIR$/src/serum/Logger.java" />
         <option value="$PROJECT_DIR$/src/serum/ASTNodes/BinaryOp.java" />
-        <option value="$PROJECT_DIR$/src/serum/ASTNodes/Constant.java" />
         <option value="$PROJECT_DIR$/src/serum/ASTNodes/Assignment.java" />
         <option value="$PROJECT_DIR$/src/serum/ASTNodes/IfElseSentence.java" />
         <option value="$PROJECT_DIR$/src/serum/ASTNodes/IfSentence.java" />
@@ -252,21 +256,26 @@
         <option value="$PROJECT_DIR$/src/serum/ASTNodes/UnaryOp.java" />
         <option value="$PROJECT_DIR$/src/serum/ASTNodes/Variable.java" />
         <option value="$PROJECT_DIR$/src/serum/ASTNodes/WhileSentence.java" />
-        <option value="$PROJECT_DIR$/src/serum/Type.java" />
         <option value="$PROJECT_DIR$/examples/code1.p" />
         <option value="$PROJECT_DIR$/AnalizadorSintactico.java" />
         <option value="$PROJECT_DIR$/examples/testError1.sm" />
         <option value="$PROJECT_DIR$/examples/testError2.sm" />
-        <option value="$PROJECT_DIR$/src/serum/IdTable.java" />
         <option value="$PROJECT_DIR$/src/serum/AnalizadorLexico.java" />
         <option value="$PROJECT_DIR$/examples/code3.p" />
         <option value="$PROJECT_DIR$/examples/code2.p" />
         <option value="$PROJECT_DIR$/src/serum/AnalizadorSintactico.java" />
-        <option value="$PROJECT_DIR$/alexico.flex" />
         <option value="$PROJECT_DIR$/code.p" />
         <option value="$PROJECT_DIR$/examples/code4.p" />
-        <option value="$PROJECT_DIR$/test.sm" />
         <option value="$PROJECT_DIR$/asintactico.cup" />
+        <option value="$PROJECT_DIR$/src/serum/Logger.java" />
+        <option value="$PROJECT_DIR$/src/serum/ASTNodes/Declaration.java" />
+        <option value="$PROJECT_DIR$/src/serum/ASTNodes/InstructionList.java" />
+        <option value="$PROJECT_DIR$/src/serum/IdTable.java" />
+        <option value="$PROJECT_DIR$/src/serum/ASTNodes/ArrayAccess.java" />
+        <option value="$PROJECT_DIR$/src/serum/Type.java" />
+        <option value="$PROJECT_DIR$/src/serum/ASTNodes/Constant.java" />
+        <option value="$PROJECT_DIR$/alexico.flex" />
+        <option value="$PROJECT_DIR$/test.sm" />
       </list>
     </option>
   </component>
@@ -277,10 +286,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="64" />
-    <option name="y" value="-11" />
-    <option name="width" value="1303" />
-    <option name="height" value="780" />
+    <option name="x" value="65" />
+    <option name="y" value="-4" />
+    <option name="width" value="1301" />
+    <option name="height" value="772" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -361,6 +370,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -375,16 +385,43 @@
             </path>
             <path>
               <item name="serum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="serum" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="serum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="serum" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="serum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="serum" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="serum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="serum" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="serum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="serum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="serum" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="serum" type="462c0819:PsiDirectoryNode" />
+              <item name="ASTNodes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="serum" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -393,7 +430,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/serum/sym.java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/serum/ASTNodes" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/serum/sym.java" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="extract.method.default.visibility" value="private" />
@@ -586,8 +623,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.AnalizadorSintactico" />
-        <item index="1" class="java.lang.String" itemvalue="JAR Application.java-cup-11a.jar" />
-        <item index="2" class="java.lang.String" itemvalue="JAR Application.jflex-1.5.0.jar" />
+        <item index="1" class="java.lang.String" itemvalue="JAR Application.jflex-1.5.0.jar" />
+        <item index="2" class="java.lang.String" itemvalue="JAR Application.java-cup-11a.jar" />
         <item index="3" class="java.lang.String" itemvalue="Application.AnalizadorLexico" />
         <item index="4" class="java.lang.String" itemvalue="Application.Hijo" />
       </list>
@@ -618,6 +655,7 @@
       <workItem from="1529317309411" duration="6197000" />
       <workItem from="1529329531309" duration="3817000" />
       <workItem from="1529504325888" duration="10915000" />
+      <workItem from="1530348406044" duration="3414000" />
     </task>
     <task id="LOCAL-00002" summary="code generation&#10;Falta debugear, comprobar que cumple los esquemas de generación de codigo, y optimizar.&#10;No hay nada hecho de identificadores.&#10;&#10;La generacion de codigo se hace mediante el metodo toCode() de los nodos del arbol abstracto. Este método devuelve una lista de PInstructions que son la traducción a pcodigo del subarbol que empieza en ese nodo.">
       <created>1529176233347</created>
@@ -679,7 +717,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95420000" />
+    <option name="totallyTimeSpent" value="98834000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -691,7 +729,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5598756" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -706,7 +745,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.56920683" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16015936" sideWeight="0.48056537" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16175298" sideWeight="0.48056537" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8009331" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24940239" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -850,13 +889,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/../java-cup-11a.jar!/java_cup/runtime/lr_parser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="121" column="21" lean-forward="false" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://$PROJECT_DIR$/../java-cup-11a.jar!/java_cup/runtime/lr_parser.class" />
     <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/BinaryOp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -864,33 +897,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Assignment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="44" column="43" lean-forward="false" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/ASTNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Declaration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="32" column="37" lean-forward="true" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -916,49 +926,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Initialization.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-450">
-          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Instruction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="4" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/InstructionList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding>
-            <element signature="method#InstructionList#1;class#InstructionList#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/UnaryOp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="41" column="38" lean-forward="false" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Variable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="59" column="38" lean-forward="false" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
-          <folding>
-            <element signature="docComment;class#Variable#0" expanded="false" />
-            <element signature="docComment;field#id#0;class#Variable#0" expanded="false" />
-            <element signature="docComment;field#declaration#0;class#Variable#0" expanded="false" />
-            <element signature="docComment;method#Variable#0;class#Variable#0" expanded="false" />
-            <element signature="e#785#793#0" expanded="false" />
-            <element signature="docComment;method#toCodeL#0;class#Variable#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1033,24 +1004,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/Logger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="39" column="35" lean-forward="false" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/OperationType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="26" column="66" lean-forward="true" selection-start-line="26" selection-start-column="66" selection-end-line="26" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/serum/Typable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18">
@@ -1059,30 +1012,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/Type.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="82" lean-forward="false" selection-start-line="19" selection-start-column="82" selection-end-line="19" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/IdTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="53" column="90" lean-forward="false" selection-start-line="53" selection-start-column="90" selection-end-line="53" selection-end-column="90" />
-          <folding>
-            <element signature="docComment;method#openBlock#0;class#IdTable#0" expanded="false" />
-            <element signature="docComment;method#closeBlock#0;class#IdTable#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/Stack.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1090,96 +1023,201 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-54">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AnalizadorSintactico.java" />
+    <entry file="file://$PROJECT_DIR$/examples/code4.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1872">
+          <caret line="104" column="10" lean-forward="false" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/OperationType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="66" lean-forward="false" selection-start-line="26" selection-start-column="66" selection-end-line="26" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-306">
+          <caret line="8" column="3" lean-forward="false" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/ASTNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Initialization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Declaration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="54" column="37" lean-forward="false" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/asintactico.cup">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1390">
+          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Variable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="49" column="13" lean-forward="false" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
+          <folding>
+            <element signature="docComment;class#Variable#0" expanded="false" />
+            <element signature="e#785#793#0" expanded="false" />
+            <element signature="docComment;method#toCodeL#0;class#Variable#0" expanded="false" />
+            <element signature="e#1272#1273#0" expanded="false" />
+            <element signature="e#1300#1301#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/InstructionList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+          <folding>
+            <element signature="docComment;class#InstructionList#0" expanded="false" />
+            <element signature="docComment;method#toCode#0;class#InstructionList#0" expanded="false" />
+            <element signature="e#804#812#0" expanded="false" />
+            <element signature="method#toCode#0;class#InstructionList#0" expanded="false" />
+            <element signature="method#typeCheck#0;class#InstructionList#0" expanded="false" />
+            <element signature="method#identifiers#0;class#InstructionList#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/AnalizadorLexico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="496" column="33" lean-forward="false" selection-start-line="496" selection-start-column="30" selection-end-line="496" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/AnalizadorSintactico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="1048" column="71" lean-forward="true" selection-start-line="1048" selection-start-column="71" selection-end-line="1048" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/serum/IdTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="55" column="73" lean-forward="false" selection-start-line="55" selection-start-column="73" selection-end-line="55" selection-end-column="73" />
+          <folding>
+            <element signature="docComment;method#openBlock#0;class#IdTable#0" expanded="false" />
+            <element signature="docComment;method#closeBlock#0;class#IdTable#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-399">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/code2.p">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
+        <state relative-caret-position="580">
           <caret line="42" column="10" lean-forward="false" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AnalizadorSintactico.java">
+    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/ArrayAccess.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="15" column="29" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1054" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/AnalizadorLexico.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="905" column="91" lean-forward="false" selection-start-line="905" selection-start-column="91" selection-end-line="905" selection-end-column="91" />
+        <state relative-caret-position="197">
+          <caret line="27" column="59" lean-forward="false" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
           <folding>
-            <element signature="e#13008#13017#0" expanded="true" />
-            <element signature="e#13489#13490#0" expanded="true" />
-            <element signature="e#13540#13541#0" expanded="true" />
-            <element signature="e#13590#13591#0" expanded="true" />
-            <element signature="e#13648#13649#0" expanded="true" />
-            <element signature="e#14242#14243#0" expanded="true" />
-            <element signature="e#14270#14271#0" expanded="true" />
-            <element signature="e#17746#17747#0" expanded="true" />
-            <element signature="e#17777#17778#0" expanded="true" />
-            <element signature="e#17915#17916#0" expanded="true" />
-            <element signature="e#17950#17951#0" expanded="true" />
-            <element signature="e#18062#18063#0" expanded="true" />
-            <element signature="e#18139#18140#0" expanded="true" />
-            <element signature="e#18497#18498#0" expanded="true" />
-            <element signature="e#18539#18540#0" expanded="true" />
-            <element signature="e#18637#18638#0" expanded="true" />
-            <element signature="e#18677#18678#0" expanded="true" />
+            <element signature="docComment;class#ArrayAccess#0" expanded="false" />
+            <element signature="method#identifiers#0;class#ArrayAccess#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/AnalizadorSintactico.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="1054" column="0" lean-forward="false" selection-start-line="1054" selection-start-column="0" selection-end-line="1054" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/testError1.sm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="8" lean-forward="true" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log.txt">
+    <entry file="file://$PROJECT_DIR$/src/serum/Type.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="270">
+          <caret line="21" column="33" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alexico.flex">
+    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/Constant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="92" column="16" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="16" />
+        <state relative-caret-position="331">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/code1.p">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-252">
-          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="17" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/code4.p">
+    <entry file="file://$PROJECT_DIR$/alexico.flex">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1872">
-          <caret line="104" column="10" lean-forward="true" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="10" />
+        <state relative-caret-position="325">
+          <caret line="217" column="50" lean-forward="false" selection-start-line="217" selection-start-column="50" selection-end-line="217" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1187,44 +1225,17 @@
     <entry file="file://$PROJECT_DIR$/examples/testError2.sm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
-          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+          <caret line="8" column="5" lean-forward="false" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.sm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="13" lean-forward="true" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code.p">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="10" lean-forward="true" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asintactico.cup">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/serum/ASTNodes/ArrayAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="25" />
+        <state relative-caret-position="126">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding>
-            <element signature="docComment;class#ArrayAccess#0" expanded="false" />
-            <element signature="method#ArrayAccess#0;class#ArrayAccess#0" expanded="false" />
-            <element signature="method#toCodeL#0;class#ArrayAccess#0" expanded="false" />
-            <element signature="method#identifiers#0;class#ArrayAccess#0" expanded="false" />
+            <element signature="e#0#500#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1294,7 +1305,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>java-cup-11a</last-edited>
+          <last-edited>jflex-1.5.0</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

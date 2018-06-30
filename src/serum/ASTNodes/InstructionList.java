@@ -14,15 +14,16 @@ import java.util.List;
 public class InstructionList extends Instruction {
 
     /**Lista de instrucciones ordenadas.*/
-    private List<Instruction> instructions = new ArrayList<>();
+    private List<Instruction> instructions;
     
     public InstructionList(Instruction instruction){
+        instructions = new ArrayList<>();
         instructions.add(instruction);
     }
     
     public InstructionList(Instruction instruction, InstructionList instructionList){
-        instructions.add(instruction);
-        this.instructions.addAll(instructionList.instructions);
+        instructions = instructionList.instructions;
+        instructions.add(0,instruction);
     }
 
     /**@return La concatenación de las p-instrucciones de cada instrucción de la lista*/

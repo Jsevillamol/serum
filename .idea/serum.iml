@@ -9,5 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="java-cup-11b-runtime" level="project" />
     <orderEntry type="library" name="java-cup-11a" level="project" />
+    <orderEntry type="library" name="java-cup-11a (2)" level="project" />
+    <orderEntry type="library" name="jflex-1.5.0" level="project" />
   </component>
 </module>

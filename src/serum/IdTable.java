@@ -52,6 +52,12 @@ public class IdTable {
     public int insertDeclaration(Declaration declaration){
         /*Si en el mismo ambito declaras dos variables con el mismo identificador
          *la segunda declaración machaca a la primera. (Esto se consugue con HashMap.put())*/
+        if (pilaAmbitos.peek().containsKey(declaration.getId())){
+            Logger.report_error("Repeated identifier in same scope. Line " +
+                declaration.getRow()+", column " + declaration.getCol());
+            fail = true;
+            return 0;
+        }
         pilaAmbitos.peek().put(declaration.getId(), declaration);
         int returnValue = nextRho;
         nextRho += declaration.getType().getSize();

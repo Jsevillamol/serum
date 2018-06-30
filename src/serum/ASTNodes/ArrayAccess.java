@@ -25,13 +25,13 @@ public class ArrayAccess extends Variable {
     }
     
     @Override
-    public Type getType(){ return this.reference.getType().getBaseType(); }
+    public Type getType(){ return this.reference.getType().getBaseType(row, col); }
 
     @Override
     public List<PInstruction> toCodeL() {
         List<PInstruction> code = reference.toCodeL();
         code.addAll(index.toCode());
-        code.add(new IndexArray(reference.getType().getBaseType().getSize()));
+        code.add(new IndexArray(reference.getType().getBaseType(row, col).getSize()));
         //Los arrays empiezan por 0, no hay necesidad de decrementar.
         return code;
     }
@@ -42,15 +42,13 @@ public class ArrayAccess extends Variable {
         if (!(reference.getType() instanceof Type.ArrayType)){
             String msg = "Type error. Expected ArrayType for array access declaration in line "
                     + row + ", column " + col + ". " + reference.getType() + " received";
-            System.err.println(msg);
-            Logger.log.println(msg);
+            Logger.report_error(msg);
             res = false;
         }
         if (!index.getType().equals(Type.TInt)){
             String msg = "Type error. Expected TInt for array access index in line "
                     + row + ", column "+ col + ". " + reference.getType() + " received";
-            System.err.println(msg);
-            Logger.log.println(msg);
+            Logger.report_error(msg);
             res = false;
         }
         return res; 

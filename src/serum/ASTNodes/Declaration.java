@@ -47,4 +47,10 @@ public class Declaration extends Instruction implements Typable {
 
     @Override
     public void identifiers(IdTable idTable) { address = idTable.insertDeclaration(this); }
+
+
+    public int getRow() {return row;}
+
+
+    public int getCol() {return col;}
 }
